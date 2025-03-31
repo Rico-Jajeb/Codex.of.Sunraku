@@ -1,6 +1,7 @@
 <template>
     <MainLayout>
-        <h1>Main Page it's my birthday so it's my day</h1>
+        <h1>Main Page</h1>
+        <h2>Hosting </h2>
         
         
     </MainLayout>
