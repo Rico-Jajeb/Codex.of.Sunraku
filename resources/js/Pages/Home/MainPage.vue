@@ -1,9 +1,12 @@
 <template>
     <MainLayout>
-        <h1>Main Page</h1>
-        <h2>Hosting </h2>
-        
-        
+        <main class="bg-red-300 p-3 rounded-xl h-[97vh] m-3  pt-20  ">
+                <section class="bg-yellow-300 max-w-7xl m-auto">
+                    <header>
+                        <h1>Build Your Codex, Unlock Your Potential.</h1>
+                    </header>                  
+                </section>
+        </main>
     </MainLayout>
 
 </template>
