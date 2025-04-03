@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\Admin\CodexController;
+
 Route::get('/', function () {
     return Inertia::render('Home/MainPage', [
         'canLogin' => Route::has('login'),
@@ -22,3 +24,6 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+
+Route::get('codex',[CodexController::class, 'index'])->name('new.codex');
