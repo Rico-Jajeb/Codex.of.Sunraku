@@ -8,7 +8,7 @@
         <main class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
             <section class="bg-white overflow-hidden shadow-xl sm:rounded-lg py-10 px-8">
                 <header class="">
-                    <h1 class="text-xl font-bold">Basic Information</h1>
+                    <h1 class="text-xl font-bold">Codex Information</h1>
                 </header>
                 <Divider />
                 <form action="" class="mt-4">
@@ -18,12 +18,12 @@
                             <InputText class="!w-full" type="text" v-model="form.sysName" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
                     </div>
                     <section class=" mt-4  md:flex md:flex-row ">
-                        <div class="xl:basis-1/2 md:basis-1/2 mr-8">
+                        <div class="xl:basis-1/2 md:basis-1/2  md:mr-8">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Category/Topic</label>
                             <MultiSelect v-model="selectedTopic" display="chip" :options="topic" optionLabel="name" filter placeholder="Select Cities"
                                 :maxSelectedLabels="3" class="w-full " />
                         </div>                        
-                        <div class="xl:basis-1/2 md:basis-1/2 ml-8">
+                        <div class="xl:basis-1/2 md:basis-1/2 md:ml-8 mt-4 md:mt-0">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Language/Framework</label>
                             <MultiSelect v-model="selectedLanguage" display="chip" :options="language" optionLabel="name" filter placeholder="Select Cities"
                                 :maxSelectedLabels="3" class="w-full" />
@@ -36,7 +36,7 @@
                     </div>
                     <section class="mt-4">
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">difficulty Level</label>
-                        <div class="flex flex-wrap gap-4 mt-4">
+                        <div class="md:flex md:flex-wrap gap-4 mt-4">
                             <div class="flex items-center gap-2">
                                 <RadioButton v-model="ingredient" inputId="ingredient1" name="pizza" value="Cheese" />
                                 <label for="ingredient1">Basic</label>
@@ -53,11 +53,11 @@
                     </section>
 
                     <section class=" mt-4  md:flex md:flex-row">
-                        <div class="xl:basis-1/2 md:basis-1/2 mr-8">
+                        <div class="xl:basis-1/2 md:basis-1/2 md:mr-8">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Author (Optional)</label>
                             <InputText class="!w-full" type="text" v-model="form.sysName" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
                         </div>
-                        <div class="xl:basis-1/2 md:basis-1/2 ml-8">
+                        <div class="xl:basis-1/2 md:basis-1/2 mt-4 md:mt-0 md:ml-8">
                             <div class="">
                                 <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Date Created</label>
                                 <DatePicker v-model="icondisplay" showIcon fluid iconDisplay="input" inputId="icondisplay" class="!w-full" />
@@ -70,12 +70,30 @@
                     </header>
 
                     <div class="mt-5">
-                        <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Author (Optional)</label>
+                        <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Description/Purpose</label>
                         <Textarea name="" id="" class="!w-full" placeholder="A brief explanation of the snippet or concept..."/>
                     </div>
+                    <div class="mt-5">
+                        <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Code Snippet/Commands</label>
+                        <MonacoEditor v-model="code" language="javascript" class="h-80" />                        
+                    </div>
 
+                    <div class="mt-5">
+                        <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Instructions/Steps</label>
+                        <Textarea name="" id="" class="!w-full" placeholder="Step-by-step guidance if applicable..."/>
+                    </div>
+                    <div class="mt-5">
+                        <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Expected Output</label>
+                        <Textarea name="" id="" class="!w-full" placeholder="What the result should look like when executed..."/>
+                        <div class="card flex flex-col items-center gap-6 mt-4">
+                            <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(100%)" />
+                            <FileUpload mode="basic" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
+                          
+                        </div>
+                    </div>
+    
                     <nav class="">
-                        <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Changes</button>                    
+                        <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Codex</button>                    
                     </nav>
 
                 </form>              
@@ -101,6 +119,28 @@
     import DatePicker from 'primevue/datepicker';
 
     import Textarea from 'primevue/textarea';
+
+    //amo ini an knan monaco editor
+    import MonacoEditor from '@/Pages/Admin/MonacoEditor/MonacoEditor.vue';
+    const code = ref('// Start coding here...\n')
+
+    //adi an knn img upload
+    import FileUpload from 'primevue/fileupload';
+    const src = ref(null);
+
+    function onFileSelect(event) {
+        const file = event.files[0];
+        const reader = new FileReader();
+
+        reader.onload = async (e) => {
+            src.value = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+
+
 
     const form = useForm({
         //amo liwat ini an code para han system form

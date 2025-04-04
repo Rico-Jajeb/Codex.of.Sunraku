@@ -12,4 +12,8 @@ class CodexController extends Controller
     public function index(){
         return Inertia::render('Admin/NewCodex');
     }
+
+    public function AddCodex(){
+        
+    }
 }
