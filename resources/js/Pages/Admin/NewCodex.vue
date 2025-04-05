@@ -11,59 +11,82 @@
                     <h1 class="text-xl font-bold">Codex Information</h1>
                 </header>
                 <Divider />
-                <form action="" class="mt-4">
+                <form  class="mt-4"  @submit.prevent="form.post('add.Project')">
  
                     <div class="">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Codex Name</label>
-                            <InputText class="!w-full" type="text" v-model="form.sysName" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
+                            <InputText class="!w-full" type="text" v-model="form.CodexName" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
                     </div>
-                    <section class=" mt-4  md:flex md:flex-row ">
+                    <div class="">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">language</label>
+                            <InputText class="!w-full" type="text" v-model="form.language" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
+                    </div>
+                    <div class="">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Framework</label>
+                            <InputText class="!w-full" type="text" v-model="form.framework" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
+                    </div>
+                    <div class="">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">output</label>
+                            <InputText class="!w-full" type="text" v-model="form.output" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
+                    </div>
+                    <!-- <div class="">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">lvl</label>
+                            <InputText class="!w-full" type="text" v-model="form.level" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
+                    </div> -->
+                    <div class="">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">img</label>
+                            <InputText class="!w-full" type="text" v-model="form.img" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
+                    </div>
+         
+                 
+                    <!-- <section class=" mt-4  md:flex md:flex-row ">
                         <div class="xl:basis-1/2 md:basis-1/2  md:mr-8">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Category/Topic</label>
-                            <MultiSelect v-model="selectedTopic" display="chip" :options="topic" optionLabel="name" filter placeholder="Select Cities"
+                            <MultiSelect v-model="form.language" display="chip" :options="topic" optionLabel="name" filter placeholder="Select Cities"
                                 :maxSelectedLabels="3" class="w-full " />
                         </div>                        
                         <div class="xl:basis-1/2 md:basis-1/2 md:ml-8 mt-4 md:mt-0">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Language/Framework</label>
-                            <MultiSelect v-model="selectedLanguage" display="chip" :options="language" optionLabel="name" filter placeholder="Select Cities"
+                            <MultiSelect v-model="form.framework" display="chip" :options="language" optionLabel="name" filter placeholder="Select Cities"
                                 :maxSelectedLabels="3" class="w-full" />
                         </div>                        
-                    </section>
+                    </section> -->
+                    
                     <div class="mt-4">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Tags</label>
-                            <InputText class="!w-full" type="text" v-model="form.sysName" placeholder="Type and press Enter to add tags" /> 
+                            <InputText class="!w-full" type="text" v-model="form.tag" placeholder="Type and press Enter to add tags" /> 
                             <label for="Web Name" class="block mt-2 text-sm font-medium text-gray-500 dark:text-white">Press Enter to add a tag</label>
                     </div>
                     <section class="mt-4">
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">difficulty Level</label>
                         <div class="md:flex md:flex-wrap gap-4 mt-4">
                             <div class="flex items-center gap-2">
-                                <RadioButton v-model="ingredient" inputId="ingredient1" name="pizza" value="Cheese" />
+                                <RadioButton v-model="form.level" inputId="level1" name="level" value="basic"  />
                                 <label for="ingredient1">Basic</label>
                             </div>
                             <div class="flex items-center gap-2">
-                                <RadioButton v-model="ingredient" inputId="ingredient2" name="pizza" value="Mushroom" />
+                                <RadioButton v-model="form.level" inputId="level2" name="level" value="intermediate"  />
                                 <label for="ingredient2">Intermediate</label>
                             </div>
                             <div class="flex items-center gap-2">
-                                <RadioButton v-model="ingredient" inputId="ingredient3" name="pizza" value="Pepper" />
+                                <RadioButton v-model="form.level" inputId="level3" name="level" value="advanced"  />
                                 <label for="ingredient3">Advanced</label>
                             </div>
                         </div>
                     </section>
 
-                    <section class=" mt-4  md:flex md:flex-row">
+                    <!-- <section class=" mt-4  md:flex md:flex-row">
                         <div class="xl:basis-1/2 md:basis-1/2 md:mr-8">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Author (Optional)</label>
-                            <InputText class="!w-full" type="text" v-model="form.sysName" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
+                            <InputText class="!w-full" type="text" v-model="form.author" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
                         </div>
                         <div class="xl:basis-1/2 md:basis-1/2 mt-4 md:mt-0 md:ml-8">
                             <div class="">
                                 <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Date Created</label>
-                                <DatePicker v-model="icondisplay" showIcon fluid iconDisplay="input" inputId="icondisplay" class="!w-full" />
+                                <DatePicker v-model="form.date" showIcon fluid iconDisplay="input" inputId="icondisplay" class="!w-full" />
                             </div>
                         </div>
-                    </section>
+                    </section> -->
 
                     <header class="my-8">
                         <h1 class="text-xl font-bold">Content</h1>
@@ -71,18 +94,22 @@
 
                     <div class="mt-5">
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Description/Purpose</label>
-                        <Textarea name="" id="" class="!w-full" placeholder="A brief explanation of the snippet or concept..."/>
+                        <Textarea name="" id="" v-model="form.content" class="!w-full" placeholder="A brief explanation of the snippet or concept..."/>
                     </div>
+                    <!-- <div class="mt-5">
+                        <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">code</label>
+                        <Textarea name="" id="" v-model="form.code" class="!w-full" placeholder="A brief explanation of the snippet or concept..."/>
+                    </div> -->
                     <div class="mt-5">
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Code Snippet/Commands</label>
-                        <MonacoEditor v-model="code" language="javascript" class="h-80" />                        
+                        <MonacoEditor v-model="form.code" language="javascript" class="h-80" />                        
                     </div>
 
                     <div class="mt-5">
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Instructions/Steps</label>
-                        <Textarea name="" id="" class="!w-full" placeholder="Step-by-step guidance if applicable..."/>
+                        <Textarea name="" id="" class="!w-full" v-model="form.instruction" placeholder="Step-by-step guidance if applicable..."/>
                     </div>
-                    <div class="mt-5">
+                    <!-- <div class="mt-5">
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Expected Output</label>
                         <Textarea name="" id="" class="!w-full" placeholder="What the result should look like when executed..."/>
                         <div class="card flex flex-col items-center gap-6 mt-4">
@@ -90,7 +117,7 @@
                             <FileUpload mode="basic" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
                           
                         </div>
-                    </div>
+                    </div> -->
     
                     <nav class="">
                         <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Codex</button>                    
@@ -108,7 +135,7 @@
     import AppLayout from '@/Layouts/AppLayout.vue';
     import InputText from 'primevue/inputtext';
     import { ref } from "vue";
-    import { useForm } from '@inertiajs/vue3'
+    import { useForm } from '@inertiajs/vue3' // amo ini an knan system form
     import Divider from 'primevue/divider';
 
     
@@ -144,10 +171,16 @@
 
     const form = useForm({
         //amo liwat ini an code para han system form
-      sysName: null,
-      slogan: null,
-      sysLogo: null,
-      sysFavicon: null,
+        CodexName: null,
+        language: null,
+        framework: null,
+        tag: null,
+        level: null,
+        content: null,
+        code: null,
+        instruction: null,
+        output: null,
+        img: null,
       
     })
     

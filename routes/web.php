@@ -27,3 +27,5 @@ Route::middleware([
 
 
 Route::get('codex',[CodexController::class, 'index'])->name('new.codex');
+
+Route::post('add.Project', [CodexController::class, 'AddCodex'])->name('addProject');
