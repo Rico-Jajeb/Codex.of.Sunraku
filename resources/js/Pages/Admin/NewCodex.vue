@@ -17,40 +17,40 @@
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Codex Name</label>
                             <InputText class="!w-full" type="text" v-model="form.CodexName" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
                     </div>
-                    <div class="">
-                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">language</label>
-                            <InputText class="!w-full" type="text" v-model="form.language" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
-                    </div>
-                    <div class="">
-                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Framework</label>
-                            <InputText class="!w-full" type="text" v-model="form.framework" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
-                    </div>
-                    <div class="">
-                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">output</label>
-                            <InputText class="!w-full" type="text" v-model="form.output" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
-                    </div>
-                    <!-- <div class="">
-                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">lvl</label>
-                            <InputText class="!w-full" type="text" v-model="form.level" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
-                    </div> -->
+            
                     <div class="">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">img</label>
                             <InputText class="!w-full" type="text" v-model="form.img" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
                     </div>
-         
-                 
-                    <!-- <section class=" mt-4  md:flex md:flex-row ">
+
+                    <section class=" mt-4  md:flex md:flex-row ">
                         <div class="xl:basis-1/2 md:basis-1/2  md:mr-8">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Category/Topic</label>
-                            <MultiSelect v-model="form.language" display="chip" :options="topic" optionLabel="name" filter placeholder="Select Cities"
-                                :maxSelectedLabels="3" class="w-full " />
+                                <MultiSelect 
+                                    v-model="form.language" 
+                                    display="chip" 
+                                    :options="topic" 
+                                    optionLabel="name" 
+                                    optionValue="code"
+                                    filter 
+                                    placeholder="Select Topics"
+                                    :maxSelectedLabels="3" 
+                                    class="w-full" />
                         </div>                        
                         <div class="xl:basis-1/2 md:basis-1/2 md:ml-8 mt-4 md:mt-0">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Language/Framework</label>
-                            <MultiSelect v-model="form.framework" display="chip" :options="language" optionLabel="name" filter placeholder="Select Cities"
-                                :maxSelectedLabels="3" class="w-full" />
+                                <MultiSelect 
+                                    v-model="form.framework" 
+                                    display="chip" 
+                                    :options="language" 
+                                    optionLabel="name" 
+                                    optionValue="code"
+                                    filter 
+                                    placeholder="Select Topics"
+                                    :maxSelectedLabels="3" 
+                                    class="w-full" />
                         </div>                        
-                    </section> -->
+                    </section>
                     
                     <div class="mt-4">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Tags</label>
@@ -74,20 +74,6 @@
                             </div>
                         </div>
                     </section>
-
-                    <!-- <section class=" mt-4  md:flex md:flex-row">
-                        <div class="xl:basis-1/2 md:basis-1/2 md:mr-8">
-                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Author (Optional)</label>
-                            <InputText class="!w-full" type="text" v-model="form.author" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
-                        </div>
-                        <div class="xl:basis-1/2 md:basis-1/2 mt-4 md:mt-0 md:ml-8">
-                            <div class="">
-                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Date Created</label>
-                                <DatePicker v-model="form.date" showIcon fluid iconDisplay="input" inputId="icondisplay" class="!w-full" />
-                            </div>
-                        </div>
-                    </section> -->
-
                     <header class="my-8">
                         <h1 class="text-xl font-bold">Content</h1>
                     </header>
@@ -96,10 +82,6 @@
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Description/Purpose</label>
                         <Textarea name="" id="" v-model="form.content" class="!w-full" placeholder="A brief explanation of the snippet or concept..."/>
                     </div>
-                    <!-- <div class="mt-5">
-                        <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">code</label>
-                        <Textarea name="" id="" v-model="form.code" class="!w-full" placeholder="A brief explanation of the snippet or concept..."/>
-                    </div> -->
                     <div class="mt-5">
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Code Snippet/Commands</label>
                         <MonacoEditor v-model="form.code" language="javascript" class="h-80" />                        
@@ -109,15 +91,15 @@
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Instructions/Steps</label>
                         <Textarea name="" id="" class="!w-full" v-model="form.instruction" placeholder="Step-by-step guidance if applicable..."/>
                     </div>
-                    <!-- <div class="mt-5">
+                    <div class="mt-5">
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Expected Output</label>
-                        <Textarea name="" id="" class="!w-full" placeholder="What the result should look like when executed..."/>
+                        <Textarea name="" id="" class="!w-full" v-model="form.output" placeholder="What the result should look like when executed..."/>
                         <div class="card flex flex-col items-center gap-6 mt-4">
                             <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(100%)" />
-                            <FileUpload mode="basic" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
-                          
+                            <!-- <FileUpload mode="basic" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
+                           -->
                         </div>
-                    </div> -->
+                    </div>
     
                     <nav class="">
                         <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Codex</button>                    
@@ -172,8 +154,8 @@
     const form = useForm({
         //amo liwat ini an code para han system form
         CodexName: null,
-        language: null,
-        framework: null,
+        language: [],
+        framework: [],
         tag: null,
         level: null,
         content: null,

@@ -19,5 +19,11 @@ class CodexModel extends Model
         'code_snippet', 'instructions',
         'output', 'img',
     ];
+
+    protected $casts = [
+        //amo ini an kanan multiselect han codex an kanan language ngan framework
+        'language' => 'array',
+        'framework' => 'array',
+    ];
    
 }
