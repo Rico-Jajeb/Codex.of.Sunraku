@@ -18,10 +18,10 @@
                             <InputText class="!w-full" type="text" v-model="form.CodexName" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
                     </div>
             
-                    <div class="">
+                    <!-- <div class="">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">img</label>
                             <InputText class="!w-full" type="text" v-model="form.img" placeholder="E.g., Insert Data into MySQL with Laravel" /> 
-                    </div>
+                    </div> -->
 
                     <section class=" mt-4  md:flex md:flex-row ">
                         <div class="xl:basis-1/2 md:basis-1/2  md:mr-8">
@@ -98,6 +98,11 @@
                             <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(100%)" />
                             <!-- <FileUpload mode="basic" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
                            -->
+
+                           <input type="file" @input="form.img = $event.target.files[0]" />
+                            <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                            {{ form.progress.percentage }}%
+                            </progress>
                         </div>
                     </div>
     
@@ -120,7 +125,7 @@
     import { useForm } from '@inertiajs/vue3' // amo ini an knan system form
     import Divider from 'primevue/divider';
 
-    
+  
     import RadioButton from 'primevue/radiobutton';
 
     import MultiSelect from 'primevue/multiselect';
@@ -128,6 +133,11 @@
     import DatePicker from 'primevue/datepicker';
 
     import Textarea from 'primevue/textarea';
+
+
+
+   
+
 
     //amo ini an knan monaco editor
     import MonacoEditor from '@/Pages/Admin/MonacoEditor/MonacoEditor.vue';

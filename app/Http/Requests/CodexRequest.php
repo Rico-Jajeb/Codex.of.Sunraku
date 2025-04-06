@@ -33,7 +33,7 @@ class CodexRequest extends FormRequest
             'code' => 'required|string|max:2355',
             'instruction' => 'required|string|max:2355',
             'output' => 'required|string|max:355',
-            'img' => 'required|string|max:355',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Image validation
         ];
     }
 }
