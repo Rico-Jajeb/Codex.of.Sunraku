@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 use Inertia\Inertia;
 
@@ -41,7 +42,10 @@ class CodexController extends Controller
         $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
         $this->CodexServices->create($validated); // tas ig ppasa an data ngadto serivice para pag insert ngadto database
 
-        return redirect()->back()->with('success', "Codex Added Successfully!");
+        // return redirect()->back()->with('success', "Codex Added Successfully!");
+        return redirect()->route('new.codex')->with('success', "Codex Added Successfully!");
+
+        
     }
 
 }

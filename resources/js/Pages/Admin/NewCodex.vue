@@ -4,7 +4,33 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                New Codex
             </h2>
+
+            <!-- <div v-if="successMessage" class="bg-green-100 text-green-800 p-4 rounded mb-4">
+    {{ successMessage }}
+  </div> -->
+
+
+  <!-- <div class="card flex justify-center">
+        <h1>hahah</h1>
+        <Toast />
+        <button @click="show" type="button" class="bg-red-300">click me</button>
+    </div> -->
+    <!-- <div class="card flex justify-center">
+    <h1>hahah</h1>
+    <Toast />
+    <button @click="show" type="button" class="bg-red-300">click me</button>
+  </div> -->
+    <div>
+            <Toast />
+    </div>
         </template>
+
+
+
+
+
+
+
         <main class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
             <section class="bg-white overflow-hidden shadow-xl sm:rounded-lg py-10 px-8">
                 <header class="">
@@ -154,6 +180,96 @@
 
   
    
+
+
+//     import Toast from 'primevue/toast';
+// import { useToast } from 'primevue/usetoast';
+
+// const toast = useToast();
+
+// const show = () => {
+//     toast.add({ severity: 'info', summary: 'Info', detail: 'Message Content', life: 3000 });
+// };
+
+
+// import Toast from 'primevue/toast';
+// import { useToast } from 'primevue/usetoast';
+
+// const toast = useToast();
+
+// const show = () => {
+//   toast.add({ 
+//     severity: 'info', 
+//     summary: 'Info', 
+//     detail: 'Message Content', 
+//     life: 3000 
+//   });
+// };
+
+
+
+//     import { computed } from 'vue'
+// import { usePage } from '@inertiajs/vue3'
+
+// const page = usePage()
+
+// const successMessage = computed(() => page.props.flash?.success)
+
+
+
+
+
+
+
+import { computed, watch } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+import { useToast } from 'primevue/usetoast'
+
+const page = usePage()
+const toast = useToast()
+
+const successMessage = computed(() => page.props.flash?.success)
+
+// Automatically show toast when successMessage changes
+watch(successMessage, (newValue) => {
+  if (newValue) {
+    toast.add({
+      severity: 'success',
+      summary: 'Success message',
+      detail: newValue,
+      life: 10000,
+    })
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //amo ini an knan monaco editor

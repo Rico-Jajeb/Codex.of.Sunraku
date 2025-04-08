@@ -13,6 +13,10 @@ import Aura from '@primeuix/themes/aura';
 
 import 'primeicons/primeicons.css';
 
+//kanan toast an pop up notif
+import ToastService from 'primevue/toastservice';
+import Toast from 'primevue/toast';
+
 // Tas adi an kanan text box ini gin global para matawag bis ngain
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
@@ -32,11 +36,15 @@ createInertiaApp({
                 preset: Aura
             }
         });
-
+        
+        // amo ini an knan toast
+        app.use(ToastService);
+        app.component('Toast', Toast);
         // amo ini an component para han global input box
         app.component('FloatLabel', FloatLabel);
         app.component('InputText', InputText);
         app.mount(el);
+    
     },
     progress: {
         color: '#4B5563',

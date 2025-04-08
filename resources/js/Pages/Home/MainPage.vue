@@ -11,7 +11,17 @@
                             <InputIcon class="pi pi-search" />
                             <InputText v-model="value1" placeholder="Search codex by title, content, or tags..." class="!w-full" />
                         </IconField>
-                    </div>           
+                    </div>       
+                    <div class="">
+                        <!-- <li v-for="(item, index) in msgg" :key="index">{{ item }}</li> -->
+                        <!-- <li v-for="(item, index) in data" :key="index">{{ item }}</li> -->
+                        <!-- <li v-for="item in data" :key="item.id">{{ item.codex_name }}</li> -->
+                        <li v-for="item in data" :key="item.id">
+        <strong>{{ item.codex_name }}</strong> - 
+        Language: {{ item.language }} | 
+        Framework: {{ item.framework }}
+      </li>
+                    </div> 
                 </section>
         </main>
         <article class="bg-blue-400 flex flex-row">
@@ -52,6 +62,14 @@
 
     import Card from 'primevue/card';
 
-    const value1 = ref(null);
+    // const value1 = ref(null);
+    // defineProps({
+    //     msgg: String
+    // });
 
+
+    // The props are automatically available in the template.
+defineProps({
+  data: Array
+});
 </script>
