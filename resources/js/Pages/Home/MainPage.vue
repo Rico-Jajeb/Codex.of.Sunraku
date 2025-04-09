@@ -16,21 +16,22 @@
                         <!-- <li v-for="(item, index) in msgg" :key="index">{{ item }}</li> -->
                         <!-- <li v-for="(item, index) in data" :key="index">{{ item }}</li> -->
                         <!-- <li v-for="item in data" :key="item.id">{{ item.codex_name }}</li> -->
-                        <li v-for="item in data" :key="item.id">
+                        <!-- <li v-for="item in data" :key="item.id">
         <strong>{{ item.codex_name }}</strong> - 
         Language: {{ item.language }} | 
         Framework: {{ item.framework }}
-      </li>
+      </li> -->
                     </div> 
                 </section>
         </main>
         <article class="bg-blue-400 flex flex-row">
             <aside class="bg-green-300 basis-1/6">a</aside>
-            <section class="bg-orange-300 basis-5/6">
-                <Card class="!w-80 !h-80">
+            <section class="bg-orange-300  flex flex-row  basis-5/6 flex-wrap justify-center gap-4">
+
+                <Card class="!w-80 !h-80 " v-for="item in data" :key="item.id">
                     <template #title>
                         <header>
-                            <h1>Getting Started with my Codex</h1>
+                            <h1>{{ item.codex_name }}</h1>
                         </header>
                     </template>
                     <template #content>
@@ -38,8 +39,8 @@
                         learn how to use My Codex effectively to organize your knowledge
                         </p>
                         <nav class="flex gap-2 mt-4">
-                            <button class="bg-blue-100 px-4 py-1 rounded-md">Laravel</button>
-                            <button class="bg-blue-100 px-4 py-1 rounded-md">Laravel</button>                            
+                            <button class="bg-blue-100 px-4 py-1 rounded-md">{{ item.language }}</button>
+                            <button class="bg-blue-100 px-4 py-1 rounded-md">{{ item.framework }}</button>                            
                         </nav>
                         <p>Updated Oct 15, 2023</p>
                     </template>

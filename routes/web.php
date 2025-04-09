@@ -36,5 +36,7 @@ Route::get('Home',[MainPageController::class, 'Home'])->name('Main.page');
 
 //ADMIN SIDE
 Route::get('codex',[CodexController::class, 'index'])->name('new.codex');
+Route::get('category',[CodexController::class, 'codexCategory'])->name('codex.category');
+
 
 Route::post('add.Project', [CodexController::class, 'AddCodex'])->name('addProject');

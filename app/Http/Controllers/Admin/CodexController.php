@@ -45,7 +45,10 @@ class CodexController extends Controller
         // return redirect()->back()->with('success', "Codex Added Successfully!");
         return redirect()->route('new.codex')->with('success', "Codex Added Successfully!");
 
-        
+    }
+
+    public function codexCategory(){
+        return Inertia::render('Admin/CodexCategories');
     }
 
 }
