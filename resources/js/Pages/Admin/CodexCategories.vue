@@ -5,7 +5,7 @@
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     Codex Category
                 </h2>
-                <button class="bg-blue-600  pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="submit"> <i class="pi pi-plus mr-2"></i> Add Category</button>                
+                <button  @click="visible = true"  class="bg-blue-600  pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="submit"> <i class="pi pi-plus mr-2"></i> Add Category</button>                
             </section>
 
         </template>
@@ -39,7 +39,15 @@
                 </main>                  
             </section>
         </main>
- 
+        <!-- amo ini an kanan modal han category form -->
+        <section>
+            <div class="card flex justify-center bg-red-500">
+                <Button label="Show" @click="visible = true" />
+                <Dialog v-model:visible="visible" header="Add Category" :style="{ width: '25rem' }"  >
+                    <CategoryForm/>
+                </Dialog>
+            </div>
+        </section>
     </AppLayout>
 </template>
 <script setup>
@@ -50,4 +58,13 @@
     import InputIcon from 'primevue/inputicon';
     
     import Card from 'primevue/card';
+
+
+    import Dialog from 'primevue/dialog';
+
+    import { ref } from 'vue';
+
+
+    import CategoryForm from '@/Pages/Admin/Forms/CategoryForms.vue';
+const visible = ref(false);
 </script>

@@ -40,3 +40,5 @@ Route::get('category',[CodexController::class, 'codexCategory'])->name('codex.ca
 
 
 Route::post('add.Project', [CodexController::class, 'AddCodex'])->name('addProject');
+
+Route::post('add.Category', [CodexController::class, 'addCategory'])->name('addProject');
