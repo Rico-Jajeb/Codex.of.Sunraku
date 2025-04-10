@@ -13,7 +13,7 @@ class CodexCategoryService
         return CodexCategoryModel::create([
             'category_name' => $data['CategoryName'],
             'description' => $data['CategoryDesc'],
-            'status' => 'active',
+            'status' => 'Active',
             'img' => $data['img'],
         ]);
     }

@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\Admin\CodexController;
+use App\Http\Controllers\Admin\CategoryCodexController;
+
+
 use App\Http\Controllers\User\MainPageController;
 
 // Route::get('/', function () {
@@ -36,9 +39,10 @@ Route::get('Home',[MainPageController::class, 'Home'])->name('Main.page');
 
 //ADMIN SIDE
 Route::get('codex',[CodexController::class, 'index'])->name('new.codex');
-Route::get('category',[CodexController::class, 'codexCategory'])->name('codex.category');
+Route::get('category',[CategoryCodexController::class, 'index'])->name('codex.category');
 
 
+//kanan form
 Route::post('add.Project', [CodexController::class, 'AddCodex'])->name('addProject');
 
-Route::post('add.Category', [CodexController::class, 'addCategory'])->name('addProject');
+Route::post('add.Category', [CategoryCodexController::class, 'addCategory'])->name('addProject');

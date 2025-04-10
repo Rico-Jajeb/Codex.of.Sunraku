@@ -24,6 +24,10 @@
                     <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
             </nav>
     </form>
+    <div>
+        <!-- amo ini an kanan pop up notif pag nag submit msg -->
+            <Toast />
+    </div>
 </template>
 
 <script setup>
@@ -33,6 +37,30 @@
     import Divider from 'primevue/divider';
 
     
+    //kanan toast ini
+    import { computed, watch } from 'vue'
+    import { usePage } from '@inertiajs/vue3'
+    import { useToast } from 'primevue/usetoast'
+
+    const page = usePage()
+    const toast = useToast()
+
+    const successMessage = computed(() => page.props.flash?.success)
+
+    // Automatically show toast when successMessage changes
+    watch(successMessage, (newValue) => {
+    if (newValue) {
+        toast.add({
+        severity: 'success',
+        summary: 'Success message',
+        detail: newValue,
+        life: 10000,
+        })
+    }
+    })
+
+
+
     //adi an knn img upload
     import FileUpload from 'primevue/fileupload';
     const src = ref(null);
@@ -47,8 +75,6 @@
 
         reader.readAsDataURL(file);
     }
-
-
 
 
 
