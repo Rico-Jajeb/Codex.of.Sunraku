@@ -10,27 +10,25 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 
 use App\Services\CodexDisplayService;
+use App\Services\DisplayCategoryCodexService;
 
 class MainPageController extends Controller
 {
-    //
-    // public function Home(){
-    //     return Inertia::render('Home/MainPage');
-    // }
 
     protected $CodexDisplayService;
+    protected $DisplayCategoryCodexService;
 
-    public function __construct(CodexDisplayService $CodexDisplayService)
+    public function __construct(CodexDisplayService $CodexDisplayService, DisplayCategoryCodexService $DisplayCategoryCodexService)
     {
         $this->CodexDisplayService = $CodexDisplayService;
+        $this->DisplayCategoryCodexService = $DisplayCategoryCodexService;
     }
 
 
     public function Home(){
 
-        $ab = [1,2,3,4,5];
-
         $data = $this->CodexDisplayService->getAllData();
+        $category = $this->DisplayCategoryCodexService->getAllData();
         
         return Inertia::render('Home/MainPage', [
             'canLogin' => Route::has('login'),
@@ -38,8 +36,10 @@ class MainPageController extends Controller
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
 
-            'msgg' => $ab,
+            //amo ini an kanan mga codex data
             'data' => $data,
+            //tapos adi liwan an knan mga category
+            'category' => $category,
         ]);
 
     }

@@ -25,7 +25,18 @@
                 </section>
         </main>
         <article class="bg-blue-400 flex flex-row">
-            <aside class="bg-green-300 basis-1/6">a</aside>
+            <aside class="bg-green-300 basis-1/6">
+                <h1 class="text-center text-xl font-bold  py-4">Category</h1>
+                <nav class="pl-3">
+               
+                        <button class="block w-full bg-red-500 mb-2" v-for="item in category" :key="item.id">
+                            <h1 class="text-start pl-2 text-md font-bold text-gray-700">{{ item.category_name }}</h1>
+                        </button>
+                    
+                 
+                </nav>
+           
+            </aside>
             <section class="bg-orange-300  flex flex-row  basis-5/6 flex-wrap justify-center gap-4">
 
                 <Card class="!w-80 !h-80 " v-for="item in data" :key="item.id">
@@ -71,6 +82,7 @@
 
     // The props are automatically available in the template.
 defineProps({
-  data: Array
+  data: Array,
+  category: Array
 });
 </script>
