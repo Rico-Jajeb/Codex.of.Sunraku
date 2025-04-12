@@ -25,7 +25,7 @@ class CodexCategoryRequest extends FormRequest
             //
             'CategoryName' => 'required|string|max:255',
             'CategoryDesc' => 'required|string|max:255',
-            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10240', // Image validation
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240', // Image validation
         ];
     }
 }

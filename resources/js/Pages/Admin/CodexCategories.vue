@@ -39,7 +39,15 @@
                         </template>
                         <template #footer>
                             <div class="flex justify-end">
-                                <p class="bg-green-500 px-3 rounded-md">{{ item.status }}</p>                                
+
+                                <button type="button"   @click="visible2 = true" ><i class="pi pi-file-edit" style="font-size: 1rem"></i></button>
+                                <button class="mx-4"><i class="pi pi-trash" style="font-size: 1rem"></i></button>
+                                
+                                <!-- Amo ini an kann category status -->
+                                <div class="">
+                                      <Badge v-if="item.status === 'Active'" value="" severity="success"></Badge>
+                                      <Badge v-else="item.status === 'Oflline'" value="" severity="danger"></Badge>
+                                </div>                       
                             </div>
                         </template>
                     </Card>
@@ -52,6 +60,14 @@
                 <Button label="Show" @click="visible = true" />
                 <Dialog v-model:visible="visible" header="Add Category" :style="{ width: '25rem' }"  >
                     <CategoryForm/>
+                </Dialog>
+            </div>
+        </section>
+        <section>
+            <div class="card flex justify-center bg-red-500">
+                <Button label="Show" @click="visible2 = true" />
+                <Dialog v-model:visible="visible2" header="Add Category" :style="{ width: '25rem' }"  >
+                   <h1>sample</h1>
                 </Dialog>
             </div>
         </section>
@@ -74,8 +90,33 @@
    
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    import Badge from 'primevue/badge';
+
+
+
+
+
+
+
     import CategoryForm from '@/Pages/Admin/Forms/CategoryForms.vue';
+
     const visible = ref(false);
+    const visible2 = ref(false);
 
    // Amo ini an kanan for loop han item
     defineProps({
