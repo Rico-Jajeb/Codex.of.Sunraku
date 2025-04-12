@@ -29,17 +29,50 @@
                 <h1 class="text-center text-xl font-bold  py-4">Category</h1>
                 <nav class="pl-3">
                
-                        <button class="block w-full bg-red-500 mb-2" v-for="item in category" :key="item.id">
+                        <!-- <button class="block w-full bg-red-500 mb-2" v-for="item in category" :key="item.id">
                             <h1 class="text-start pl-2 text-md font-bold text-gray-700">{{ item.category_name }}</h1>
-                        </button>
-                    
-                 
+                        </button> -->
+
+
+                        <!-- <button
+                            class="block w-full bg-red-500 hover:bg-red-600 text-white mb-2 px-3 py-2 rounded"
+                            v-for="item in category"
+                            :key="item.id"
+                            @click="selectCategory(item.id)"
+                            :class="{ 'bg-red-700': selectedCategory === item.id }"
+                        >
+                            {{ item.category_name }}
+                        </button> -->
+                        <button @click="currentFilter = 'all'">All</button>
+  <button @click="currentFilter = 'active'">Active</button>
+  <button @click="currentFilter = 'archived'">Archived</button>
                 </nav>
-           
+    
+
             </aside>
             <section class="bg-orange-300  flex flex-row  basis-5/6 flex-wrap justify-center gap-4">
 
-                <Card class="!w-80 !h-80 " v-for="item in data" :key="item.id">
+                <!-- <Card class="!w-80 !h-80 " v-for="item in data" :key="item.id">
+                    <template #title>
+                        <header>
+                            <h1>{{ item.codex_name }}</h1>
+                        </header>
+                    </template>
+                    <template #content>
+                        <p class="m-0">
+                        learn how to use My Codex effectively to organize your knowledge
+                        </p>
+                        <nav class="flex gap-2 mt-4">
+                            <button class="bg-blue-100 px-4 py-1 rounded-md">{{ item.language }}</button>
+                            <button class="bg-blue-100 px-4 py-1 rounded-md">{{ item.framework }}</button>                            
+                        </nav>
+                        <p>Updated Oct 15, 2023</p>
+                    </template>
+                  
+                </Card> -->
+
+
+                <Card class="!w-80 !h-80 " v-for="item in filteredItems" :key="item.id">
                     <template #title>
                         <header>
                             <h1>{{ item.codex_name }}</h1>
@@ -57,6 +90,8 @@
                     </template>
                   
                 </Card>
+     
+
             </section>
         </article>
     </MainLayout>
@@ -66,7 +101,7 @@
 
 <script setup>
     import MainLayout from '@/Layouts/MainLayout.vue';
-    import { ref } from 'vue';
+   import { ref, computed } from 'vue'
   
     import IconField from 'primevue/iconfield';
     import InputIcon from 'primevue/inputicon';
@@ -80,9 +115,30 @@
     // });
 
 
-    // The props are automatically available in the template.
-defineProps({
+    // Amo ini an kanan for loop han pag display han category ngan data
+    // defineProps({
+    // data: Array,
+    // category: Array
+    // });
+
+
+    // const currentFilter = ref('all')
+
+    // const filteredItems = computed(() => {
+    // if (currentFilter.value === 'all') return props.data
+    // return props.data.filter(item => item.status === currentFilter.value)
+    // })
+
+    const { data, category } = defineProps({
   data: Array,
   category: Array
-});
+})
+
+const currentFilter = ref('all')
+
+const filteredItems = computed(() => {
+  if (currentFilter.value === 'all') return data
+  return data.filter(item => item.status === currentFilter.value)
+})
+
 </script>
