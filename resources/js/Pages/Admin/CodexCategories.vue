@@ -19,6 +19,7 @@
                     </div>  
                 <section class="flex flex-row  basis-5/6 flex-wrap justify-center gap-4 mt-4">
                     <!-- Amo ini an card  -->
+                    <!-- <Card class="!w-80 !h-80 shadow-xl"  v-for="item in data" :key="item.id"> -->
                     <Card class="!w-80 !h-80 shadow-xl"  v-for="item in data" :key="item.id">
                         <template #header>
                             <img alt="user header" class="h-36 w-full object-cover rounded-t-lg"  :src="`/storage/output/${item.img}`" />
@@ -40,7 +41,11 @@
                         <template #footer>
                             <div class="flex justify-end">
 
-                                <button type="button"   @click="visible2 = true" ><i class="pi pi-file-edit" style="font-size: 1rem"></i></button>
+
+                                <button type="button"   @click="openEditModal(item)" ><i class="pi pi-file-edit" style="font-size: 1rem"></i></button>
+
+
+                                <!-- <button type="button"   @click="visible2 = true" ><i class="pi pi-file-edit" style="font-size: 1rem"></i></button> -->
                                 <button class="mx-4"><i class="pi pi-trash" style="font-size: 1rem"></i></button>
                                 
                                 <!-- Amo ini an kann category status -->
@@ -63,14 +68,26 @@
                 </Dialog>
             </div>
         </section>
+        <!-- Adi an modal han update category form -->
+        <!-- <section>
+            <div class="card flex justify-center bg-red-500">
+                <Button label="Show" @click="visible2 = true" />
+                <Dialog v-model:visible="visible2" header="Update Category" :style="{ width: '25rem' }"  >
+                    <UpdateCategoryForm/>
+                </Dialog>
+            </div>
+        </section> -->
+
         <section>
             <div class="card flex justify-center bg-red-500">
                 <Button label="Show" @click="visible2 = true" />
-                <Dialog v-model:visible="visible2" header="Add Category" :style="{ width: '25rem' }"  >
-                   <h1>sample</h1>
+                <Dialog v-model:visible="visible2" header="Update Category" :style="{ width: '25rem' }"  >
+                    <UpdateCategoryForm :category="selectedCategory" @close="visible2 = false" />
                 </Dialog>
             </div>
         </section>
+
+
     </AppLayout>
 </template>
 <script setup>
@@ -105,14 +122,91 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//kanan category update
+const selectedCategory = ref(null)
+
+function openEditModal(item) {
+  selectedCategory.value = item
+  visible2.value = true
+}
+
+
+
+
+
+
+
+
+
+
+
     import Badge from 'primevue/badge';
 
 
+    // amo ini an kanan update category Form
+    import UpdateCategoryForm from '@/Pages/Admin/Forms/Update/CategoryUpdateForms.vue';
 
 
-
-
-
+    // amo ini an kann category form
     import CategoryForm from '@/Pages/Admin/Forms/CategoryForms.vue';
 
     const visible = ref(false);

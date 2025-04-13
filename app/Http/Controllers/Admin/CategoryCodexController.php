@@ -59,4 +59,26 @@ class CategoryCodexController extends Controller
 
     }
 
+
+
+
+    public function update(Request $request, $id)
+    {
+        $category = Category::findOrFail($id);
+    
+        $category->CategoryName = $request->CategoryName;
+        $category->CategoryDesc = $request->CategoryDesc;
+    
+        if ($request->hasFile('img')) {
+            $path = $request->file('img')->store('categories', 'public');
+            $category->CategoryImage = $path;
+        }
+    
+        $category->save();
+    
+        return back()->with('success', 'Category updated successfully!');
+    }
+    
+
+
 }

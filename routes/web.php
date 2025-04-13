@@ -46,3 +46,6 @@ Route::get('category',[CategoryCodexController::class, 'index'])->name('codex.ca
 Route::post('add.Project', [CodexController::class, 'AddCodex'])->name('addProject');
 
 Route::post('add.Category', [CategoryCodexController::class, 'addCategory'])->name('addProject');
+
+//kanan update form
+Route::post('/categories/update/{id}', [CategoryCodexController::class, 'update'])->name('categories.update');
