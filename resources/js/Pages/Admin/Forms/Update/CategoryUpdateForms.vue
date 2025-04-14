@@ -74,12 +74,13 @@
   })
   
   watch(() => props.category, (newVal) => {
-    if (newVal) {
-      form.CategoryName = newVal.CategoryName || ''
-      form.CategoryDesc = newVal.CategoryDesc || ''
-      src.value = newVal.CategoryImageUrl || null // optional preview
-    }
-  }, { immediate: true })
+  if (newVal) {
+    form.CategoryName = newVal.category_name || ''
+    form.CategoryDesc = newVal.description || ''
+    src.value = newVal.img ? `/storage/output/${newVal.img}` : null
+  }
+}, { immediate: true })
+
   
   function onFileSelect(event) {
     const file = event.files[0]
@@ -94,11 +95,12 @@
   
   function submit() {
     form.post(route('categories.update', props.category.id), {
-      forceFormData: true,
-      onSuccess: () => {
-        emit('close')
-      }
-    })
+  forceFormData: true,
+  onSuccess: () => {
+    emit('close')
+  }
+})
+
   }
   </script>
   

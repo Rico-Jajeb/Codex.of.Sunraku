@@ -42,8 +42,11 @@
                             <div class="flex justify-end">
 
 
-                                <button type="button"   @click="openEditModal(item)" ><i class="pi pi-file-edit" style="font-size: 1rem"></i></button>
+                            
 
+                                <button type="button" @click="openModal(item.category_name)">
+    <i class="pi pi-file-edit" style="font-size: 1rem"></i>
+</button>
 
                                 <!-- <button type="button"   @click="visible2 = true" ><i class="pi pi-file-edit" style="font-size: 1rem"></i></button> -->
                                 <button class="mx-4"><i class="pi pi-trash" style="font-size: 1rem"></i></button>
@@ -55,6 +58,8 @@
                                 </div>                       
                             </div>
                         </template>
+
+                       
                     </Card>
                 </section>     
             </section>
@@ -78,14 +83,13 @@
             </div>
         </section> -->
 
-        <section>
-            <div class="card flex justify-center bg-red-500">
-                <Button label="Show" @click="visible2 = true" />
-                <Dialog v-model:visible="visible2" header="Update Category" :style="{ width: '25rem' }"  >
-                    <UpdateCategoryForm :category="selectedCategory" @close="visible2 = false" />
-                </Dialog>
-            </div>
-        </section>
+            <!-- adi an knn modal -->
+            <section>
+    <Dialog v-model:visible="visible2" header="Update Category" :style="{ width: '25rem' }">
+      <h1>This is the modal</h1>
+      <p>Selected Category: {{ selectedCategory }}</p>
+    </Dialog>
+  </section>
 
 
     </AppLayout>
@@ -133,8 +137,12 @@
 
 
 
+    const selectedCategory = ref('')
 
-
+    function openModal(categoryName) {
+    selectedCategory.value = categoryName
+    visible2.value = true
+}
 
 
 
@@ -182,12 +190,17 @@
 
 
 //kanan category update
-const selectedCategory = ref(null)
+// const selectedCategory = ref(null)
 
-function openEditModal(item) {
-  selectedCategory.value = item
-  visible2.value = true
-}
+// function openEditModal(item) {
+//   selectedCategory.value = {
+//     id: item.id,
+//     CategoryName: item.category_name,
+//     CategoryDesc: item.description,
+//     CategoryImageUrl: `/storage/output/${item.img}`
+//   }
+//   visible2.value = true
+// }
 
 
 
