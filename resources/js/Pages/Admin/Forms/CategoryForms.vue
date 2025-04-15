@@ -1,5 +1,5 @@
 <template>
-    <form  class=""  @submit.prevent="form.post('add.Category')">
+    <form  class=""  @submit.prevent="form.post('add.Category')" >
             <div class="">
                     <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Category name</label>
                     <InputText class="!w-full" type="text" v-model="form.CategoryName" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />

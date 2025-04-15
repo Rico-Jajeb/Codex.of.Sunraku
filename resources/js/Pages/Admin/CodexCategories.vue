@@ -42,11 +42,14 @@
                             <div class="flex justify-end">
 
 
-                            
-
-                                <button type="button" @click="openModal(item.category_name)">
-    <i class="pi pi-file-edit" style="font-size: 1rem"></i>
+                                <button type="button" @click="openModal(item)">
+  <i class="pi pi-file-edit" style="font-size: 1rem"></i>
 </button>
+
+
+                                <!-- <button type="button" @click="openModal(item.category_name)">
+    <i class="pi pi-file-edit" style="font-size: 1rem"></i>
+</button> -->
 
                                 <!-- <button type="button"   @click="visible2 = true" ><i class="pi pi-file-edit" style="font-size: 1rem"></i></button> -->
                                 <button class="mx-4"><i class="pi pi-trash" style="font-size: 1rem"></i></button>
@@ -84,12 +87,48 @@
         </section> -->
 
             <!-- adi an knn modal -->
-            <section>
-    <Dialog v-model:visible="visible2" header="Update Category" :style="{ width: '25rem' }">
-      <h1>This is the modal</h1>
-      <p>Selected Category: {{ selectedCategory }}</p>
-    </Dialog>
-  </section>
+            <!-- <section>
+                <Dialog v-model:visible="visible2" :header="`Update '${selectedCategory}' Category`" :style="{ width: '25rem' }"> -->
+                    <section>    
+                <Dialog
+  v-model:visible="visible2"
+  :header="`Update '${selectedCategory.category_name}' Category`"
+  :style="{ width: '25rem' }"
+>
+  
+                        <form @submit.prevent="form.put(route('categories.update', selectedCategory.id))" enctype="multipart/form-data">
+      
+                            <div class="">
+                                    <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Category name</label>
+                                    <InputText class="!w-full" type="text" v-model="form.CategoryName" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                    <div v-if="form.errors.CategoryName" class="text-red-500 text-sm mt-2">
+                                        {{ form.errors.CategoryName }}
+                                    </div> 
+                            </div>
+                            <div class="mt-4">
+                                    <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Description</label>
+                                    <InputText class="!w-full" type="text" v-model="form.CategoryDesc" placeholder="A brief explanation of the category" />
+                                    <div v-if="form.errors.CategoryDesc" class="text-red-500 text-sm mt-2">
+                                        {{ form.errors.CategoryDesc }}
+                                    </div> 
+                            </div>
+                                
+                            <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Category Image Cover</label>
+                            <div class="card flex flex-col items-center gap-6 mt-4">                
+                                    <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
+                                    <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
+                            
+                             <!-- <FileUpload name="img" accept="image/*" customUpload @select="onFileSelect" /> -->
+                            </div>
+                            <nav class="">
+                                    <!-- <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
+                             -->
+                             <button @click="submitForm">Update Category</button>
+                             </nav>
+                    </form>
+
+                </Dialog>
+            </section>
 
 
     </AppLayout>
@@ -111,43 +150,103 @@
    
 
 
+    import InputText from 'primevue/inputtext'
+    import { useForm } from '@inertiajs/vue3' // amo ini an knan system form
+
+
+
+//     const form = useForm({
+//         //amo liwat ini an code para han system form
+//         CategoryName: null,
+//         CategoryDesc: null,
+//         img: null,
+   
+//     })
+
+
+//    //adi an knn img upload
+    import FileUpload from 'primevue/fileupload';
+//     const src = ref(null);
+
+//     function onFileSelect(event) {
+//         const file = event.files[0];
+//         const reader = new FileReader();
+
+//         reader.onload = async (e) => {
+//             src.value = e.target.result;
+//         };
+
+//         reader.readAsDataURL(file);
+//     }
 
 
 
 
 
+const form = useForm({
+    CategoryName: '',
+    CategoryDesc: '',
+    img: null,
+});
+
+const src = ref(null);
+
+function onFileSelect(event) {
+    const file = event.files[0];
+    if (!file) return;
+
+    form.img = file;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        src.value = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
 
 
+function submitForm() {
+    form.submit('put', `/codex/category/${category.id}`, {
+    forceFormData: true
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    const selectedCategory = ref('')
-
-    function openModal(categoryName) {
-    selectedCategory.value = categoryName
-    visible2.value = true
 }
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+    // amo adi an code para han pag select edit category 
+    // const selectedCategory = ref('')
+
+    // function openModal(categoryName) {
+    //     selectedCategory.value = categoryName
+    //     visible2.value = true
+    // }
+
+
+
+
+
+    const selectedCategory = ref({}); // ← whole object now
+
+function openModal(category) {
+  selectedCategory.value = category;
+  form.CategoryName = category.category_name;
+  form.CategoryDesc = category.description; // or whatever the property is
+  form.img = null; // reset image, or preload if needed
+
+  visible2.value = true;
+}
 
 
 
