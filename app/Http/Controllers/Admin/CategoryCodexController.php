@@ -9,6 +9,7 @@ use Inertia\Inertia;
 
 //REQUEST
 use App\Http\Requests\CodexCategoryRequest;
+use App\Http\Requests\UpdateCodexCategoryRequest;
 
 //SERVICES
 
@@ -115,20 +116,62 @@ class CategoryCodexController extends Controller
 //     return back()->with('success', 'Category updated successfully.');
 // }
 
-    
-public function update(CodexCategoryRequest $request, $id)
+//amo ini an latest
+// public function update(CodexCategoryRequest $request, $id)
+// {
+//     $imageName = $this->CodexImageService->handleImageUpload($request);
+
+//     $validated = $request->validated();
+
+//     if ($imageName) {
+//         $validated['img'] = $imageName; // or 'output/' . $imageName if you return just the name
+//     }
+
+//     $this->UpdateCodexCategoryService->updateCategory($id, $validated);
+
+//     return back()->with('success', 'Category updated successfully.');
+// }
+
+
+
+// public function update(UpdateCodexCategoryRequest $request, $id)
+// {
+//     $imageName = $this->CodexImageService->handleImageUpload($request);
+
+//     $validated = $request->validated();
+
+//     if ($imageName) {
+//         $validated['img'] = $imageName; // or 'output/' . $imageName if you return just the name
+//     }
+
+//     $this->UpdateCodexCategoryService->updateCategory($id, $validated);
+
+//     return back()->with('success', 'Category updated successfully.');
+// }
+
+
+// public function update(UpdateCodexCategoryRequest $request, $id)
+// {
+//     $validated = $request->validated();
+//     $this->UpdateCodexCategoryService->updateCategory($id, $validated);
+
+//     return back()->with('success', 'Category updated successfully.');
+// }
+
+
+public function update(UpdateCodexCategoryRequest $request, $id)
 {
-    $imageName = $this->CodexImageService->handleImageUpload($request);
+    // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
+    $imageName = $this->CodexImageService->handleImageUpload($request); 
 
-    $validated = $request->validated();
 
-    if ($imageName) {
-        $validated['img'] = $imageName; // or 'output/' . $imageName if you return just the name
-    }
-
+    $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
+   
+    $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
+   
     $this->UpdateCodexCategoryService->updateCategory($id, $validated);
 
-    return back()->with('success', 'Category updated successfully.');
+    return redirect()->route('codex.category')->with('success', "Category Added Successfully!");
 }
 
 

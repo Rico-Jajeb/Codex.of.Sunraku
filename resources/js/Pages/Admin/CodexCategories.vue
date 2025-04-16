@@ -97,19 +97,23 @@
 >
   
                         <form @submit.prevent="form.put(route('categories.update', selectedCategory.id))" enctype="multipart/form-data">
-      
+                   
+              
+
+
+
                             <div class="">
                                     <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Category name</label>
-                                    <InputText class="!w-full" type="text" v-model="form.CategoryName" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
-                                    <div v-if="form.errors.CategoryName" class="text-red-500 text-sm mt-2">
-                                        {{ form.errors.CategoryName }}
+                                    <InputText class="!w-full" type="text" v-model="form.category_name" name="category_name " placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                    <div v-if="form.errors.category_name" class="text-red-500 text-sm mt-2">
+                                        {{ form.errors.category_name }}
                                     </div> 
                             </div>
                             <div class="mt-4">
                                     <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Description</label>
-                                    <InputText class="!w-full" type="text" v-model="form.CategoryDesc" placeholder="A brief explanation of the category" />
-                                    <div v-if="form.errors.CategoryDesc" class="text-red-500 text-sm mt-2">
-                                        {{ form.errors.CategoryDesc }}
+                                    <InputText class="!w-full" type="text" v-model="form.description" name="description" placeholder="A brief explanation of the category" />
+                                    <div v-if="form.errors.description" class="text-red-500 text-sm mt-2">
+                                        {{ form.errors.description }}
                                     </div> 
                             </div>
                                 
@@ -124,6 +128,10 @@
                                     <!-- <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
                              -->
                              <button @click="submitForm">Update Category</button>
+
+                           
+
+
                              </nav>
                     </form>
 
@@ -152,7 +160,7 @@
 
     import InputText from 'primevue/inputtext'
     import { useForm } from '@inertiajs/vue3' // amo ini an knan system form
-
+    import FileUpload from 'primevue/fileupload';
 
 
 //     const form = useForm({
@@ -165,7 +173,7 @@
 
 
 //    //adi an knn img upload
-    import FileUpload from 'primevue/fileupload';
+
 //     const src = ref(null);
 
 //     function onFileSelect(event) {
@@ -184,8 +192,8 @@
 
 
 const form = useForm({
-    CategoryName: '',
-    CategoryDesc: '',
+    category_name: '',
+    description: '',
     img: null,
 });
 
@@ -205,20 +213,36 @@ function onFileSelect(event) {
 }
 
 
-function submitForm() {
-    form.submit('put', `/codex/category/${category.id}`, {
-    forceFormData: true
-});
+    // function submitForm() {
+    //     form.submit('put', `/codex/category/${category.id}`, {
+    //     forceFormData: true
+    // });
 
-}
-
-
+    // }
 
 
+//     function submitForm() {
+//     form.submit('put', route('categories.update', selectedCategory.id), {
+//         forceFormData: true,
+//     });
+// }
 
 
 
 
+
+
+const submit = () => {
+    // Mapping form fields to snake_case for Laravel
+    const payload = {
+        category_name: form.category_name,
+        category_desc: form.description,
+        img: form.img,
+    };
+
+    // Send the payload to your Laravel backend
+    this.$inertia.put(`/categories/${id}`, payload);
+};
 
 
 
@@ -241,8 +265,8 @@ function submitForm() {
 
 function openModal(category) {
   selectedCategory.value = category;
-  form.CategoryName = category.category_name;
-  form.CategoryDesc = category.description; // or whatever the property is
+  form.category_name = category.category_name;
+  form.description = category.description; // or whatever the property is
   form.img = null; // reset image, or preload if needed
 
   visible2.value = true;
