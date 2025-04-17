@@ -77,28 +77,42 @@ class UpdateCodexCategoryService
 
   
 
-    public function updateCategory(int $id, array $data)
-    {
+    // public function updateCategory(int $id, array $data)
+    // {
        
 
-        $category = CodexCategoryModel::findOrFail($id);
+    //     $category = CodexCategoryModel::findOrFail($id);
     
-        // Handle image upload (only if a new image is provided)
-        if ($data['img']) {
-            $path = $data['img']->store('categories', 'public');
-        }else{
-            $category->update([
-                'category_name' => $data['category_name'],
-                'description' => $data['description'],
-                'img' => $path ?? $category->img,  // Fallback to the old image if no new one is uploaded
-            ]);
+    //     // Handle image upload (only if a new image is provided)
+    //     if ($data['img']) {
+    //         $path = $data['img']->store('categories', 'public');
+    //     }else{
+    //         $category->update([
+    //             'category_name' => $data['category_name'],
+    //             'description' => $data['description'],
+    //             'img' => $path ?? $category->img,  // Fallback to the old image if no new one is uploaded
+    //         ]);
         
-        }
+    //     }
     
 
+    
+    //     return $category;
+    // }
+        
+    public function updateCategory(int $id, array $data)
+    {
+        logger($data); // See what's inside
+    
+        $category = CodexCategoryModel::findOrFail($id);
+    
+        $category->update([
+            'category_name' => $data['category_name'] ?? $category->category_name,
+            'description' => $data['description'] ?? $category->description,
+            'img' => $data['img'] ?? $category->img,  // Just use the name returned
+        ]);
     
         return $category;
     }
-        
     
 }

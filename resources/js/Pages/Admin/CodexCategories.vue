@@ -100,11 +100,13 @@
                    
               
 
+               <!-- <form  class=""  @submit.prevent="form.put('/categories/{id}')" > -->
+                <!-- <form @submit.prevent="form.put(`/categories/${form.id}`)"> -->
 
 
                             <div class="">
                                     <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Category name</label>
-                                    <InputText class="!w-full" type="text" v-model="form.category_name" name="category_name " placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                    <InputText class="!w-full" type="text" v-model="form.category_name" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
                                     <div v-if="form.errors.category_name" class="text-red-500 text-sm mt-2">
                                         {{ form.errors.category_name }}
                                     </div> 
@@ -119,10 +121,23 @@
                                 
                             <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Category Image Cover</label>
                             <div class="card flex flex-col items-center gap-6 mt-4">                
+                                    
+                                <img  :src="`/storage/output/${selectedCategory.img}`" alt="Image" class="shadow-md object-cover rounded-xl w-full  max-h-44 " style="filter: grayscale(0%)" />
+
+
                                     <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
-                                    <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
-                            
+                                    <!-- <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
+                             -->
                              <!-- <FileUpload name="img" accept="image/*" customUpload @select="onFileSelect" /> -->
+                            
+                             <!-- <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
+             -->
+                            
+
+             <input type="file" @change="e => form.img = e.target.files[0]" />
+
+
+                            
                             </div>
                             <nav class="">
                                     <!-- <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
@@ -130,7 +145,8 @@
                              <button @click="submitForm">Update Category</button>
 
                            
-
+                             <!-- <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
+            -->
 
                              </nav>
                     </form>
@@ -189,28 +205,28 @@
 
 
 
+//----------------------------------- original  -------------------------
 
+// const form = useForm({
+//     category_name: null,
+//     description: null,
+//     img: null,
+// });
 
-const form = useForm({
-    category_name: '',
-    description: '',
-    img: null,
-});
+// const src = ref(null);
 
-const src = ref(null);
+// function onFileSelect(event) {
+//     const file = event.files[0];
+//     if (!file) return;
 
-function onFileSelect(event) {
-    const file = event.files[0];
-    if (!file) return;
+//     form.img = file;
 
-    form.img = file;
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        src.value = e.target.result;
-    };
-    reader.readAsDataURL(file);
-}
+//     const reader = new FileReader();
+//     reader.onload = (e) => {
+//         src.value = e.target.result;
+//     };
+//     reader.readAsDataURL(file);
+// }
 
 
     // function submitForm() {
@@ -229,20 +245,110 @@ function onFileSelect(event) {
 
 
 
+//--------------------------------------------- Test area -----------------------------------------------------
 
 
 
-const submit = () => {
-    // Mapping form fields to snake_case for Laravel
-    const payload = {
-        category_name: form.category_name,
-        category_desc: form.description,
-        img: form.img,
-    };
 
-    // Send the payload to your Laravel backend
-    this.$inertia.put(`/categories/${id}`, payload);
-};
+
+
+const form = useForm({
+  category_name: null,
+  description: null,
+  img: null,
+  _method: 'PUT',
+});
+
+
+const src = ref(null);
+
+
+
+
+
+
+function onFileSelect(event) {
+  const file = event.target.files[0];
+  if (file) {
+    form.img = file;
+  }
+}
+
+
+
+
+function submitForm() {
+  form.post(`/codex/category/${category.id}`, {
+    forceFormData: true,
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//--------------------------------------------- END  Test area -----------------------------------------------------
+
+
+
+
+    //adi an knn img upload
+    // const src = ref(null);
+
+    // function onFileSelect(event) {
+    //     const file = event.files[0];
+    //     const reader = new FileReader();
+
+    //     reader.onload = async (e) => {
+    //         src.value = e.target.result;
+    //     };
+
+    //     reader.readAsDataURL(file);
+    // }
+
+
+
+    // const form = useForm({
+    //     //amo liwat ini an code para han system form
+    //     CategoryName: null,
+    //     CategoryDesc: null,
+    //     img: null,
+   
+    // })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
