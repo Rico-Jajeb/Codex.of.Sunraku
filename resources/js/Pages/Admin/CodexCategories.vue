@@ -137,7 +137,7 @@
              <input type="file" @change="e => form.img = e.target.files[0]" />
 
              <!-- yawa makuri ampotik  -->
-
+                    <!-- day 4 na ada ini puttik man -->
                             
                             </div>
                             <nav class="">
