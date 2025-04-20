@@ -138,6 +138,7 @@
 
              <!-- yawa makuri ampotik  -->
                     <!-- day 4 na ada ini puttik man -->
+                    <!-- another day shitt hahah -->
                             
                             </div>
                             <nav class="">
