@@ -41,19 +41,29 @@
                         <template #footer>
                             <div class="flex justify-end">
 
+                                <!-- UPDATE BUTTON -->
 
                                 <button type="button" @click="openModal(item)">
-  <i class="pi pi-file-edit" style="font-size: 1rem"></i>
-</button>
+                                    <i class="pi pi-file-edit" style="font-size: 1rem"></i>
+                                </button>
 
 
                                 <!-- <button type="button" @click="openModal(item.category_name)">
-    <i class="pi pi-file-edit" style="font-size: 1rem"></i>
-</button> -->
+                                    <i class="pi pi-file-edit" style="font-size: 1rem"></i>
+                                </button> -->
 
                                 <!-- <button type="button"   @click="visible2 = true" ><i class="pi pi-file-edit" style="font-size: 1rem"></i></button> -->
-                                <button  @click="deletePost(item.id)" class="mx-4"><i class="pi pi-trash" style="font-size: 1rem"></i></button>
+                                <!-- DELETE BUTTON -->
+
+                                <!-- <button  @click="deletePost(item.id)" class="mx-4">
+                                    <i class="pi pi-trash" style="font-size: 1rem"></i>
+                                </button> -->
+
+                                <button type="button" @click="deleteModal(item)" class="mx-4">
+                                    <i class="pi pi-trash" style="font-size: 1rem"></i>
+                                </button>
                                 
+                    
 
 
                                 
@@ -70,6 +80,8 @@
                 </section>     
             </section>
         </main>
+
+
         <!-- amo ini an kanan modal han category form -->
         <section>
             <div class="card flex justify-center bg-red-500">
@@ -79,6 +91,11 @@
                 </Dialog>
             </div>
         </section>
+
+
+
+
+
         <!-- Adi an modal han update category form -->
         <!-- <section>
             <div class="card flex justify-center bg-red-500">
@@ -93,11 +110,9 @@
             <!-- <section>
                 <Dialog v-model:visible="visible2" :header="`Update '${selectedCategory}' Category`" :style="{ width: '25rem' }"> -->
                     <section>    
-                <Dialog
-  v-model:visible="visible2"
+                <Dialog v-model:visible="visible2"
   :header="`Update '${selectedCategory.category_name}' Category`"
-  :style="{ width: '25rem' }"
->
+  :style="{ width: '25rem' }">
   
                         <form @submit.prevent="form.put(route('categories.update', selectedCategory.id))" enctype="multipart/form-data">
                    
@@ -163,6 +178,20 @@
                 </Dialog>
             </section>
 
+
+            <section>
+                <Dialog v-model:visible="visible3" :header="`Delete '${selectedCategory.category_name}' Category`" :style="{ width: '25rem' }">
+                    <nav class="flex justify-center gap-6">
+                        <button @click="deletePost(item.id)" class=" bg-red-600 text-white px-3 py-1 rounded">
+                            <i class="pi pi-trash mr-2"></i> Delete
+                        </button>
+                        <button @click="closeDelete()" class=" bg-green-600 text-white px-3 py-1 rounded">
+                            <i class="pi pi-times mr-2"></i> Cancel
+                        </button>                        
+                    </nav>
+
+                </Dialog>
+            </section>
 
     </AppLayout>
 </template>
@@ -295,18 +324,6 @@ function submitForm() {
 
 
 
-//--- delete
-
-
-const deletePost = (id) => {
-  if (confirm('Are you sure you want to delete this post?')) {
-    router.delete(`/posts/${id}`, {
-      onSuccess: () => {
-        console.log('Post deleted!')
-      }
-    })
-  }
-}
 
 
 
@@ -388,15 +405,19 @@ const deletePost = (id) => {
 
     const selectedCategory = ref({}); // ← whole object now
 
-function openModal(category) {
-  selectedCategory.value = category;
-  form.category_name = category.category_name;
-  form.description = category.description; // or whatever the property is
-  form.img = null; // reset image, or preload if needed
+    function openModal(category) {
+    selectedCategory.value = category;
+    form.category_name = category.category_name;
+    form.description = category.description; // or whatever the property is
+    form.img = null; // reset image, or preload if needed
 
-  visible2.value = true;
-}
+    visible2.value = true;
+    }
 
+
+
+
+  
 
 
 
@@ -470,8 +491,37 @@ function openModal(category) {
     // amo ini an kann category form
     import CategoryForm from '@/Pages/Admin/Forms/CategoryForms.vue';
 
+    // amo ini an mga knn modal
     const visible = ref(false);
     const visible2 = ref(false);
+    const visible3 = ref(false);
+
+
+
+
+    const deletePost = (id) => {
+        //amo ini an kanna delete
+        // bali amo ini an nkadto han button knan delete
+    router.delete(`/posts/${id}`, {
+      onSuccess: () => {
+      }
+    })
+        // tapos ini liwat an code para pag na delete na matik ma close an modal
+        visible3.value = false
+    }
+
+
+    const item = ref({ id: null })
+
+    function deleteModal(category) {
+    selectedCategory.value = category
+    item.value.id = category.id
+    visible3.value = true
+    }
+
+    function closeDelete(){
+        visible3.value = false
+    }
 
    // Amo ini an kanan for loop han item
     defineProps({
