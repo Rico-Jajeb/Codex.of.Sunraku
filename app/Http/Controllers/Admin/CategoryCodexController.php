@@ -175,4 +175,16 @@ public function update(UpdateCodexCategoryRequest $request, $id)
 }
 
 
+
+
+public function destroy($id)
+{
+    
+
+    $post = CodexCategoryModel::findOrFail($id);
+    $post->delete();
+
+    return redirect()->back()->with('message', 'Post deleted successfully.');
+}
+
 }

@@ -52,7 +52,10 @@
 </button> -->
 
                                 <!-- <button type="button"   @click="visible2 = true" ><i class="pi pi-file-edit" style="font-size: 1rem"></i></button> -->
-                                <button class="mx-4"><i class="pi pi-trash" style="font-size: 1rem"></i></button>
+                                <button  @click="deletePost(item.id)" class="mx-4"><i class="pi pi-trash" style="font-size: 1rem"></i></button>
+                                
+
+
                                 
                                 <!-- Amo ini an kann category status -->
                                 <div class="">
@@ -176,6 +179,7 @@
     import Dialog from 'primevue/dialog';
 
     import { ref } from 'vue';
+    import { router } from '@inertiajs/vue3'
 
    
 
@@ -291,9 +295,18 @@ function submitForm() {
 
 
 
+//--- delete
 
 
-
+const deletePost = (id) => {
+  if (confirm('Are you sure you want to delete this post?')) {
+    router.delete(`/posts/${id}`, {
+      onSuccess: () => {
+        console.log('Post deleted!')
+      }
+    })
+  }
+}
 
 
 
