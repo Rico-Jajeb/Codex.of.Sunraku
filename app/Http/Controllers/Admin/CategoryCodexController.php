@@ -17,6 +17,7 @@ use App\Services\CodexImageService;
 use App\Services\CodexCategoryService;
 use App\Services\DisplayCategoryCodexService;
 use App\Services\UpdateCodexCategoryService;
+use App\Services\DeleteCategoryService;
 
 //MODEL
 use App\Models\CodexModel;
@@ -29,15 +30,19 @@ class CategoryCodexController extends Controller
     protected $CodexCategoryService;
     protected $DisplayCategoryCodexService;
     protected $UpdateCodexCategoryService;
+    protected $DeleteCategoryService;
 
     public function __construct( CodexImageService $CodexImageService, CodexCategoryService $CodexCategoryService, 
-    DisplayCategoryCodexService $DisplayCategoryCodexService, UpdateCodexCategoryService $UpdateCodexCategoryService)
+    DisplayCategoryCodexService $DisplayCategoryCodexService, UpdateCodexCategoryService $UpdateCodexCategoryService,
+    DeleteCategoryService $DeleteCategoryService)
     {
   
         $this->CodexImageService = $CodexImageService;
         $this->CodexCategoryService = $CodexCategoryService;
         $this->DisplayCategoryCodexService = $DisplayCategoryCodexService;
         $this->UpdateCodexCategoryService = $UpdateCodexCategoryService;
+        $this->DeleteCategoryService = $DeleteCategoryService;
+
     }
     
 
@@ -177,14 +182,13 @@ public function update(UpdateCodexCategoryRequest $request, $id)
 
 
 
-public function destroy($id)
-{
-    
+    public function destroy($id, DeleteCategoryService $deleteService)
+    {
+        $success = $deleteService->deleteCategory($id);
 
-    $post = CodexCategoryModel::findOrFail($id);
-    $post->delete();
-
-    return redirect()->back()->with('message', 'Post deleted successfully.');
-}
-
+        return redirect()->back()->with(
+            'message',
+            $success ? 'Category deleted successfully.' : 'Category not found.'
+        );
+    }
 }
