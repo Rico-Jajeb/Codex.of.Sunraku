@@ -181,10 +181,14 @@
 
             <!-- Category display info -->
             <section>
-                <Dialog v-model:visible="categoryInfoDisp" :header="`Codex Category: '${selectedCategory.category_name}'`" :style="{ width: '90vw' }">
-                    <nav class="flex justify-center gap-6">
-                   <h1>This is the category info</h1>
-                    </nav>
+                <Dialog v-model:visible="categoryInfoDisp" maximizable :header="`Codex Category: '${selectedCategory.category_name}'`" :style="{ width: '90vw' }">
+                   
+                    <DataTable :value="products" removableSort tableStyle="min-width: 50rem">
+            <Column field="category_name" header="Category" sortable />
+            <Column field="description" header="Description" sortable />
+            <Column field="quantity" header="Quantity" sortable />
+        </DataTable>
+        <pre>{{ products }}</pre> <!-- Debug -->
 
                 </Dialog>
             </section>
@@ -203,7 +207,7 @@
 
     import Dialog from 'primevue/dialog';
 
-    import { ref } from 'vue';
+    import { ref, watchEffect  } from 'vue';
     import { router } from '@inertiajs/vue3'
 
    
@@ -213,6 +217,29 @@
     import { useForm } from '@inertiajs/vue3' // amo ini an knan system form
     import FileUpload from 'primevue/fileupload';
 
+
+
+
+
+
+    //amo ini an kanan category info modal table
+    import DataTable from 'primevue/datatable';
+    import Column from 'primevue/column';
+    import ColumnGroup from 'primevue/columngroup';   // optional
+    import Row from 'primevue/row';                   // optional
+
+
+    const props = defineProps({
+    data: Array
+});
+
+const products = ref([]);
+// Automatically update the table whenever `data` changes
+watchEffect(() => {
+    products.value = props.data;
+});
+
+  
 
 //     const form = useForm({
 //         //amo liwat ini an code para han system form
@@ -531,7 +558,7 @@ function submitForm() {
     }
 
    // Amo ini an kanan for loop han item
-    defineProps({
-        data: Array
-    });
+    // defineProps({
+    //     data: Array
+    // });
 </script>
