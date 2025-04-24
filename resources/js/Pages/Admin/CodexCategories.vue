@@ -41,32 +41,18 @@
                         <template #footer>
                             <div class="flex justify-end">
 
+                                <!-- Eye BUTTON -->
+                                <button type="button" @click="openCategoryInfoModal(item)" class="mr-4">
+                                    <i class="pi pi-eye" style="font-size: 1rem"></i>
+                                </button>
                                 <!-- UPDATE BUTTON -->
-
                                 <button type="button" @click="openModal(item)">
                                     <i class="pi pi-file-edit" style="font-size: 1rem"></i>
                                 </button>
-
-
-                                <!-- <button type="button" @click="openModal(item.category_name)">
-                                    <i class="pi pi-file-edit" style="font-size: 1rem"></i>
-                                </button> -->
-
-                                <!-- <button type="button"   @click="visible2 = true" ><i class="pi pi-file-edit" style="font-size: 1rem"></i></button> -->
                                 <!-- DELETE BUTTON -->
-
-                                <!-- <button  @click="deletePost(item.id)" class="mx-4">
-                                    <i class="pi pi-trash" style="font-size: 1rem"></i>
-                                </button> -->
-
                                 <button type="button" @click="deleteModal(item)" class="mx-4">
                                     <i class="pi pi-trash" style="font-size: 1rem"></i>
-                                </button>
-                                
-                    
-
-
-                                
+                                </button>   
                                 <!-- Amo ini an kann category status -->
                                 <div class="">
                                       <Badge v-if="item.status === 'Active'" value="" severity="success"></Badge>
@@ -188,6 +174,16 @@
                         <button @click="closeDelete()" class=" bg-green-600 text-white px-3 py-1 rounded">
                             <i class="pi pi-times mr-2"></i> Cancel
                         </button>                        
+                    </nav>
+
+                </Dialog>
+            </section>
+
+            <!-- Category display info -->
+            <section>
+                <Dialog v-model:visible="categoryInfoDisp" :header="`Codex Category: '${selectedCategory.category_name}'`" :style="{ width: '90vw' }">
+                    <nav class="flex justify-center gap-6">
+                   <h1>This is the category info</h1>
                     </nav>
 
                 </Dialog>
@@ -415,6 +411,16 @@ function submitForm() {
     }
 
 
+    function openCategoryInfoModal(category) {
+    selectedCategory.value = category;
+    form.category_name = category.category_name;
+    form.description = category.description; // or whatever the property is
+    form.img = null; // reset image, or preload if needed
+
+    categoryInfoDisp.value = true;
+    }
+
+
 
 
   
@@ -495,6 +501,7 @@ function submitForm() {
     const visible = ref(false);
     const visible2 = ref(false);
     const visible3 = ref(false);
+    const categoryInfoDisp = ref(false);
 
 
 
