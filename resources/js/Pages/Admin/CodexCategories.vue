@@ -190,6 +190,7 @@
         </DataTable>
         <pre>{{ products }}</pre> <!-- Debug -->
 
+        <!-- do some testing -->
                 </Dialog>
             </section>
 
