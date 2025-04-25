@@ -191,6 +191,7 @@
         <pre>{{ products }}</pre> <!-- Debug -->
 
         <!-- do some testing -->
+        <!-- do some modification -->
                 </Dialog>
             </section>
 
