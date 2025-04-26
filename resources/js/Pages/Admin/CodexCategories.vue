@@ -214,7 +214,7 @@
 
     import Dialog from 'primevue/dialog';
 
-    import { ref, watchEffect  } from 'vue';
+    import { computed, ref, watchEffect  } from 'vue';
     import { router } from '@inertiajs/vue3'
 
    
@@ -240,13 +240,34 @@
         data: Array,
         codex: Array
     });
+    
+    
 
-const products = ref([]);
-// Automatically update the table whenever `data` changes
-watchEffect(() => {
-    // products.value = props.data;
-    products.value = props.codex;
-});
+    function openCategoryInfoModal(category) {
+    selectedCategory.value = category;
+    form.category_name = category.category_name;
+    form.description = category.description; // or whatever the property is
+    form.img = null; // reset image, or preload if needed
+
+    categoryInfoDisp.value = true;
+    }
+
+    
+    const products = computed(() => {
+    if (!selectedCategory.value || !selectedCategory.value.category_name) {
+            return [];
+    }
+        return props.codex.filter(item => item.codex_name === selectedCategory.value.category_name);
+    });
+
+const selectedCategory = ref({}); // ← whole object now
+
+// const products = ref([]);
+// // Automatically update the table whenever `data` changes
+// watchEffect(() => {
+//     // products.value = props.data;
+//     products.value = props.codex;
+// });
 
   
 
@@ -435,7 +456,7 @@ function submitForm() {
 
 
 
-    const selectedCategory = ref({}); // ← whole object now
+    
 
     function openModal(category) {
     selectedCategory.value = category;
@@ -447,15 +468,7 @@ function submitForm() {
     }
 
 
-    function openCategoryInfoModal(category) {
-    selectedCategory.value = category;
-    form.category_name = category.category_name;
-    form.description = category.description; // or whatever the property is
-    form.img = null; // reset image, or preload if needed
-
-    categoryInfoDisp.value = true;
-    }
-
+ 
 
 
 
@@ -570,4 +583,10 @@ function submitForm() {
     // defineProps({
     //     data: Array
     // });
+
+
+
+
+
+
 </script>
