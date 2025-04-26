@@ -18,6 +18,7 @@ use App\Services\CodexCategoryService;
 use App\Services\DisplayCategoryCodexService;
 use App\Services\UpdateCodexCategoryService;
 use App\Services\DeleteCategoryService;
+use App\Services\CodexDisplayService;
 
 //MODEL
 use App\Models\CodexModel;
@@ -31,10 +32,11 @@ class CategoryCodexController extends Controller
     protected $DisplayCategoryCodexService;
     protected $UpdateCodexCategoryService;
     protected $DeleteCategoryService;
+    protected $CodexDisplayService;
 
     public function __construct( CodexImageService $CodexImageService, CodexCategoryService $CodexCategoryService, 
     DisplayCategoryCodexService $DisplayCategoryCodexService, UpdateCodexCategoryService $UpdateCodexCategoryService,
-    DeleteCategoryService $DeleteCategoryService)
+    DeleteCategoryService $DeleteCategoryService, CodexDisplayService $CodexDisplayService)
     {
   
         $this->CodexImageService = $CodexImageService;
@@ -42,6 +44,7 @@ class CategoryCodexController extends Controller
         $this->DisplayCategoryCodexService = $DisplayCategoryCodexService;
         $this->UpdateCodexCategoryService = $UpdateCodexCategoryService;
         $this->DeleteCategoryService = $DeleteCategoryService;
+        $this->CodexDisplayService = $CodexDisplayService;
 
     }
     
@@ -51,9 +54,11 @@ class CategoryCodexController extends Controller
 
     public function index(){
         $data = $this->DisplayCategoryCodexService->getAllData();
+        $codex = $this->CodexDisplayService->getAllData();
 
         return Inertia::render('Admin/CodexCategories',[
             'data' => $data,
+            'codex' => $codex,
         ]);
     }
 

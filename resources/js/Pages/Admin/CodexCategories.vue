@@ -140,13 +140,7 @@
 
              <input type="file" @change="e => form.img = e.target.files[0]" />
 
-             <!-- yawa makuri ampotik  -->
-                    <!-- day 4 na ada ini puttik man -->
-                    <!-- another day shitt hahah -->
-                     <!-- hahah lets try commit 3 -->
-                      <!-- i am endded an idiot haha -->
-                      <!-- i am doing another shit -->
-                      <!-- fuck you -->
+     
                             
                             </div>
                             <nav class="">
@@ -184,14 +178,25 @@
                 <Dialog v-model:visible="categoryInfoDisp" maximizable :header="`Codex Category: '${selectedCategory.category_name}'`" :style="{ width: '90vw' }">
                    
                     <DataTable :value="products" removableSort tableStyle="min-width: 50rem">
-            <Column field="category_name" header="Category" sortable />
-            <Column field="description" header="Description" sortable />
-            <Column field="quantity" header="Quantity" sortable />
-        </DataTable>
+                        <!-- <Column field="category_name" header="Category" sortable />
+                        <Column field="description" header="Description" sortable />
+                        <Column field="quantity" header="Quantity" sortable /> -->
+                        <Column field="codex_name" header="codex_name" sortable />
+                        <Column field="category_name" header="category_name" sortable />
+                        <Column field="language" header="language" sortable />
+                        <Column field="framework" header="framework" sortable />
+                        <Column field="tags" header="tags" sortable />
+                        <Column field="diffuclt_level" header="difficult level" sortable />
+                        <Column field="content" header="content" sortable />
+                        <Column field="instructions" header="instruction" sortable />
+                        <Column field="code_snippet" header="code snippet" sortable />
+                        <Column field="output" header="output" sortable />
+                        <Column field="img" header="Image" sortable />
+
+                    </DataTable>
         <pre>{{ products }}</pre> <!-- Debug -->
 
-        <!-- do some testing -->
-        <!-- do some modification -->
+  
                 </Dialog>
             </section>
 
@@ -232,13 +237,15 @@
 
 
     const props = defineProps({
-    data: Array
-});
+        data: Array,
+        codex: Array
+    });
 
 const products = ref([]);
 // Automatically update the table whenever `data` changes
 watchEffect(() => {
-    products.value = props.data;
+    // products.value = props.data;
+    products.value = props.codex;
 });
 
   
