@@ -1,9 +1,8 @@
 <template>
    
           
-                <form  class="mt-4"  @submit.prevent="form.post('add.Project')">
-                    <h2 class="text-xl font-bold mb-4">Create Codex for {{ category.category_name }}</h2>
-
+                <form  class=""  @submit.prevent="form.post('add.Project')">
+                 
                     <div class="">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Codex Name</label>
                             <InputText class="!w-full" type="text" v-model="form.CodexName" placeholder="E.g., Insert Data into MySQL with Laravel" />
@@ -25,11 +24,11 @@
                                 <MultiSelect 
                                     v-model="form.language" 
                                     display="chip" 
-                                    :options="topic" 
+                                    :options="language" 
                                     optionLabel="name" 
                                     optionValue="code"
                                     filter 
-                                    placeholder="Select Topics"
+                                    placeholder="Select a language"
                                     :maxSelectedLabels="3" 
                                     class="w-full" />
                                     <div v-if="form.errors.language" class="text-red-500 text-sm mt-2">
@@ -41,11 +40,11 @@
                                 <MultiSelect 
                                     v-model="form.framework" 
                                     display="chip" 
-                                    :options="language" 
+                                    :options="framework" 
                                     optionLabel="name" 
                                     optionValue="code"
                                     filter 
-                                    placeholder="Select Topics"
+                                    placeholder="Select a framework"
                                     :maxSelectedLabels="3" 
                                     class="w-full" />
                                     <div v-if="form.errors.framework" class="text-red-500 text-sm mt-2">
@@ -233,23 +232,58 @@ watch(successMessage, (newValue) => {
 
     const selectedTopic = ref();
     const selectedLanguage = ref();
-    const topic = ref([
+    const framework = ref([
         //amo ini an kanan framework na ginamit han select input
-        { name: 'New York', code: 'NY' },
-        { name: 'Rome', code: 'RM' },
-        { name: 'London', code: 'LDN' },
-        { name: 'Istanbul', code: 'IST' },
-        { name: 'Paris', code: 'PRS' }
+        { name: 'Vue', code: 'Vue' },
+        { name: 'React', code: 'React' },
+        { name: 'Angular', code: 'Angular' },
+        { name: 'Svelte', code: 'Svelte' },
+        { name: 'Next.js', code: 'Next.js' },
+        { name: 'Nuxt.js', code: 'Nuxt.js' },
+        { name: 'Laravel', code: 'Laravel' },
+        { name: 'Symfony', code: 'Symfony' },
+        { name: 'Django', code: 'Django' },
+        { name: 'Flask', code: 'Flask' },
+        { name: 'Express', code: 'Express' },
+        { name: 'NestJS', code: 'NestJS' },
+        { name: 'Ruby on Rails', code: 'Ruby on Rails' },
+        { name: 'Spring Boot', code: 'Spring Boot' },
+        { name: 'ASP.NET Core', code: 'ASP.NET Core' },
+        { name: 'Inertia.js', code: 'Inertia.js' },
+        { name: 'Remix', code: 'Remix' },
+        { name: 'Blitz.js', code: 'Blitz.js' },
+        { name: 'RedwoodJS', code: 'RedwoodJS' },
+        { name: 'React Native', code: 'React Native' },
+        { name: 'Flutter', code: 'Flutter' },
+        { name: 'Ionic', code: 'Ionic' },
+        { name: 'Slim', code: 'Slim' },
+        { name: 'FastAPI', code: 'FastAPI' },
+        { name: 'Lumen', code: 'Lumen' },
+        { name: 'Koa', code: 'Koa' },
+        { name: 'Qwik', code: 'Qwik' },
+        { name: 'SolidJS', code: 'SolidJS' },
+        { name: 'T3 Stack', code: 'T3 Stack' }
+
     ]);
+    
     const language = ref([
         //amo ini an kanan langauge na ginamit han select input
-        { name: 'PHP', code: 'NY' },
-        { name: 'Laravel', code: 'RM' },
-        { name: 'JavaScript', code: 'LDN' },
-        { name: 'React', code: 'IST' },
-        { name: 'Vue', code: 'PRS' },
-        { name: 'Python', code: 'PRS' },
-        { name: 'Django', code: 'PRS' }
+        { name: 'PHP', code: 'PHP' },
+        { name: 'JavaScript', code: 'JavaScript' },
+        { name: 'TypeScript', code: 'TypeScript' },
+        { name: 'Python', code: 'Python' },
+        { name: 'Ruby', code: 'Ruby' },
+        { name: 'Java', code: 'Java' },
+        { name: 'C#', code: 'C#' },
+        { name: 'C++', code: 'C++' },
+        { name: 'Go', code: 'Go' },
+        { name: 'Dart', code: 'Dart' },
+        { name: 'Swift', code: 'Swift' },
+        { name: 'Kotlin', code: 'Kotlin' },
+        { name: 'Rust', code: 'Rust' },
+        { name: 'Scala', code: 'Scala' },
+        { name: 'Perl', code: 'Perl' },
+        { name: 'Elixir', code: 'Elixir' }
     ]);
 
     //amo ini an difficulty level

@@ -228,7 +228,7 @@
                         <Column field="img" header="Image" sortable />
 
                     </DataTable>
-        <pre>{{ products }}</pre> <!-- Debug -->
+       
 
   
                 </Dialog>
@@ -291,7 +291,7 @@
     if (!selectedCategory.value || !selectedCategory.value.category_name) {
             return [];
     }
-        return props.codex.filter(item => item.codex_name === selectedCategory.value.category_name);
+        return props.codex.filter(item => item.category_name === selectedCategory.value.category_name);
     });
 
 
