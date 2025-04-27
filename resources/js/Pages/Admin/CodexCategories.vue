@@ -72,7 +72,7 @@
         <section>
             <div class="card flex justify-center bg-red-500">
                 <Button label="Show" @click="visible = true" />
-                <Dialog v-model:visible="visible" header="Add Category" :style="{ width: '25rem' }"  >
+                <Dialog v-model:visible="visible" maximizable header="Add Category" :style="{ width: '25rem' }"  >
                     <CategoryForm/>
                 </Dialog>
             </div>
@@ -82,7 +82,7 @@
         <section>
             <div class="card flex justify-center bg-red-500">
                 <Button label="Show" @click="codexModal = true" />
-                <Dialog v-model:visible="codexModal" header="Codex Information" class=" max-w-7xl mx-auto sm:px-6 lg:px-1 bg-red-600"  >
+                <Dialog v-model:visible="codexModal" maximizable header="Codex Information" class=" max-w-7xl mx-auto sm:px-6 lg:px-1 bg-red-600"  >
                     
                     <CodexForm :category="selectedCategory" />
                 </Dialog>
@@ -107,9 +107,9 @@
             <!-- <section>
                 <Dialog v-model:visible="visible2" :header="`Update '${selectedCategory}' Category`" :style="{ width: '25rem' }"> -->
                     <section>    
-                <Dialog v-model:visible="visible2"
+                <Dialog v-model:visible="visible2" maximizable
   :header="`Update '${selectedCategory.category_name}' Category`"
-  :style="{ width: '25rem' }">
+  :style="{ width: '25rem' }" >
   
                         <form @submit.prevent="form.put(route('categories.update', selectedCategory.id))" enctype="multipart/form-data">
                    
@@ -194,6 +194,9 @@
     :header="`Codex Category: '${selectedCategory?.category_name ?? ''}'`"
     :style="{ width: '90vw' }"
   >
+  <section class="overflow-hidden h-full ">
+
+  
                     <nav>
                     <!-- amo ini an button kann codex modal para han form -->
                     <!-- <button  @click="codexModal = true"  class="bg-blue-600  pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="submit"> 
@@ -210,11 +213,12 @@
                             <i class="pi pi-plus mr-2"></i> Add Codex
                         </button>
 
+                     
+                    
+  
+
                    </nav>
-                    <DataTable :value="products" removableSort tableStyle="min-width: 50rem">
-                        <!-- <Column field="category_name" header="Category" sortable />
-                        <Column field="description" header="Description" sortable />
-                        <Column field="quantity" header="Quantity" sortable /> -->
+                    <!-- <DataTable :value="products"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
                         <Column field="codex_name" header="codex_name" sortable />
                         <Column field="category_name" header="category_name" sortable />
                         <Column field="language" header="language" sortable />
@@ -226,11 +230,24 @@
                         <Column field="code_snippet" header="code snippet" sortable />
                         <Column field="output" header="output" sortable />
                         <Column field="img" header="Image" sortable />
+                    </DataTable> -->
 
+                    <DataTable :value="products" scrollable scrollHeight="400px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
+                        <Column field="codex_name" header="codex_name" sortable />
+                        <Column field="category_name" header="category_name" sortable />
+                        <Column field="language" header="language" sortable />
+                        <Column field="framework" header="framework" sortable />
+                        <Column field="tags" header="tags" sortable />
+                        <Column field="diffuclt_level" header="difficult level" sortable />
+                        <Column field="content" header="content" sortable />
+                        <Column field="instructions" header="instruction" sortable />
+                        <Column field="code_snippet" header="code snippet" sortable />
+                        <Column field="output" header="output" sortable />
+                        <Column field="img" header="Image" sortable />
                     </DataTable>
        
 
-  
+                </section>
                 </Dialog>
             </section>
 
@@ -258,6 +275,7 @@
     import { useForm } from '@inertiajs/vue3' // amo ini an knan system form
     import FileUpload from 'primevue/fileupload';
 
+   
 
 
 
