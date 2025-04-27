@@ -2,7 +2,8 @@
    
           
                 <form  class="mt-4"  @submit.prevent="form.post('add.Project')">
- 
+                    <h2 class="text-xl font-bold mb-4">Create Codex for {{ category.category_name }}</h2>
+
                     <div class="">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Codex Name</label>
                             <InputText class="!w-full" type="text" v-model="form.CodexName" placeholder="E.g., Insert Data into MySQL with Laravel" />
@@ -11,7 +12,7 @@
                             </div> 
                     </div>
                     <div class="">
-                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Category Name</label>
+                            <label for="Web Name" class="block mt-4 mb-2 text-lg font-medium text-gray-500 dark:text-white">Category Name</label>
                             <InputText class="!w-full" type="text" v-model="form.categoryName" placeholder="E.g., Insert Data into MySQL with Laravel" />
                             <div v-if="form.errors.categoryName" class="text-red-500 text-sm mt-2">
                                 {{ form.errors.categoryName }}
@@ -145,6 +146,8 @@
     import Textarea from 'primevue/textarea';
 
 
+  
+
 
     import { computed, watch } from 'vue'
 import { usePage } from '@inertiajs/vue3'
@@ -189,6 +192,13 @@ watch(successMessage, (newValue) => {
 
 
 
+    const props = defineProps({
+    category: {
+        type: Object,
+        required: true
+    }
+    });
+
 
     const form = useForm({
         //amo liwat ini an code para han system form
@@ -206,6 +216,19 @@ watch(successMessage, (newValue) => {
      
       
     })
+
+
+    // when category changes, update form.categoryName
+    watch(
+    () => props.category,
+    (newCategory) => {
+        if (newCategory && newCategory.category_name) {
+        form.categoryName = newCategory.category_name;
+        }
+    },
+    { immediate: true } // run immediately on first load
+    );
+
     
 
     const selectedTopic = ref();

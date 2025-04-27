@@ -84,7 +84,7 @@
                 <Button label="Show" @click="codexModal = true" />
                 <Dialog v-model:visible="codexModal" header="Codex Information" class=" max-w-7xl mx-auto sm:px-6 lg:px-1 bg-red-600"  >
                     
-                    <CodexForm/>
+                    <CodexForm :category="selectedCategory" />
                 </Dialog>
             </div>
         </section>
@@ -186,13 +186,30 @@
 
             <!-- Category display info -->
             <section>
-                <Dialog v-model:visible="categoryInfoDisp" maximizable :header="`Codex Category: '${selectedCategory.category_name}'`" :style="{ width: '90vw' }">
-                   <nav>
+                <!-- <Dialog v-model:visible="categoryInfoDisp" maximizable :header="`Codex Category: '${selectedCategory.category_name}'`" :style="{ width: '90vw' }">
+                    -->
+                    <Dialog 
+    v-model:visible="categoryInfoDisp"
+    maximizable
+    :header="`Codex Category: '${selectedCategory?.category_name ?? ''}'`"
+    :style="{ width: '90vw' }"
+  >
+                    <nav>
                     <!-- amo ini an button kann codex modal para han form -->
-                    <button  @click="codexModal = true"  class="bg-blue-600  pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="submit"> 
+                    <!-- <button  @click="codexModal = true"  class="bg-blue-600  pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="submit"> 
                         <i class="pi pi-plus mr-2"></i> Add Codex
-                    </button>                
-           
+                    </button>                 -->
+                    <!-- <button   @click="openCodexModal(category_name)"  class="bg-blue-600  pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="submit"> 
+                        <i class="pi pi-plus mr-2"></i> Add Codex
+                    </button>                 -->
+                    <button 
+                            @click="openCodexModal(selectedCategory)" 
+                            class="bg-blue-600 pl-4 pr-4 py-2 rounded-md text-md font-bold text-white"
+                            type="button"
+                        >
+                            <i class="pi pi-plus mr-2"></i> Add Codex
+                        </button>
+
                    </nav>
                     <DataTable :value="products" removableSort tableStyle="min-width: 50rem">
                         <!-- <Column field="category_name" header="Category" sortable />
@@ -258,7 +275,7 @@
         codex: Array
     });
     
-    
+  const selectedCategory = ref({}); // ← whole object now  
 
     function openCategoryInfoModal(category) {
     selectedCategory.value = category;
@@ -277,7 +294,7 @@
         return props.codex.filter(item => item.codex_name === selectedCategory.value.category_name);
     });
 
-const selectedCategory = ref({}); // ← whole object now
+
 
 // const products = ref([]);
 // // Automatically update the table whenever `data` changes
@@ -482,6 +499,18 @@ function submitForm() {
     form.img = null; // reset image, or preload if needed
 
     visible2.value = true;
+    }
+
+
+
+
+
+
+    
+    function openCodexModal(category) {
+    selectedCategory.value = category;
+ 
+        codexModal.value = true;
     }
 
 
