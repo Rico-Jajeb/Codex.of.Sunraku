@@ -52,7 +52,7 @@ class CodexController extends Controller
         $this->CodexServices->create($validated); // tas ig ppasa an data ngadto serivice para pag insert ngadto database
 
         // return redirect()->back()->with('success', "Codex Added Successfully!");
-        return redirect()->route('new.codex')->with('success', "Codex Added Successfully!");
+        return redirect()->route('codex.category')->with('success', "Codex Added Successfully!");
 
     }
 

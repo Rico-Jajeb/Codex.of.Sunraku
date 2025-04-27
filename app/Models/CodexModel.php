@@ -18,6 +18,7 @@ class CodexModel extends Model
         'diffuclt_level', 'content',
         'code_snippet', 'instructions',
         'output', 'img',
+        'category_name', 'categoryName',
     ];
 
     protected $casts = [

@@ -78,6 +78,17 @@
             </div>
         </section>
 
+        <!-- amo ini an kanan modal han codex  form -->
+        <section>
+            <div class="card flex justify-center bg-red-500">
+                <Button label="Show" @click="codexModal = true" />
+                <Dialog v-model:visible="codexModal" header="Codex Information" class=" max-w-7xl mx-auto sm:px-6 lg:px-1 bg-red-600"  >
+                    
+                    <CodexForm/>
+                </Dialog>
+            </div>
+        </section>
+
 
 
 
@@ -176,7 +187,13 @@
             <!-- Category display info -->
             <section>
                 <Dialog v-model:visible="categoryInfoDisp" maximizable :header="`Codex Category: '${selectedCategory.category_name}'`" :style="{ width: '90vw' }">
-                   
+                   <nav>
+                    <!-- amo ini an button kann codex modal para han form -->
+                    <button  @click="codexModal = true"  class="bg-blue-600  pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="submit"> 
+                        <i class="pi pi-plus mr-2"></i> Add Codex
+                    </button>                
+           
+                   </nav>
                     <DataTable :value="products" removableSort tableStyle="min-width: 50rem">
                         <!-- <Column field="category_name" header="Category" sortable />
                         <Column field="description" header="Description" sortable />
@@ -545,12 +562,14 @@ function submitForm() {
 
     // amo ini an kann category form
     import CategoryForm from '@/Pages/Admin/Forms/CategoryForms.vue';
+    import CodexForm from '@/Pages/Admin/Forms/CodexForms.vue';
 
     // amo ini an mga knn modal
     const visible = ref(false);
     const visible2 = ref(false);
     const visible3 = ref(false);
     const categoryInfoDisp = ref(false);
+    const codexModal = ref(false);
 
 
 

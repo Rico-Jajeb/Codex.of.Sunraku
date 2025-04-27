@@ -23,6 +23,7 @@ class CodexRequest extends FormRequest
     {
         return [
             'CodexName' => 'required|string|max:255',
+            'categoryName' => 'nullable|string|max:255', 
             'language' => 'required|array|max:255',
             'language.*' => 'string', // if each item is string
             'framework' => 'required|array|max:255',
