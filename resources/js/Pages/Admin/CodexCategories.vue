@@ -197,42 +197,18 @@
   <section class="overflow-hidden h-full ">
 
   
-                    <nav>
+                    <nav class="flex gap-4">
                     <!-- amo ini an button kann codex modal para han form -->
-                    <!-- <button  @click="codexModal = true"  class="bg-blue-600  pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="submit"> 
-                        <i class="pi pi-plus mr-2"></i> Add Codex
-                    </button>                 -->
-                    <!-- <button   @click="openCodexModal(category_name)"  class="bg-blue-600  pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="submit"> 
-                        <i class="pi pi-plus mr-2"></i> Add Codex
-                    </button>                 -->
-                    <button 
-                            @click="openCodexModal(selectedCategory)" 
-                            class="bg-blue-600 pl-4 pr-4 py-2 rounded-md text-md font-bold text-white"
-                            type="button"
-                        >
+                        <button  @click="openCodexModal(selectedCategory)"  class="bg-blue-600 pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="button" >
                             <i class="pi pi-plus mr-2"></i> Add Codex
                         </button>
-
-                     
-                    
-  
-
+                        <button  @click="exportCSV($event)" type="button"  class="bg-green-600 pl-4 pr-4 py-2 rounded-md text-md font-bold text-white">
+                            Export CSV
+                        </button>
                    </nav>
-                    <!-- <DataTable :value="products"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
-                        <Column field="codex_name" header="codex_name" sortable />
-                        <Column field="category_name" header="category_name" sortable />
-                        <Column field="language" header="language" sortable />
-                        <Column field="framework" header="framework" sortable />
-                        <Column field="tags" header="tags" sortable />
-                        <Column field="diffuclt_level" header="difficult level" sortable />
-                        <Column field="content" header="content" sortable />
-                        <Column field="instructions" header="instruction" sortable />
-                        <Column field="code_snippet" header="code snippet" sortable />
-                        <Column field="output" header="output" sortable />
-                        <Column field="img" header="Image" sortable />
-                    </DataTable> -->
-
-                    <DataTable :value="products" scrollable scrollHeight="400px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
+               
+                    <DataTable :value="products"  ref="dt" scrollable scrollHeight="400px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
+                        
                         <Column field="codex_name" header="codex_name" sortable />
                         <Column field="category_name" header="category_name" sortable />
                         <Column field="language" header="language" sortable />
@@ -265,7 +241,7 @@
 
     import Dialog from 'primevue/dialog';
 
-    import { computed, ref, watchEffect  } from 'vue';
+    import { computed, ref, watchEffect   } from 'vue';
     import { router } from '@inertiajs/vue3'
 
    
@@ -311,6 +287,26 @@
     }
         return props.codex.filter(item => item.category_name === selectedCategory.value.category_name);
     });
+
+
+
+
+
+
+
+// ----------------------------------------------------------------- kanan table han codex ---------------------------
+
+const dt = ref();
+
+// Export to CSV
+const exportCSV = () => {
+  // This will export the table's data to CSV
+  dt.value.exportCSV();
+};
+
+
+
+
 
 
 
