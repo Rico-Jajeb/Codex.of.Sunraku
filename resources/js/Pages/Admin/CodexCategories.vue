@@ -104,19 +104,13 @@
         </section> -->
 
             <!-- adi an knn modal -->
-            <!-- <section>
-                <Dialog v-model:visible="visible2" :header="`Update '${selectedCategory}' Category`" :style="{ width: '25rem' }"> -->
                     <section>    
                 <Dialog v-model:visible="visible2" maximizable
-  :header="`Update '${selectedCategory.category_name}' Category`"
-  :style="{ width: '25rem' }" >
+                        :header="`Update '${selectedCategory.category_name}' Category`"
+                        :style="{ width: '25rem' }" >
   
                         <form @submit.prevent="form.put(route('categories.update', selectedCategory.id))" enctype="multipart/form-data">
-                   
-              
-
-               <!-- <form  class=""  @submit.prevent="form.put('/categories/{id}')" > -->
-                <!-- <form @submit.prevent="form.put(`/categories/${form.id}`)"> -->
+                            <!-- <form @submit.prevent="submitForm" enctype="multipart/form-data"> -->
 
 
                             <div class="">
@@ -139,35 +133,32 @@
                                     
                                 <img  :src="`/storage/output/${selectedCategory.img}`" alt="Image" class="shadow-md object-cover rounded-xl w-full  max-h-44 " style="filter: grayscale(0%)" />
 
+                                <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
 
-                                    <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
-                                    <!-- <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
-                             -->
-                             <!-- <FileUpload name="img" accept="image/*" customUpload @select="onFileSelect" /> -->
-                            
-                             <!-- <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
-             -->
-                            
+                                <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto />
 
-             <input type="file" @change="e => form.img = e.target.files[0]" />
-
-     
                             
                             </div>
                             <nav class="">
-                                    <!-- <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
-                             -->
-                             <button @click="submitForm">Update Category</button>
+                                <!-- <button @click="submitForm">Update Category</button> -->
+                                <button type="submit">Update Category</button>
 
-                           
-                             <!-- <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
-            -->
 
-                             </nav>
+                            </nav>
                     </form>
 
                 </Dialog>
             </section>
+
+
+
+
+
+
+
+
+
+
 
 
             <section>
@@ -197,7 +188,7 @@
   <section class="overflow-hidden h-full ">
 
   
-                    <nav class="flex gap-4">
+                    <nav class="flex justify-end w-full  gap-4">
                     <!-- amo ini an button kann codex modal para han form -->
                         <button  @click="openCodexModal(selectedCategory)"  class="bg-blue-600 pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="button" >
                             <i class="pi pi-plus mr-2"></i> Add Codex
@@ -207,8 +198,10 @@
                         </button>
                    </nav>
                
-                    <DataTable :value="products"  ref="dt" scrollable scrollHeight="400px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
-                        
+                    <DataTable v-model:selection="selectedProducts" dataKey="id" :value="products"  ref="dt" scrollable scrollHeight="400px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
+                      
+                        <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
+
                         <Column field="codex_name" header="codex_name" sortable />
                         <Column field="category_name" header="category_name" sortable />
                         <Column field="language" header="language" sortable />
@@ -220,6 +213,12 @@
                         <Column field="code_snippet" header="code snippet" sortable />
                         <Column field="output" header="output" sortable />
                         <Column field="img" header="Image" sortable />
+
+                        <Column class="w-64 bg-red-300 !text-end">
+                            <template #body="">
+                               <button class="bg-red-500 text-white py-2 px-4">click me</button>
+                            </template>
+                        </Column>
                     </DataTable>
        
 
@@ -296,6 +295,9 @@
 
 // ----------------------------------------------------------------- kanan table han codex ---------------------------
 
+const selectedProducts = ref();
+
+
 const dt = ref();
 
 // Export to CSV
@@ -308,84 +310,8 @@ const exportCSV = () => {
 
 
 
-
-
-// const products = ref([]);
-// // Automatically update the table whenever `data` changes
-// watchEffect(() => {
-//     // products.value = props.data;
-//     products.value = props.codex;
-// });
-
-  
-
-//     const form = useForm({
-//         //amo liwat ini an code para han system form
-//         CategoryName: null,
-//         CategoryDesc: null,
-//         img: null,
-   
-//     })
-
-
-//    //adi an knn img upload
-
-//     const src = ref(null);
-
-//     function onFileSelect(event) {
-//         const file = event.files[0];
-//         const reader = new FileReader();
-
-//         reader.onload = async (e) => {
-//             src.value = e.target.result;
-//         };
-
-//         reader.readAsDataURL(file);
-//     }
-
-
-
-//----------------------------------- original  -------------------------
-
-// const form = useForm({
-//     category_name: null,
-//     description: null,
-//     img: null,
-// });
-
-// const src = ref(null);
-
-// function onFileSelect(event) {
-//     const file = event.files[0];
-//     if (!file) return;
-
-//     form.img = file;
-
-//     const reader = new FileReader();
-//     reader.onload = (e) => {
-//         src.value = e.target.result;
-//     };
-//     reader.readAsDataURL(file);
-// }
-
-
-    // function submitForm() {
-    //     form.submit('put', `/codex/category/${category.id}`, {
-    //     forceFormData: true
-    // });
-
-    // }
-
-
-//     function submitForm() {
-//     form.submit('put', route('categories.update', selectedCategory.id), {
-//         forceFormData: true,
-//     });
-// }
-
-
-
 //--------------------------------------------- Test area -----------------------------------------------------
+
 
 
 
@@ -396,8 +322,8 @@ const form = useForm({
   category_name: null,
   description: null,
   img: null,
-  _method: 'PUT',
 });
+
 
 
 const src = ref(null);
@@ -405,20 +331,20 @@ const src = ref(null);
 
 
 
-
-
 function onFileSelect(event) {
-  const file = event.target.files[0];
-  if (file) {
-    form.img = file;
-  }
+  const file = event.files[0];
+  form.img = file;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    src.value = e.target.result;
+  };
+  reader.readAsDataURL(file);
 }
 
 
 
-
 function submitForm() {
-  form.post(`/codex/category/${category.id}`, {
+  form.put(route('categories.update', selectedCategory.id), {
     forceFormData: true,
   });
 }
@@ -434,74 +360,6 @@ function submitForm() {
 
 
 //--------------------------------------------- END  Test area -----------------------------------------------------
-
-
-
-
-    //adi an knn img upload
-    // const src = ref(null);
-
-    // function onFileSelect(event) {
-    //     const file = event.files[0];
-    //     const reader = new FileReader();
-
-    //     reader.onload = async (e) => {
-    //         src.value = e.target.result;
-    //     };
-
-    //     reader.readAsDataURL(file);
-    // }
-
-
-
-    // const form = useForm({
-    //     //amo liwat ini an code para han system form
-    //     CategoryName: null,
-    //     CategoryDesc: null,
-    //     img: null,
-   
-    // })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // amo adi an code para han pag select edit category 
-    // const selectedCategory = ref('')
-
-    // function openModal(categoryName) {
-    //     selectedCategory.value = categoryName
-    //     visible2.value = true
-    // }
-
-
-
 
 
     
@@ -526,72 +384,6 @@ function submitForm() {
  
         codexModal.value = true;
     }
-
-
- 
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//kanan category update
-// const selectedCategory = ref(null)
-
-// function openEditModal(item) {
-//   selectedCategory.value = {
-//     id: item.id,
-//     CategoryName: item.category_name,
-//     CategoryDesc: item.description,
-//     CategoryImageUrl: `/storage/output/${item.img}`
-//   }
-//   visible2.value = true
-// }
-
-
-
-
-
-
-
 
 
 
@@ -640,15 +432,6 @@ function submitForm() {
     function closeDelete(){
         visible3.value = false
     }
-
-   // Amo ini an kanan for loop han item
-    // defineProps({
-    //     data: Array
-    // });
-
-
-
-
 
 
 </script>

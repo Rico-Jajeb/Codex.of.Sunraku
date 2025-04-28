@@ -169,7 +169,7 @@ class CategoryCodexController extends Controller
 // }
 
 
-public function update(UpdateCodexCategoryRequest $request, $id)
+public function updateCategory(UpdateCodexCategoryRequest $request, $id)
 {
     // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
     $imageName = $this->CodexImageService->handleImageUpload($request); 
@@ -183,6 +183,8 @@ public function update(UpdateCodexCategoryRequest $request, $id)
 
     return redirect()->route('codex.category')->with('success', "Category Added Successfully!");
 }
+
+
 
 
 

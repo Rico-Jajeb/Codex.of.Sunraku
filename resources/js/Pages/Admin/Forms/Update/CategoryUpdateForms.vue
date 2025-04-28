@@ -4,7 +4,7 @@
       <h1 class="text-2xl font-bold text-center mb-6 text-gray-700">
         {{ form.CategoryName || 'Edit Category' }}
       </h1>
-  
+        <h1>THIS IS THE TEST SHIT</h1>
       <div>
         <label class="block mb-2 text-lg font-medium">Category Name</label>
         <InputText class="!w-full" v-model="form.CategoryName" />
@@ -24,7 +24,9 @@
       <label class="block mt-4 text-sm font-bold">Upload Category Image Cover</label>
       <div class="card flex flex-col items-center gap-6 mt-4">
         <img v-if="src" :src="src" class="shadow-md rounded-xl w-full sm:w-64" />
+        <!-- <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto /> -->
         <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto />
+
       </div>
   
       <button type="submit" :disabled="form.processing" class="mt-6 bg-green-500 text-white px-5 py-3 rounded-md">
@@ -92,6 +94,8 @@
   
     reader.readAsDataURL(file)
   }
+
+
   
   function submit() {
     form.post(route('categories.update', props.category.id), {

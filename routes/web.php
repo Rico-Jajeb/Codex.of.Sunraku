@@ -49,7 +49,7 @@ Route::post('add.Category', [CategoryCodexController::class, 'addCategory'])->na
 
 //kanan update form
 //Route::post('/categories/update/{id}', [CategoryCodexController::class, 'update'])->name('categories.update');
-Route::put('/categories/{id}', [CategoryCodexController::class, 'update'])->name('categories.update');
+Route::put('/categories/{id}', [CategoryCodexController::class, 'updateCategory'])->name('categories.update');
 
 //kanan delete
 Route::delete('/posts/{id}', [CategoryCodexController::class, 'destroy'])->name('posts.destroy');
