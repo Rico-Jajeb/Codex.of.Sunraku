@@ -112,6 +112,7 @@
                         <form @submit.prevent="form.put(route('categories.update', selectedCategory.id))" enctype="multipart/form-data">
                             <!-- <form @submit.prevent="submitForm" enctype="multipart/form-data"> -->
 
+                                <!-- shit -->
 
                             <div class="">
                                     <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Category name</label>
