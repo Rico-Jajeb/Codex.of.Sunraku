@@ -59,7 +59,48 @@ class CodexController extends Controller
 
 
 
+    public function updateCodex(Request $request, $id)
+    {
+        $request->validate([
+            'CodexName' => 'nullable|string|max:255',
+            'categoryName' => 'nullable|string|max:255',
+            'language' => 'nullable|array',
+            'framework' => 'nullable|array',
+            'tag' => 'nullable|string',
+            'level' => 'nullable|string',
+            'content' => 'nullable|string',
+            'code' => 'nullable|string',
+            'instruction' => 'nullable|string',
+            'output' => 'nullable|string',
+            'img' => 'nullable|image|max:2048',
+        ]);
+    
 
+        
+
+        $codex = CodexModel::findOrFail($id);
+    
+        $codex->codex_name = $request->CodexName;
+        $codex->category_name = $request->categoryName;
+        $codex->language = $request->language;
+        $codex->framework = $request->framework;
+        $codex->tags = $request->tag;
+        $codex->diffuclt_level = $request->level;
+        $codex->content = $request->content;
+        $codex->code_snippet = $request->code;
+        $codex->instructions = $request->instruction;
+        $codex->output = $request->output;
+    
+        if ($request->hasFile('img')) {
+            $path = $request->file('img')->store('codex-images', 'public');
+            $codex->img_path = $path;
+        }
+    
+        $codex->save();
+    
+        return redirect()->back()->with('success', 'Codex updated successfully.');
+    }
+    
 
   
 

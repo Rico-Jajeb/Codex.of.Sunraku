@@ -186,7 +186,7 @@
                         </button>
                    </nav>
                
-                    <DataTable v-model:selection="selectedProducts" dataKey="id" :value="products"  ref="dt" scrollable scrollHeight="400px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
+                    <DataTable v-model:selection="selectedProducts" dataKey="id" :value="products"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
                       
                         <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
 
@@ -224,8 +224,10 @@
                 
                         
                             <h2>{{ selectedCodex.id }}</h2>
-                        <form  class=""  @submit.prevent="form.post('')">
-                        
+                        <!-- <form  class=""  @submit.prevent="form.post('')"> -->
+                        <!-- <form @submit.prevent="form.put(route('codex.update', selectedCodex.id))"> -->
+                        <form @submit.prevent="submitCodexForm">
+
                         <div class="">
                                 <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Codex Name</label>
                                 <InputText class="!w-full" type="text" v-model="form.CodexName" placeholder="E.g., Insert Data into MySQL with Laravel" />
@@ -456,9 +458,31 @@ import MultiSelect from 'primevue/multiselect';
         instruction: null,
         output: null,
         img: null,
-     
-      
     })
+
+ 
+
+
+
+
+
+
+
+function submitCodexForm() {
+  codexform.put(route('codex.update', selectedCodex.id), {
+    forceFormData: true,
+  })
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -520,6 +544,7 @@ import MultiSelect from 'primevue/multiselect';
 
 
 
+  
 
 // ----------------------------------------------------------------- kanan table han codex ---------------------------
 
