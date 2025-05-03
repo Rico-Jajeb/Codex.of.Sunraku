@@ -67,7 +67,7 @@
             </section>
         </main>
 
-        <!-- amo ini an kanan modal han category form -->
+        <!--ADD amo ini an kanan modal han category form -->
         <section>
             <div class="card flex justify-center bg-red-500">
                 <Button label="Show" @click="visible = true" />
@@ -77,7 +77,7 @@
             </div>
         </section>
 
-        <!-- amo ini an kanan modal han codex  form -->
+        <!--ADD amo ini an kanan modal han codex  form -->
         <section>
             <div class="card flex justify-center bg-red-500">
                 <Button label="Show" @click="codexModal = true" />
@@ -100,19 +100,18 @@
             </div>
         </section> -->-
 
-            <!-- adi an knn modal -->
+            <!--UPDATE adi an knn category  modal -->
             <section>    
                 <Dialog v-model:visible="visible2" maximizable
                         :header="`Update '${selectedCategory.category_name}' Category`"
                         :style="{ width: '25rem' }" >
   
                         <form @submit.prevent="form.put(route('categories.update', selectedCategory.id))" enctype="multipart/form-data">
-                            <!-- <form @submit.prevent="submitForm" enctype="multipart/form-data"> -->
-
-                                <!-- shit -->
+                           
+                          
 
                             <div class="">
-                                    <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Category name</label>
+                                    <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">UPDATE Category name</label>
                                     <InputText class="!w-full" type="text" v-model="form.category_name" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
                                     <div v-if="form.errors.category_name" class="text-red-500 text-sm mt-2">
                                         {{ form.errors.category_name }}
@@ -137,8 +136,7 @@
 
                             
                             </div>
-                            <nav class="">
-                                <!-- <button @click="submitForm">Update Category</button> -->
+                            <nav class="">   
                                 <button type="submit">Update Category</button>
 
 
@@ -148,7 +146,9 @@
                 </Dialog>
             </section>
 
-            <!-- amo ini an delete modal kanan category -->
+
+
+            <!--DELETE amo ini an delete modal kanan category -->
             <section>
                 <Dialog v-model:visible="visible3" :header="`Delete '${selectedCategory.category_name}' Category`" :style="{ width: '25rem' }">
                     <nav class="flex justify-center gap-6">
@@ -218,7 +218,7 @@
                 </Dialog>
             </section>
 
-            <!-- amo ini an kanan edit codex modal -->
+            <!--UPDATE amo ini an kanan edit codex modal -->
             <section>
                 <Dialog v-model:visible="codexInfoDisp"  :header="`Codex Category: '${selectedCodex?.codex_name ?? ''}'`" maximizable class=" max-w-7xl  mx-auto sm:px-6 lg:px-1 bg-red-600">
                 
@@ -366,10 +366,10 @@
     
     import Card from 'primevue/card';
 
-
+  
     import Dialog from 'primevue/dialog';
 
-    import { computed, ref, watchEffect   } from 'vue';
+    import { computed, ref, watchEffect , watch    } from 'vue';
     import { router } from '@inertiajs/vue3'
     import RadioButton from 'primevue/radiobutton';
 
@@ -400,6 +400,9 @@ import MultiSelect from 'primevue/multiselect';
     });
     
   const selectedCategory = ref({}); // ← whole object now  
+
+
+
 
     function openCategoryInfoModal(category) {
     selectedCategory.value = category;
@@ -469,7 +472,7 @@ import MultiSelect from 'primevue/multiselect';
 
 
 function submitCodexForm() {
-  codexform.put(route('codex.update', selectedCodex.id), {
+    codexform.put(route('codex.update', selectedCodex.id), {
     forceFormData: true,
   })
 }
@@ -570,8 +573,8 @@ const exportCSV = () => {
 
 
     const form = useForm({
-    category_name: null,
-    description: null,
+    category_name: '',
+    description: '',
     img: null,
     });
 
@@ -600,6 +603,8 @@ function submitForm() {
     forceFormData: true,
   });
 }
+
+
 
 
 

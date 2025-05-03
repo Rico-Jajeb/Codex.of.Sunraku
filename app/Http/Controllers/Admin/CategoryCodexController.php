@@ -187,8 +187,6 @@ public function updateCategory(UpdateCodexCategoryRequest $request, $id)
 
 
 
-
-
     public function destroy($id, DeleteCategoryService $deleteService)
     {
         $success = $deleteService->deleteCategory($id);

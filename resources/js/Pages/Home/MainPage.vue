@@ -27,26 +27,16 @@
         <article class="bg-blue-400 flex flex-row">
             <aside class="bg-green-300 basis-1/6">
                 <h1 class="text-center text-xl font-bold  py-4">Category</h1>
-                <nav class="pl-3">
-               
-                        <!-- <button class="block w-full bg-red-500 mb-2" v-for="item in category" :key="item.id">
-                            <h1 class="text-start pl-2 text-md font-bold text-gray-700">{{ item.category_name }}</h1>
-                        </button> -->
-
-
-                        <!-- <button
-                            class="block w-full bg-red-500 hover:bg-red-600 text-white mb-2 px-3 py-2 rounded"
-                            v-for="item in category"
-                            :key="item.id"
-                            @click="selectCategory(item.id)"
-                            :class="{ 'bg-red-700': selectedCategory === item.id }"
-                        >
-                            {{ item.category_name }}
-                        </button> -->
-                        <button @click="currentFilter = 'all'">All</button>
-  <button @click="currentFilter = 'active'">Active</button>
-  <button @click="currentFilter = 'archived'">Archived</button>
+                <nav class="pl-3 ">
+                        <button @click="currentFilter = 'all'" class="block">All</button>
+                        <!-- amo adi an button para han category -->
+                        <div v-for="cat in category" :key="cat.id">
+                            <button @click="currentFilter = cat.category_name" class="block">
+                            {{ cat.category_name }}
+                            </button>
+                        </div>        
                 </nav>
+
     
 
             </aside>
@@ -90,6 +80,8 @@
                     </template>
                   
                 </Card>
+
+        
      
 
             </section>
@@ -109,36 +101,20 @@
 
     import Card from 'primevue/card';
 
-    // const value1 = ref(null);
-    // defineProps({
-    //     msgg: String
-    // });
-
-
-    // Amo ini an kanan for loop han pag display han category ngan data
-    // defineProps({
-    // data: Array,
-    // category: Array
-    // });
-
-
-    // const currentFilter = ref('all')
-
-    // const filteredItems = computed(() => {
-    // if (currentFilter.value === 'all') return props.data
-    // return props.data.filter(item => item.status === currentFilter.value)
-    // })
+ 
 
     const { data, category } = defineProps({
-  data: Array,
-  category: Array
-})
+        data: Array,
+        category: Array
+    })
 
-const currentFilter = ref('all')
+    const currentFilter = ref('all')
 
-const filteredItems = computed(() => {
-  if (currentFilter.value === 'all') return data
-  return data.filter(item => item.status === currentFilter.value)
-})
+  
+
+    const filteredItems = computed(() => {
+    if (currentFilter.value === 'all') return data
+    return data.filter(item => item.category_name === currentFilter.value)
+    })
 
 </script>
