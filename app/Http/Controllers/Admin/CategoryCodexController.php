@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use Inertia\Inertia;
 
+use Illuminate\Support\Facades\Log;
+
 //REQUEST
 use App\Http\Requests\CodexCategoryRequest;
 use App\Http\Requests\UpdateCodexCategoryRequest;
@@ -81,108 +83,124 @@ class CategoryCodexController extends Controller
 
 
 
-// public function update(Request $request, $id)
+// public function updateCategory(UpdateCodexCategoryRequest $request, $id)
 // {
-//     $validated = $request->validate([
-//         'CategoryName' => 'required|string|max:255',
-//         'CategoryDesc' => 'nullable|string',
-//         'img' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-//     ]);
+//     // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
+//     $imageName = $this->CodexImageService->handleImageUpload($request); 
 
-//     // Optional: delegate logic to service
-//     $category = CodexCategoryModel::findOrFail($id);
-//     $category->category_name = $validated['CategoryName'];
-//     $category->description = $validated['CategoryDesc'];
+
+//     $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
+   
+//     $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
+   
+//     $this->UpdateCodexCategoryService->updateCategory($id, $validated);
+
+//     return redirect()->route('codex.category')->with('success', "Category Added Successfully!");
+// }
+
+// public function updateCategory(UpdateCodexCategoryRequest $request, $id)
+// {
+//     $validated = $request->validated(); // validate first
+
+//     // Default to existing image if not replaced
+ 
+//     $imageName = $validated['img'] ?? null;
     
-//     if ($request->hasFile('img')) {
-//         $path = $request->file('img')->store('category_images', 'public');
-//         $category->img = $path;
+//     // If a new image is uploaded
+//     if ($request->hasFile('img') && $request->file('img')->isValid()) {
+//         logger('Image file detected.');
+    
+//         $image = $request->file('img');
+//         logger('Original image name: ' . $image->getClientOriginalName());
+    
+//         $imageName = time() . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
+//         logger('Generated image name: ' . $imageName);
+    
+//         $image->move(public_path('storage/output'), $imageName);
+//         logger('Image moved to: ' . public_path('storage/output/' . $imageName));
 //     }
     
-//     $category->save();
 
-//     return back()->with('success', 'Category updated successfully.');
-// }
-
-// public function update(CodexCategoryRequest $request, $id)
-// {
-//     $validated = $request->validated();
-//     // Optional: delegate logic to service
-//     $this->UpdateCodexCategoryService->updateCategory($id, $validated);
-
-//     return back()->with('success', 'Category updated successfully.');
-// }
-
-// public function update(CodexCategoryRequest $request, $id)
-// {
-//      // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
-//      $imageName = $this->CodexImageService->handleImageUpload($request); 
-
-//      $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
-//      $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
-//     // Optional: delegate logic to service
-//     $this->UpdateCodexCategoryService->updateCategory($id, $validated);
-
-//     return back()->with('success', 'Category updated successfully.');
-// }
-
-//amo ini an latest
-// public function update(CodexCategoryRequest $request, $id)
-// {
-//     $imageName = $this->CodexImageService->handleImageUpload($request);
-
-//     $validated = $request->validated();
-
-//     if ($imageName) {
-//         $validated['img'] = $imageName; // or 'output/' . $imageName if you return just the name
-//     }
+//     $validated['img'] = $imageName;
 
 //     $this->UpdateCodexCategoryService->updateCategory($id, $validated);
 
-//     return back()->with('success', 'Category updated successfully.');
+//     return redirect()->route('codex.category')->with('success', 'Category updated successfully!');
 // }
 
 
-
-// public function update(UpdateCodexCategoryRequest $request, $id)
-// {
-//     $imageName = $this->CodexImageService->handleImageUpload($request);
-
-//     $validated = $request->validated();
-
-//     if ($imageName) {
-//         $validated['img'] = $imageName; // or 'output/' . $imageName if you return just the name
-//     }
-
-//     $this->UpdateCodexCategoryService->updateCategory($id, $validated);
-
-//     return back()->with('success', 'Category updated successfully.');
-// }
-
-
-// public function update(UpdateCodexCategoryRequest $request, $id)
-// {
-//     $validated = $request->validated();
-//     $this->UpdateCodexCategoryService->updateCategory($id, $validated);
-
-//     return back()->with('success', 'Category updated successfully.');
-// }
-
-
-public function updateCategory(UpdateCodexCategoryRequest $request, $id)
+public function updateCategory(Request $request, $id)
 {
-    // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
-    $imageName = $this->CodexImageService->handleImageUpload($request); 
+    $validated = $request->validate([
+        'category_name' => 'nullable|string|max:255',
+        'description' => 'nullable|string|max:255',
+        'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240',
+    ]);
 
+    logger('Starting category update for ID: ' . $id);
 
-    $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
-   
-    $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
-   
-    $this->UpdateCodexCategoryService->updateCategory($id, $validated);
+    if (isset($validated['category_name'])) {
+        logger('Category name validated: ' . $validated['category_name']);
+    } else {
+        logger('Category name not provided; will keep existing.');
+    }
 
-    return redirect()->route('codex.category')->with('success', "Category Added Successfully!");
+    if (isset($validated['description'])) {
+        logger('Description validated: ' . $validated['description']);
+    } else {
+        logger('Description not provided; will keep existing.');
+    }
+
+    if (isset($validated['img'])) {
+        logger('Image input passed validation.');
+    } else {
+        logger('No new image uploaded or image not provided.');
+    }
+
+    $category = CodexCategoryModel::findOrFail($id);
+
+    // Default to existing image if not replaced
+    $imageName = $category->img;
+
+    
+
+    if ($request->hasFile('img')) {
+        logger('Image file input detected.');
+    
+        if ($request->file('img')->isValid()) {
+            logger('Image file is valid.');
+            $image = $request->file('img');
+    
+            logger('Original image name: ' . $image->getClientOriginalName());
+    
+            $imageName = time() . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
+            logger('Generated image name: ' . $imageName);
+    
+            try {
+                $image->move(public_path('storage/output'), $imageName);
+                logger('Image successfully moved to: ' . public_path('storage/output/' . $imageName));
+            } catch (\Exception $e) {
+                logger()->error('Failed to move image: ' . $e->getMessage());
+            }
+        } else {
+            logger()->warning('Image file is not valid.');
+        }
+    } else {
+        logger('No image file uploaded.');
+    }
+    
+    $category->update([
+        'category_name' => $validated['category_name'] ?? $category->category_name,
+        'description' => $validated['description'] ?? $category->description,
+        'img' => $imageName,
+    ]);
+
+    logger('Category ID ' . $id . ' updated successfully.');
+
+    return redirect()->route('codex.category')->with('success', 'Category updated successfully!');
 }
+
+
 
 
 

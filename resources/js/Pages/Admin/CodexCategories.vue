@@ -107,8 +107,8 @@
                         :style="{ width: '25rem' }" >
   
                         <form @submit.prevent="form.put(route('categories.update', selectedCategory.id))" enctype="multipart/form-data">
-                           
                           
+
 
                             <div class="">
                                     <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">UPDATE Category name</label>
@@ -128,18 +128,23 @@
                             <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Category Image Cover</label>
                             <div class="card flex flex-col items-center gap-6 mt-4">                
                                     
-                                <img  :src="`/storage/output/${selectedCategory.img}`" alt="Image" class="shadow-md object-cover rounded-xl w-full  max-h-44 " style="filter: grayscale(0%)" />
+                                <!-- <img  :src="`/storage/output/${selectedCategory.img}`" alt="Image" class="shadow-md object-cover rounded-xl w-full  max-h-44 " style="filter: grayscale(0%)" /> -->
 
                                 <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
 
-                                <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto />
+                                <!-- <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto /> -->
 
-                            
+                                <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
+                  
+  
+
+
                             </div>
                             <nav class="">   
-                                <button type="submit">Update Category</button>
+                                <!-- <button type="submit">Update Category</button> -->
 
-
+                                <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
+          
                             </nav>
                     </form>
 
@@ -373,7 +378,7 @@
     import { router } from '@inertiajs/vue3'
     import RadioButton from 'primevue/radiobutton';
 
-import MultiSelect from 'primevue/multiselect';
+    import MultiSelect from 'primevue/multiselect';
    import Textarea from 'primevue/textarea';
 
 
@@ -382,9 +387,10 @@ import MultiSelect from 'primevue/multiselect';
     import FileUpload from 'primevue/fileupload';
 
    
+ 
 
 
-
+    
 
 
     //amo ini an kanan category info modal table
@@ -573,8 +579,8 @@ const exportCSV = () => {
 
 
     const form = useForm({
-    category_name: '',
-    description: '',
+    category_name: null,
+    description: null,
     img: null,
     });
 
@@ -586,23 +592,36 @@ const src = ref(null);
 
 
 
-function onFileSelect(event) {
-  const file = event.files[0];
-  form.img = file;
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    src.value = e.target.result;
-  };
-  reader.readAsDataURL(file);
-}
+// function onFileSelect(event) {
+//   const file = event.files[0];
+//   form.img = file;
+//   const reader = new FileReader();
+//   reader.onload = (e) => {
+//     src.value = e.target.result;
+//   };
+//   reader.readAsDataURL(file);
+// }
+
+    function onFileSelect(event) {
+        const file = event.files[0];
+        const reader = new FileReader();
+
+        reader.onload = async (e) => {
+            src.value = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
 
 
 
-function submitForm() {
-  form.put(route('categories.update', selectedCategory.id), {
-    forceFormData: true,
-  });
-}
+
+// function submitForm() {
+//   form.put(route('categories.update', selectedCategory.id), {
+//     forceFormData: true,
+//   });
+// }
+
 
 
 

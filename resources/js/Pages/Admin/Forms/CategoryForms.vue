@@ -1,7 +1,7 @@
 <template>
     <form  class=""  @submit.prevent="form.post('add.Category')" >
             <div class="">
-                    <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Category name</label>
+                    <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">add Category name</label>
                     <InputText class="!w-full" type="text" v-model="form.CategoryName" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
                     <div v-if="form.errors.CategoryName" class="text-red-500 text-sm mt-2">
                         {{ form.errors.CategoryName }}
@@ -19,8 +19,9 @@
             <div class="card flex flex-col items-center gap-6 mt-4">                
                     <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
                     <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
+                  
             
-            </div>
+                </div>
             <nav class="">
                     <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
             </nav>

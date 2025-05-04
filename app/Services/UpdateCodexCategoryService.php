@@ -15,6 +15,7 @@ class UpdateCodexCategoryService
     public function updateCategory(int $id, array $data)
     {
         logger($data); // See what's inside
+        
     
         $category = CodexCategoryModel::findOrFail($id);
     
