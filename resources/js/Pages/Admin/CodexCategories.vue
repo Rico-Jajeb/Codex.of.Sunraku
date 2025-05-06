@@ -108,6 +108,7 @@
   
                         <form @submit.prevent="form.put(route('categories.update', selectedCategory.id))" enctype="multipart/form-data">
                           
+                            <!-- <form @submit.prevent="submitForm" enctype="multipart/form-data"> -->
 
 
                             <div class="">
@@ -389,7 +390,16 @@
 
    
  
+    import Badge from 'primevue/badge';
 
+
+// amo ini an kanan update category Form
+import UpdateCategoryForm from '@/Pages/Admin/Forms/Update/CategoryUpdateForms.vue';
+
+
+// amo ini an kann category form
+import CategoryForm from '@/Pages/Admin/Forms/CategoryForms.vue';
+import CodexForm from '@/Pages/Admin/Forms/CodexForms.vue';
 
     
 
@@ -405,8 +415,13 @@
         data: Array,
         codex: Array
     });
+
     
   const selectedCategory = ref({}); // ← whole object now  
+
+
+
+
 
 
 
@@ -575,6 +590,14 @@ const exportCSV = () => {
 
 //--------------------------------------------- Test area -----------------------------------------------------
 
+function openModal(category) {
+    selectedCategory.value = category;
+    form.category_name = category.category_name;
+    form.description = category.description; // or whatever the property is
+    form.img = null; // reset image, or preload if needed
+
+    visible2.value = true;
+    }
 
 
 
@@ -629,6 +652,40 @@ const src = ref(null);
 
 
 
+// const submitForm = () => {
+//     const formData = new FormData();
+
+//     // Check if data exists and log it
+//     console.log("Category Name:", form.category_name);
+//     console.log("Description:", form.description);
+//     console.log("Image:", form.img);
+
+//     // Always append fields, even if they're empty
+//     formData.append('category_name', form.category_name || '');
+//     formData.append('description', form.description || '');
+    
+//     // Only append image if it exists
+//     if (form.img) {
+//         formData.append('img', form.img);
+//     }
+
+//     // Log FormData before sending
+//     console.log('FormData before sending:', formData);
+
+//     form.put(route('categories.update', selectedCategory.value.id), {
+//         preserveScroll: true,
+//         forceFormData: true, // Ensures the data is sent as FormData
+//         onSuccess: () => {
+//             console.log("Form submitted successfully.");
+//         },
+//         onError: (errors) => {
+//             console.error("Form submission failed.", errors);
+//         }
+//     });
+// };
+
+
+
 
 
 
@@ -641,14 +698,7 @@ const src = ref(null);
 
     
 
-    function openModal(category) {
-    selectedCategory.value = category;
-    form.category_name = category.category_name;
-    form.description = category.description; // or whatever the property is
-    form.img = null; // reset image, or preload if needed
 
-    visible2.value = true;
-    }
 
 
 
@@ -665,16 +715,7 @@ const src = ref(null);
 
 
 
-    import Badge from 'primevue/badge';
-
-
-    // amo ini an kanan update category Form
-    import UpdateCategoryForm from '@/Pages/Admin/Forms/Update/CategoryUpdateForms.vue';
-
-
-    // amo ini an kann category form
-    import CategoryForm from '@/Pages/Admin/Forms/CategoryForms.vue';
-    import CodexForm from '@/Pages/Admin/Forms/CodexForms.vue';
+  
 
     // amo ini an mga knn modal
     const visible = ref(false);
