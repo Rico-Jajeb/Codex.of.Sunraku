@@ -56,6 +56,15 @@ Route::post('add.Setting', [SystemController::class, 'addSettings2'])->name('add
 //Route::post('/categories/update/{id}', [CategoryCodexController::class, 'update'])->name('categories.update');
 Route::put('/categories/{id}', [CategoryCodexController::class, 'updateCategory'])->name('categories.update');
 
+
+
+Route::put('/system/{id}', [SystemController::class, 'updateSetting'])->name('system.update');
+
+
+
+
+
+
 Route::put('/admin/codex/{id}', [CodexController::class, 'updateCodex'])->name('codex.update');
 
 
