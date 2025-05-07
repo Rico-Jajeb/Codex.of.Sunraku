@@ -75,58 +75,18 @@ class SystemController extends Controller
 
 
 
+    public function updateSetting(SystemRequest $request, $id){
+        // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
+        $imageName = $this->CodexImageService->handleImageUpload($request); 
 
-// amo ini an nagana
-// public function updateSetting(Request $request, $id)
-// {
-//     \Log::debug("Starting category update for ID: $id");
-
-//     // Validate request
-//     $validated = $request->validate([
-//         'system_name' => 'nullable|string|max:255',
-//         'img' => 'nullable|image|max:2048',
-//     ]);
-
-//     $system = SystemModel::findOrFail($id);
-
-//     // Update system name if present
-//     if ($request->has('system_name')) {
-//         $system->system_name = $request->system_name;
-//     } else {
-//         \Log::debug("system_name not provided; will keep existing.");
-//     }
-
-//     // Handle image upload using the CodexImageService
-//     if ($request->hasFile('img')) {
-//         $imageName = $this->CodexImageService->handleImageUpload($request);
-//         $system->img = $imageName;
-//         \Log::debug("Image uploaded and stored: $imageName");
-//     } else {
-//         \Log::debug("No image file uploaded.");
-//     }
-
-//     $system->save();
-
-//     \Log::debug("System ID {$id} updated successfully.");
+        $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
     
-//     return back();
-// }
+        $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
+    
+        $this->UpdateSettingService->upSetting($id, $validated); //adi an code para han up services
 
-
-public function updateSetting(SystemRequest $request, $id)
-{
-    // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
-    $imageName = $this->CodexImageService->handleImageUpload($request); 
-
-
-    $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
-   
-    $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
-   
-    $this->UpdateSettingService->updateCategory($id, $validated);
-
-    return back();
-}
+        return back();
+    }
 
 
 }
