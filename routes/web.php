@@ -49,6 +49,9 @@ Route::post('add.Project', [CodexController::class, 'AddCodex'])->name('addProje
 
 Route::post('add.Category', [CategoryCodexController::class, 'addCategory'])->name('addProject');
 
+
+Route::post('add.Setting', [SystemController::class, 'addSettings2'])->name('addSetting');
+
 //kanan update form
 //Route::post('/categories/update/{id}', [CategoryCodexController::class, 'update'])->name('categories.update');
 Route::put('/categories/{id}', [CategoryCodexController::class, 'updateCategory'])->name('categories.update');
