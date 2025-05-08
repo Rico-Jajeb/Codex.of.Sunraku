@@ -12,6 +12,8 @@ class UpdateSettingService
     {
         $system = SystemModel::findOrFail($id);
 
+        $fillableFields = ['system_name',]; // add more fields as needed
+
         if (isset($data['system_name'])) {
             $system->system_name = $data['system_name'];
         }

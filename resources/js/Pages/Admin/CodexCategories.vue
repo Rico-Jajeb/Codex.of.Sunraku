@@ -106,9 +106,9 @@
                         :header="`Update '${selectedCategory.category_name}' Category`"
                         :style="{ width: '25rem' }" >
   
-                        <form @submit.prevent="form.put(route('categories.update', selectedCategory.id))" enctype="multipart/form-data">
+                        <!-- <form @submit.prevent="form.put(route('categories.update', selectedCategory.id))" enctype="multipart/form-data"> -->
                           
-                            <!-- <form @submit.prevent="submitForm" enctype="multipart/form-data"> -->
+                        <form @submit.prevent="submitForm" enctype="multipart/form-data">
 
 
                             <div class="">
@@ -142,10 +142,10 @@
 
                             </div>
                             <nav class="">   
-                                <!-- <button type="submit">Update Category</button> -->
+                                <button type="submit">Update Category</button>
 
-                                <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
-          
+                                <!-- <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
+           -->
                             </nav>
                     </form>
 
@@ -636,6 +636,40 @@ const src = ref(null);
 
         reader.readAsDataURL(file);
     }
+
+
+
+
+    const submitForm = () => {
+    // Log current input values for debugging
+    console.log("category Name:", form.category_name);
+    console.log("Image:", form.img);
+
+    // Spoof the PUT method by transforming the form data
+    form.transform(data => ({
+        ...data,
+        _method: 'PUT',
+    }));
+
+    form.post(route('categories.update', selectedCategory.value.id), {
+        preserveScroll: true,
+        forceFormData: true, // Required for sending FormData including files
+        onSuccess: () => {
+            console.log("Form submitted successfully.");
+            // Reset modal and form
+            src.value = null;
+            form.reset();
+            visible2.value = false;
+        },
+        onError: (errors) => {
+            console.error("Form submission failed.", errors);
+        },
+    });
+};
+
+
+
+
 
 
 

@@ -64,9 +64,9 @@
 
                             <div class="">
                                     <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">UPDATE Category name</label>
-                                    <InputText class="!w-full" type="text" v-model="form.system_name" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
-                                    <div v-if="form.errors.system_name" class="text-red-500 text-sm mt-2">
-                                        {{ form.errors.system_name }}
+                                    <InputText class="!w-full" type="text" v-model="form2.system_name" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                    <div v-if="form2.errors.system_name" class="text-red-500 text-sm mt-2">
+                                        {{ form2.errors.system_name }}
                                     </div> 
                             </div>
           
@@ -80,7 +80,7 @@
 
                                 <!-- <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto /> -->
 
-                                <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
+                                <FileUpload mode="basic" @input="form2.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
                   
   
 
@@ -132,8 +132,8 @@
 
     function openModal(category) {
     selectedCategory.value = category;
-    form.system_name = category.system_name;
-    form.img = null; // reset image, or preload if needed
+    form2.system_name = category.system_name;
+    form2.img = null; // reset image, or preload if needed
 
     visible2.value = true;
     }
@@ -156,7 +156,7 @@
 
 
 
-    const form = useForm({
+    const form2 = useForm({
         //amo liwat ini an code para han system form
         system_name: null,
         img: null,
@@ -198,16 +198,16 @@
 
 const submitForm = () => {
     // Log current input values for debugging
-    console.log("system Name:", form.system_name);
-    console.log("Image:", form.img);
+    console.log("system Name:", form2.system_name);
+    console.log("Image:", form2.img);
 
     // Spoof the PUT method by transforming the form data
-    form.transform(data => ({
+    form2.transform(data => ({
         ...data,
         _method: 'PUT',
     }));
 
-    form.post(route('system.update', selectedCategory.value.id), {
+    form2.post(route('system.update', selectedCategory.value.id), {
         preserveScroll: true,
         forceFormData: true, // Required for sending FormData including files
         onSuccess: () => {

@@ -12,19 +12,32 @@ class UpdateCodexCategoryService
 {
    
   
-    public function updateCategory(int $id, array $data)
+ 
+    public function upCategory($id, array $data)
     {
-        logger($data); // See what's inside
-        
-    
         $category = CodexCategoryModel::findOrFail($id);
-    
-        $category->update([
-            'category_name' => $data['category_name'] ?? $category->category_name,
-            'description' => $data['description'] ?? $category->description,
-            'img' => $data['img'] ?? $category->img,  // Just use the name returned
-        ]);
-    
+
+        if (isset($data['category_name'])) {
+            $category->category_name = $data['category_name'];
+        }
+
+        if (isset($data['description'])) {
+            $category->description = $data['description'];
+        }
+
+        if (!empty($data['img'])) {
+            // Delete the old image if it exists
+            $oldImagePath = public_path('storage/output/' . $category->img);
+            if ($category->img && file_exists($oldImagePath)) {
+                unlink($oldImagePath); // Remove old image file
+            }
+
+            // Save new image filename (already uploaded by CodexImageService)
+            $category->img = $data['img'];
+        }
+
+        $category->save();
+
         return $category;
     }
     
