@@ -76,21 +76,31 @@
                     </Card>
                 </section> 
                 <!-- amo liwat adi an knn table han category     -->
-                 <section v-if="openCategoryTable" >
+                 <section v-if="categoryTable" >
                     <h1>Table ini</h1>
   
-   <DataTable v-model:selection="selectedCateg" dataKey="id" :value="data"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
+                        <DataTable v-model:selection="selectedCateg" dataKey="id" :value="data"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
                       
                         <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
                         <Column field="category_name" header="category_name" sortable />
                         <Column field="description" header="description" sortable />
                         <Column field="img" header="Image" sortable />
 
-                        <Column class="!text-end">
+                        <Column class="!text-end" header="Actions">
                             <template #body="{ data }">
                                 <nav class="flex gap-1">
-                                    <button @click="editCodexModal(data)" class=" py-2 px-4"><i class="pi pi-pencil" ></i></button>
-                                    <button @click="editCodexModal(data)" class=" py-2 px-4"><i class="pi pi-trash" ></i></button>                                    
+                                <!-- Eye BUTTON -->
+                                    <button type="button" @click="openCategoryInfoModal(data)" class="mr-4">
+                                        <i class="pi pi-eye" style="font-size: 1rem"></i>
+                                    </button>
+                                    <!-- UPDATE BUTTON -->
+                                    <button type="button" @click="openModal(data)">
+                                        <i class="pi pi-file-edit" style="font-size: 1rem"></i>
+                                    </button>
+                                    <!-- DELETE BUTTON -->
+                                    <button type="button" @click="deleteModal(data)" class="mx-4">
+                                        <i class="pi pi-trash" style="font-size: 1rem"></i>
+                                    </button>                               
                                 </nav>
 
                             </template>
@@ -742,6 +752,7 @@ function openCategoryTable() {
         categoryTable.value = true;
         categoryCard.value = false;
     }
+    
 function openCategoryCard() {
         categoryCard.value = true;
         categoryTable.value = false;

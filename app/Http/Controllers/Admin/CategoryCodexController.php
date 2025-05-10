@@ -69,10 +69,12 @@ class CategoryCodexController extends Controller
 
     public function addCategory(CodexCategoryRequest $request){
         // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
-        $imageName = $this->CodexImageService->handleImageUpload($request); 
+        $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request      
 
-        $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
+
+        $imageName = $this->CodexImageService->handleImageUpload($request); 
         $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
+
         $this->CodexCategoryService->create($validated); // tas ig ppasa an data ngadto serivice para pag insert ngadto database
 
         // return redirect()->back()->with('success', "Codex Added Successfully!");

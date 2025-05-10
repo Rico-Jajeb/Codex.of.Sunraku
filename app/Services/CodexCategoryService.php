@@ -9,6 +9,7 @@ class CodexCategoryService
 
     public function create(array $data)
     {
+        
         //amo ini an code para pag insert han data tikang ha form tikadto database table
         return CodexCategoryModel::create([
             'category_name' => $data['CategoryName'],
@@ -16,6 +17,8 @@ class CodexCategoryService
             'status' => 'Active',
             'img' => $data['img'],
         ]);
+    
+
     }
 
 }
