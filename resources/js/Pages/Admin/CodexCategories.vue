@@ -5,24 +5,37 @@
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     Codex Category
                 </h2>
-                <button  @click="visible = true"  class="bg-blue-600  pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="submit"> <i class="pi pi-plus mr-2"></i> Add Category</button>                
+                <div class="">
+                   
+                        <button  @click="visible = true"  class="bg-blue-600  pl-4 pr-4 py-2 rounded-md text-md font-bold text-white" type="submit"> <i class="pi pi-plus mr-2"></i> New Category</button>                
+                </div>
+
             </section>
 
         </template>
-        <main class="py-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <section class=" overflow-hidden  sm:rounded-lg py-10 px-8">
+        <main class="py-1 max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <section class="flex justify-center w-full py-8 gap-2">     
+                <button  type="button"  @click="openCategoryCard()">
+                    <i class="pi pi-table mr-2"></i>
+                </button>
+                <button type="button"  @click="openCategoryTable()">
+                    <i class="pi pi-align-justify mr-2"></i>
+                </button>
+            </section>
+            <section class=" overflow-hidden  sm:rounded-lg  px-8">
                     <div class="">
                         <IconField class="mx-auto md:!w-full !w-80"  >
                             <InputIcon class="pi pi-search" />
                             <InputText v-model="value1" placeholder="Search codex categories..." class="!w-full" />
                         </IconField>
-                    </div>  
-                <section class="flex flex-row  basis-5/6 flex-wrap justify-center gap-4 mt-4">
+                    </div> 
+                <!-- amo ini an kanan cards category  -->
+                <section v-if="categoryCard" class="flex flex-row  basis-5/6 flex-wrap justify-center gap-4 mt-4">
                     <!-- Amo ini an card  -->
                     <!-- <Card class="!w-80 !h-80 shadow-xl"  v-for="item in data" :key="item.id"> -->
-                    <Card class="!w-80 !h-80 shadow-xl"  v-for="item in data" :key="item.id">
+                    <Card  class="!w-80 !h-80 shadow-xl"  v-for="item in data" :key="item.id">
                         <template #header>
-                            <img alt="user header" class="h-36 w-full object-cover rounded-t-lg"  :src="`/storage/output/${item.img}`" />
+                            <img alt="user header" loading="lazy"  class="h-36 w-full object-cover rounded-t-lg"  :src="`/storage/output/${item.img}`" />
                         </template>
                         <template  #title>
                             <div class="truncate">
@@ -60,10 +73,30 @@
                                 </div>                       
                             </div>
                         </template>
-
-                       
                     </Card>
-                </section>     
+                </section> 
+                <!-- amo liwat adi an knn table han category     -->
+                 <section v-if="openCategoryTable" >
+                    <h1>Table ini</h1>
+  
+   <DataTable v-model:selection="selectedCateg" dataKey="id" :value="data"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
+                      
+                        <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
+                        <Column field="category_name" header="category_name" sortable />
+                        <Column field="description" header="description" sortable />
+                        <Column field="img" header="Image" sortable />
+
+                        <Column class="!text-end">
+                            <template #body="{ data }">
+                                <nav class="flex gap-1">
+                                    <button @click="editCodexModal(data)" class=" py-2 px-4"><i class="pi pi-pencil" ></i></button>
+                                    <button @click="editCodexModal(data)" class=" py-2 px-4"><i class="pi pi-trash" ></i></button>                                    
+                                </nav>
+
+                            </template>
+                        </Column>
+                    </DataTable>
+                 </section>
             </section>
         </main>
 
@@ -192,7 +225,7 @@
                         </button>
                    </nav>
                
-                    <DataTable v-model:selection="selectedProducts" dataKey="id" :value="products"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
+                    <DataTable v-model:selection="selectedProducts" dataKey="id" :value="category"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
                       
                         <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
 
@@ -380,7 +413,7 @@
   
     import Dialog from 'primevue/dialog';
 
-    import { computed, ref, watchEffect , watch    } from 'vue';
+    import { computed, ref, watchEffect , watch, onMounted     } from 'vue';
     import { router } from '@inertiajs/vue3'
     import RadioButton from 'primevue/radiobutton';
 
@@ -414,29 +447,27 @@
     import Row from 'primevue/row';                   // optional
 
 
+    
+  
+
+
+
     //kanan toast ini
     
     import { usePage } from '@inertiajs/vue3'
     import { useToast } from 'primevue/usetoast'
 
+
+
+
+
+
+
+
     const page = usePage()
     const toast = useToast()
 
     const successMessage = computed(() => page.props.flash?.success)
-
-    // Automatically show toast when successMessage changes
-    // watch(successMessage, (newValue) => {
-    // if (newValue) {
-    //     toast.add({
-    //     severity: 'success',
-    //     summary: 'Success message',
-    //     detail: newValue,
-    //     life: 10000,
-    //     })
-    // }
-    // })
-
-
 
 
 
@@ -466,12 +497,7 @@
     }
 
     
-    const products = computed(() => {
-    if (!selectedCategory.value || !selectedCategory.value.category_name) {
-            return [];
-    }
-        return props.codex.filter(item => item.category_name === selectedCategory.value.category_name);
-    });
+   
 
 
 //kanan edit codex ha datatable
@@ -603,6 +629,16 @@ function submitCodexForm() {
 
 // ----------------------------------------------------------------- kanan table han codex ---------------------------
 
+
+
+ const products = computed(() => {
+    if (!selectedCategory.value || !selectedCategory.value.category_name) {
+            return [];
+    }
+        return props.codex.filter(item => item.category_name === selectedCategory.value.category_name);
+    });
+
+
 const selectedProducts = ref();
 
 
@@ -618,7 +654,13 @@ const exportCSV = () => {
 
 
 
-//--------------------------------------------- Test area -----------------------------------------------------
+//--------------------------------------------- Kanan Category ONLY -----------------------------------------------------
+
+const selectedCateg = ref();
+
+
+
+
 
 function openModal(category) {
     selectedCategory.value = category;
@@ -646,16 +688,6 @@ const src = ref(null);
 
 
 
-// function onFileSelect(event) {
-//   const file = event.files[0];
-//   form.img = file;
-//   const reader = new FileReader();
-//   reader.onload = (e) => {
-//     src.value = e.target.result;
-//   };
-//   reader.readAsDataURL(file);
-// }
-
     function onFileSelect(event) {
         const file = event.files[0];
         const reader = new FileReader();
@@ -670,39 +702,9 @@ const src = ref(null);
 
 
 
-    // const submitForm = () => {
-    //     // Log current input values for debugging
-    //     console.log("category Name:", form.category_name);
-    //     console.log("Image:", form.img);
-
-    //     // Spoof the PUT method by transforming the form data
-    //     form.transform(data => ({
-    //         ...data,
-    //         _method: 'PUT',
-    //     }));
-
-    //     form.post(route('categories.update', selectedCategory.value.id), {
-    //         preserveScroll: true,
-    //         forceFormData: true, // Required for sending FormData including files
-    //         onSuccess: () => {
-    //             console.log("Form submitted successfully.");
-    //             // Reset modal and form
-    //             src.value = null;
-    //             form.reset();
-    //             visible2.value = false;
-    //         },
-    //         onError: (errors) => {
-    //             console.error("Form submission failed.", errors);
-    //         },
-    //     });
-    // };
-
-
 
 const submitForm = () => {
-    console.log("category Name:", form.category_name);
-    console.log("Image:", form.img);
-
+ 
     form.transform(data => ({
         ...data,
         _method: 'PUT',
@@ -718,8 +720,6 @@ const submitForm = () => {
                 detail: 'Category Updated Successfully!', // Can hardcode or pull from props if needed
                 life: 10000,
             });
-
-            console.log("Form submitted successfully.");
             src.value = null;
             form.reset();
             visible2.value = false;
@@ -731,6 +731,21 @@ const submitForm = () => {
 };
 
 
+
+//Bali ini an kanan button han card tas table han category
+
+const categoryTable = ref(false);
+const categoryCard = ref(true);
+
+
+function openCategoryTable() {
+        categoryTable.value = true;
+        categoryCard.value = false;
+    }
+function openCategoryCard() {
+        categoryCard.value = true;
+        categoryTable.value = false;
+    }
 
 
 
@@ -773,10 +788,16 @@ const submitForm = () => {
     const deletePost = (id) => {
         //amo ini an kanna delete
         // bali amo ini an nkadto han button knan delete
-    router.delete(`/posts/${id}`, {
-      onSuccess: () => {
-      }
-    })
+        router.delete(`/posts/${id}`, {
+        onSuccess: () => {
+                toast.add({
+                    severity: 'success',
+                    summary: 'Success message',
+                    detail: 'Delete  Successfully!', // Can hardcode or pull from props if needed
+                    life: 10000,
+                });
+        }
+        })
         // tapos ini liwat an code para pag na delete na matik ma close an modal
         visible3.value = false
     }

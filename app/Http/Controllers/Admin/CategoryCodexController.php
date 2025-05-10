@@ -108,9 +108,6 @@ class CategoryCodexController extends Controller
     {
         $success = $deleteService->deleteCategory($id);
 
-        return redirect()->back()->with(
-            'message',
-            $success ? 'Category deleted successfully.' : 'Category not found.'
-        );
+        return redirect()->route('codex.category')->with('success', "Deleted  Successfully!");
     }
 }

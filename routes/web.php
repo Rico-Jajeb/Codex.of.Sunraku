@@ -47,7 +47,7 @@ Route::get('settings',[SystemController::class, 'systemSetting'])->name('system.
 //kanan form
 Route::post('add.Project', [CodexController::class, 'AddCodex'])->name('addProject');
 
-Route::post('add.Category', [CategoryCodexController::class, 'addCategory'])->name('addProject');
+Route::post('add.Category', [CategoryCodexController::class, 'addCategory'])->name('add.Category');
 
 
 Route::post('add.Setting', [SystemController::class, 'addSettings2'])->name('addSetting');
