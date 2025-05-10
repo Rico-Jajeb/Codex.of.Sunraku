@@ -93,7 +93,9 @@ class CategoryCodexController extends Controller
     
         $this->UpdateCodexCategoryService->upCategory($id, $validated); //adi an code para han up services
 
-        return back();
+        // return redirect()->route('codex.category')->with('success', "Category Added Successfully!");return back();
+        return redirect()->route('codex.category')->with('success', "Category Updated Successfully!");
+
     }
 
 

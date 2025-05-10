@@ -361,6 +361,10 @@
 
             <!-- new shit -->
             <!-- new shit -->
+            <div>
+                <!-- amo ini an kanan pop up notif pag nag submit msg -->
+                <Toast />
+            </div>
 
     </AppLayout>
 </template>
@@ -393,22 +397,48 @@
     import Badge from 'primevue/badge';
 
 
-// amo ini an kanan update category Form
-import UpdateCategoryForm from '@/Pages/Admin/Forms/Update/CategoryUpdateForms.vue';
+    // amo ini an kanan update category Form
+    import UpdateCategoryForm from '@/Pages/Admin/Forms/Update/CategoryUpdateForms.vue';
 
 
-// amo ini an kann category form
-import CategoryForm from '@/Pages/Admin/Forms/CategoryForms.vue';
-import CodexForm from '@/Pages/Admin/Forms/CodexForms.vue';
+    // amo ini an kann category form
+    import CategoryForm from '@/Pages/Admin/Forms/CategoryForms.vue';
+    import CodexForm from '@/Pages/Admin/Forms/CodexForms.vue';
 
     
-
 
     //amo ini an kanan category info modal table
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import ColumnGroup from 'primevue/columngroup';   // optional
     import Row from 'primevue/row';                   // optional
+
+
+    //kanan toast ini
+    
+    import { usePage } from '@inertiajs/vue3'
+    import { useToast } from 'primevue/usetoast'
+
+    const page = usePage()
+    const toast = useToast()
+
+    const successMessage = computed(() => page.props.flash?.success)
+
+    // Automatically show toast when successMessage changes
+    // watch(successMessage, (newValue) => {
+    // if (newValue) {
+    //     toast.add({
+    //     severity: 'success',
+    //     summary: 'Success message',
+    //     detail: newValue,
+    //     life: 10000,
+    //     })
+    // }
+    // })
+
+
+
+
 
 
     const props = defineProps({
@@ -640,12 +670,39 @@ const src = ref(null);
 
 
 
-    const submitForm = () => {
-    // Log current input values for debugging
+    // const submitForm = () => {
+    //     // Log current input values for debugging
+    //     console.log("category Name:", form.category_name);
+    //     console.log("Image:", form.img);
+
+    //     // Spoof the PUT method by transforming the form data
+    //     form.transform(data => ({
+    //         ...data,
+    //         _method: 'PUT',
+    //     }));
+
+    //     form.post(route('categories.update', selectedCategory.value.id), {
+    //         preserveScroll: true,
+    //         forceFormData: true, // Required for sending FormData including files
+    //         onSuccess: () => {
+    //             console.log("Form submitted successfully.");
+    //             // Reset modal and form
+    //             src.value = null;
+    //             form.reset();
+    //             visible2.value = false;
+    //         },
+    //         onError: (errors) => {
+    //             console.error("Form submission failed.", errors);
+    //         },
+    //     });
+    // };
+
+
+
+const submitForm = () => {
     console.log("category Name:", form.category_name);
     console.log("Image:", form.img);
 
-    // Spoof the PUT method by transforming the form data
     form.transform(data => ({
         ...data,
         _method: 'PUT',
@@ -653,10 +710,16 @@ const src = ref(null);
 
     form.post(route('categories.update', selectedCategory.value.id), {
         preserveScroll: true,
-        forceFormData: true, // Required for sending FormData including files
+        forceFormData: true,
         onSuccess: () => {
+            toast.add({
+                severity: 'success',
+                summary: 'Success message',
+                detail: 'Category Updated Successfully!', // Can hardcode or pull from props if needed
+                life: 10000,
+            });
+
             console.log("Form submitted successfully.");
-            // Reset modal and form
             src.value = null;
             form.reset();
             visible2.value = false;
@@ -666,60 +729,6 @@ const src = ref(null);
         },
     });
 };
-
-
-
-
-
-
-
-
-// function submitForm() {
-//   form.put(route('categories.update', selectedCategory.id), {
-//     forceFormData: true,
-//   });
-// }
-
-
-
-
-
-
-
-// const submitForm = () => {
-//     const formData = new FormData();
-
-//     // Check if data exists and log it
-//     console.log("Category Name:", form.category_name);
-//     console.log("Description:", form.description);
-//     console.log("Image:", form.img);
-
-//     // Always append fields, even if they're empty
-//     formData.append('category_name', form.category_name || '');
-//     formData.append('description', form.description || '');
-    
-//     // Only append image if it exists
-//     if (form.img) {
-//         formData.append('img', form.img);
-//     }
-
-//     // Log FormData before sending
-//     console.log('FormData before sending:', formData);
-
-//     form.put(route('categories.update', selectedCategory.value.id), {
-//         preserveScroll: true,
-//         forceFormData: true, // Ensures the data is sent as FormData
-//         onSuccess: () => {
-//             console.log("Form submitted successfully.");
-//         },
-//         onError: (errors) => {
-//             console.error("Form submission failed.", errors);
-//         }
-//     });
-// };
-
-
-
 
 
 
