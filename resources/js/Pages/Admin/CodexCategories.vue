@@ -76,8 +76,8 @@
                     </Card>
                 </section> 
                 <!-- amo liwat adi an knn table han category     -->
-                 <section v-if="categoryTable" >
-                    <h1>Table ini</h1>
+                 <section v-if="categoryTable"  class="bg-white rounded-lg mt-4 pt-8 pb-4">
+                 
   
                         <DataTable v-model:selection="selectedCateg" dataKey="id" :value="data"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
                       
@@ -235,7 +235,7 @@
                         </button>
                    </nav>
                
-                    <DataTable v-model:selection="selectedProducts" dataKey="id" :value="category"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
+                    <DataTable v-model:selection="selectedProducts" dataKey="id" :value="products"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
                       
                         <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
 
@@ -470,8 +470,8 @@
 
 
 
-
-
+const selectedProducts = ref();
+const dt = ref();
 
 
     const page = usePage()
@@ -488,7 +488,7 @@
     });
 
     
-  const selectedCategory = ref({}); // ← whole object now  
+  
 
 
 
@@ -505,6 +505,21 @@
 
     categoryInfoDisp.value = true;
     }
+
+
+
+
+ const products = computed(() => {
+    if (!selectedCategory.value || !selectedCategory.value.category_name) {
+            return [];
+    }
+        return props.codex.filter(item => item.category_name === selectedCategory.value.category_name);
+    });
+
+
+const selectedCategory = ref({}); // ← whole object now  
+
+
 
     
    
@@ -641,18 +656,11 @@ function submitCodexForm() {
 
 
 
- const products = computed(() => {
-    if (!selectedCategory.value || !selectedCategory.value.category_name) {
-            return [];
-    }
-        return props.codex.filter(item => item.category_name === selectedCategory.value.category_name);
-    });
 
 
-const selectedProducts = ref();
 
 
-const dt = ref();
+
 
 // Export to CSV
 const exportCSV = () => {

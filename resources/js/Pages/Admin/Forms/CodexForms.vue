@@ -11,7 +11,7 @@
                             </div> 
                     </div>
                     <div class="">
-                            <label for="Web Name" class="block mt-4 mb-2 text-lg font-medium text-gray-500 dark:text-white">Category Name</label>
+                            <label for="Web Name" class="block mt-4 mb-2 text-lg font-medium text-gray-500 dark:text-white">Category2 Name</label>
                             <InputText class="!w-full" type="text" v-model="form.categoryName" placeholder="E.g., Insert Data into MySQL with Laravel" />
                             <div v-if="form.errors.categoryName" class="text-red-500 text-sm mt-2">
                                 {{ form.errors.categoryName }}
