@@ -84,7 +84,17 @@
                         <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
                         <Column field="category_name" header="category_name" sortable />
                         <Column field="description" header="description" sortable />
-                        <Column field="img" header="Image" sortable />
+                        <!-- <Column field="img" header="Image" sortable /> -->
+                            <Column field="img" header="Image" sortable>
+                                <template #body="{ data }">
+                                <Image 
+                                    alt="user header"
+                                    loading="lazy"
+                                 
+                                    :src="`/storage/output/${data.img}`"
+                               preview  imageClass="h-16 object-cover rounded-md"  />
+                                </template>
+                            </Column>
 
                         <Column class="!text-end" header="Actions">
                             <template #body="{ data }">
@@ -249,7 +259,17 @@
                         <Column field="instructions" header="instruction" sortable />
                         <Column field="code_snippet" header="code snippet" sortable />
                         <Column field="output" header="output" sortable />
-                        <Column field="img" header="Image" sortable />
+                        <!-- <Column field="img" header="Image" sortable /> -->
+                           <Column field="img" header="Image" sortable>
+                                <template #body="{ data }">
+                                <Image 
+                                    alt="user header"
+                                    loading="lazy"
+                                 
+                                    :src="`/storage/output/${data.img}`"
+                               preview  imageClass="h-16 object-cover rounded-md"  />
+                                </template>
+                            </Column>
 
                         <Column class="!text-end">
                             <template #body="{ data }">
@@ -438,6 +458,8 @@
 
    
  
+import Image from 'primevue/image';
+
     import Badge from 'primevue/badge';
 
 
@@ -765,7 +787,7 @@ const submitForm = () => {
         onSuccess: () => {
             toast.add({
                 severity: 'success',
-                summary: 'Success message',
+                summary: 'Update message',
                 detail: 'Category Updated Successfully!', // Can hardcode or pull from props if needed
                 life: 10000,
             });
@@ -833,19 +855,20 @@ function openCategoryCard() {
     const codexModal = ref(false);
 
 
-
+//------------------------------------------------------------- DELETE ------------------------------------------------
 
     const deletePost = (id) => {
         //amo ini an kanna delete
         // bali amo ini an nkadto han button knan delete
         router.delete(`/posts/${id}`, {
         onSuccess: () => {
-                toast.add({
-                    severity: 'success',
-                    summary: 'Success message',
-                    detail: 'Delete  Successfully!', // Can hardcode or pull from props if needed
-                    life: 10000,
-                });
+              toast.add({
+                severity: 'success',
+                summary: 'Delete message',
+                detail: 'Deleted Successfully!', // Can hardcode or pull from props if needed
+                life: 10000,
+            });
+
         }
         })
         // tapos ini liwat an code para pag na delete na matik ma close an modal

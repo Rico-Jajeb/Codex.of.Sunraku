@@ -112,4 +112,5 @@ class CategoryCodexController extends Controller
 
         return redirect()->route('codex.category')->with('success', "Deleted  Successfully!");
     }
+
 }

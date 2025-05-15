@@ -7,10 +7,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
 use App\Models\CodexCategoryModel;
+use App\Models\CodexModel;
 
 class DeleteCategoryService
 {
-    
+
     public function deleteCategory(int $id)
     {
         //bali amo ini an code pag biling han data by id
