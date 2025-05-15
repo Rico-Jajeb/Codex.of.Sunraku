@@ -61,11 +61,14 @@ Route::put('/categories/{id}', [CategoryCodexController::class, 'updateCategory'
 Route::put('/system/{id}', [SystemController::class, 'updateSetting'])->name('system.update');
 
 
+Route::put('/codexup/{id}', [CodexController::class, 'updateCodex'])->name('codex.update');
 
 
 
 
-Route::put('/admin/codex/{id}', [CodexController::class, 'updateCodex'])->name('codex.update');
+
+
+// Route::put('/admin/codex/{id}', [CodexController::class, 'updateCodex'])->name('codex.update');
 
 
 //kanan delete

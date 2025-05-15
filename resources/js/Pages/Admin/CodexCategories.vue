@@ -275,20 +275,20 @@
                             <h2>{{ selectedCodex.id }}</h2>
                         <!-- <form  class=""  @submit.prevent="form.post('')"> -->
                         <!-- <form @submit.prevent="form.put(route('codex.update', selectedCodex.id))"> -->
-                        <form @submit.prevent="submitCodexForm">
+                        <form @submit.prevent="submitCodexForm" enctype="multipart/form-data">
 
                         <div class="">
-                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Codex Name</label>
-                                <InputText class="!w-full" type="text" v-model="form.CodexName" placeholder="E.g., Insert Data into MySQL with Laravel" />
-                                <div v-if="form.errors.CodexName" class="text-red-500 text-sm mt-2">
-                                    {{ form.errors.CodexName }}
+                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">update Codex Name</label>
+                                <InputText class="!w-full" type="text" v-model="codexform.codex_name" placeholder="E.g., Insert Data into MySQL with Laravel" />
+                                <div v-if="codexform.errors.codex_name" class="text-red-500 text-sm mt-2">
+                                    {{ codexform.errors.codex_name }}
                                 </div> 
                         </div>
                         <div class="">
                                 <label for="Web Name" class="block mt-4 mb-2 text-lg font-medium text-gray-500 dark:text-white">Category Name</label>
-                                <InputText class="!w-full" type="text" v-model="form.categoryName" placeholder="E.g., Insert Data into MySQL with Laravel" />
-                                <div v-if="form.errors.categoryName" class="text-red-500 text-sm mt-2">
-                                    {{ form.errors.categoryName }}
+                                <InputText class="!w-full" type="text" v-model="codexform.category_name" placeholder="E.g., Insert Data into MySQL with Laravel" />
+                                <div v-if="codexform.errors.category_name" class="text-red-500 text-sm mt-2">
+                                    {{ codexform.errors.category_name }}
                                 </div> 
                         </div>
 
@@ -296,7 +296,7 @@
                             <div class="xl:basis-1/2 md:basis-1/2  md:mr-8">
                                 <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Language</label>
                                     <MultiSelect 
-                                        v-model="form.language" 
+                                        v-model="codexform.language" 
                                         display="chip" 
                                         :options="language" 
                                         optionLabel="name" 
@@ -305,14 +305,14 @@
                                         placeholder="Select a language"
                                         :maxSelectedLabels="3" 
                                         class="w-full" />
-                                        <div v-if="form.errors.language" class="text-red-500 text-sm mt-2">
-                                            {{ form.errors.language }}
+                                        <div v-if="codexform.errors.language" class="text-red-500 text-sm mt-2">
+                                            {{ codexform.errors.language }}
                                         </div> 
                             </div>                        
                             <div class="xl:basis-1/2 md:basis-1/2 md:ml-8 mt-4 md:mt-0">
                                 <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Framework</label>
                                     <MultiSelect 
-                                        v-model="form.framework" 
+                                        v-model="codexform.framework" 
                                         display="chip" 
                                         :options="framework" 
                                         optionLabel="name" 
@@ -321,39 +321,39 @@
                                         placeholder="Select a framework"
                                         :maxSelectedLabels="3" 
                                         class="w-full" />
-                                        <div v-if="form.errors.framework" class="text-red-500 text-sm mt-2">
-                                            {{ form.errors.framework }}
+                                        <div v-if="codexform.errors.framework" class="text-red-500 text-sm mt-2">
+                                            {{ codexform.errors.framework }}
                                         </div> 
                             </div>                        
                         </section>
                         
                         <div class="mt-4">
                                 <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Tags</label>
-                                <InputText class="!w-full" type="text" v-model="form.tag" placeholder="Type and press Enter to add tags" /> 
+                                <InputText class="!w-full" type="text" v-model="codexform.tags" placeholder="Type and press Enter to add tags" /> 
                                 <label for="Web Name" class="block mt-2 text-sm font-medium text-gray-500 dark:text-white">Press Enter to add a tag</label>
-                                <div v-if="form.errors.tag" class="text-red-500 text-sm mt-2">
-                                    {{ form.errors.tag }}
+                                <div v-if="codexform.errors.tags" class="text-red-500 text-sm mt-2">
+                                    {{ codexform.errors.tags }}
                                 </div> 
                         </div>
                         <section class="mt-4">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">difficulty Level</label>
                             <div class="md:flex md:flex-wrap gap-4 mt-4">
                                 <div class="flex items-center gap-2">
-                                    <RadioButton v-model="form.level" inputId="level1" name="level" value="basic"  />
+                                    <RadioButton v-model="codexform.diffuclt_level" inputId="level1" name="level" value="basic"  />
                                     <label for="ingredient1">Basic</label>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <RadioButton v-model="form.level" inputId="level2" name="level" value="intermediate"  />
+                                    <RadioButton v-model="codexform.diffuclt_level" inputId="level2" name="level" value="intermediate"  />
                                     <label for="ingredient2">Intermediate</label>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <RadioButton v-model="form.level" inputId="level3" name="level" value="advanced"  />
+                                    <RadioButton v-model="codexform.diffuclt_level" inputId="level3" name="level" value="advanced"  />
                                     <label for="ingredient3">Advanced</label>
                                 </div>
                                 
                             </div>
-                            <div v-if="form.errors.level" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.level }}
+                            <div v-if="codexform.errors.diffuclt_level" class="text-red-500 text-sm mt-2">
+                                {{ codexform.errors.diffuclt_level }}
                             </div> 
                         </section>
                         <header class="my-8">
@@ -362,40 +362,41 @@
 
                         <div class="mt-5">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Description/Purpose</label>
-                            <Textarea name="" id="" v-model="form.content" class="!w-full" placeholder="A brief explanation of the snippet or concept..."/>
-                            <div v-if="form.errors.content" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.content }}
+                            <Textarea name="" id="" v-model="codexform.content" class="!w-full" placeholder="A brief explanation of the snippet or concept..."/>
+                            <div v-if="codexform.errors.content" class="text-red-500 text-sm mt-2">
+                                {{ codexform.errors.content }}
                             </div> 
                         </div>
                         <div class="mt-5">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Code Snippet/Commands</label>
-                            <MonacoEditor v-model="form.code" language="javascript" class="h-80" />  
-                            <div v-if="form.errors.code" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.code }}
+                            <MonacoEditor v-model="codexform.code_snippet" language="javascript" class="h-80" />  
+                            <div v-if="codexform.errors.code_snippet" class="text-red-500 text-sm mt-2">
+                                {{ codexform.errors.code_snippet }}
                             </div>                       
                         </div>
 
                         <div class="mt-5">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Instructions/Steps</label>
-                            <Textarea name="" id="" class="!w-full" v-model="form.instruction" placeholder="Step-by-step guidance if applicable..."/>
-                            <div v-if="form.errors.instruction" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.instruction }}
+                            <Textarea name="" id="" class="!w-full" v-model="codexform.instructions" placeholder="Step-by-step guidance if applicable..."/>
+                            <div v-if="codexform.errors.instructions" class="text-red-500 text-sm mt-2">
+                                {{ codexform.errors.instructions }}
                             </div>  
                         </div>
                         <div class="mt-5">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Expected Output</label>
-                            <Textarea name="" id="" class="!w-full" v-model="form.output" placeholder="What the result should look like when executed..."/>
-                            <div v-if="form.errors.output" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.output }}
+                            <Textarea name="" id="" class="!w-full" v-model="codexform.output" placeholder="What the result should look like when executed..."/>
+                            <div v-if="codexform.errors.output" class="text-red-500 text-sm mt-2">
+                                {{ codexform.errors.output }}
                             </div> 
                             <div class="card flex flex-col items-center gap-6 mt-4">
                                 <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
-                                <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
+                                <FileUpload mode="basic" @input="codexform.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
                             </div>
                         </div>
 
                         <nav class="">
-                            <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Codex</button>                    
+                            <!-- <button type="submit" :disabled="codexform.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Codex</button>                     -->
+                                  <button type="submit">Update Category</button>
                         </nav>
 
                     </form>      
@@ -527,59 +528,89 @@ const selectedCategory = ref({}); // ← whole object now
 
 //kanan edit codex ha datatable
 
-    const codexInfoDisp = ref(false);
-    const selectedCodex = ref({}); // ← whole object now  
-
-    function editCodexModal(category) {
-        selectedCodex.value = category;
-        form.CodexName = category.codex_name; //bali ini na code amo ini an para ma display an codex_name ngadto han sakob han input
-        form.categoryName = category.category_name;
-        form.tag = category.tags;
-        form.content = category.content;
-        form.code = category.code_snippet;
-        form.instruction = category.instructions;
-        form.output = category.output;
-        form.level = category.diffuclt_level;
-        form.framework = category.framework;
-        form.language = category.language;
-        codexInfoDisp.value = true;
-    }
 
     //amo ini an knan monaco editor
     import MonacoEditor from '@/Pages/Admin/MonacoEditor/MonacoEditor.vue';
     const code = ref('// Start coding here...\n')
  
 
+//-------------------------------------------- codex ---------------------------
+
+    const codexInfoDisp = ref(false);
+    const selectedCodex = ref({}); // ← whole object now  
+
 
     const codexform = useForm({
         //amo liwat ini an code para han system form
-        CodexName: null,
-        categoryName: null, 
+        codex_name: null,
+        category_name: null, 
         language: [],
         framework: [],
-        tag: null,
-        level: null,
+        tags: null,
+        diffuclt_level: null,
         content: null,
-        code: null,
-        instruction: null,
+        code_snippet: null,
+        instructions: null,
         output: null,
         img: null,
     })
 
- 
+
+
+
+    function editCodexModal(category) {
+        selectedCodex.value = category;
+        codexform.codex_name = category.codex_name; //bali ini na code amo ini an para ma display an codex_name ngadto han sakob han input
+        codexform.category_name = category.category_name;
+        codexform.tags = category.tags;
+        codexform.content = category.content;
+        codexform.code_snippet = category.code_snippet;
+        codexform.instructions = category.instructions;
+        codexform.output = category.output;
+        codexform.diffuclt_level = category.diffuclt_level;
+        codexform.framework = category.framework;
+        codexform.language = category.language;
+        codexInfoDisp.value = true;
+    }
 
 
 
 
 
+const submitCodexForm = () => {
+    // Log current input values for debugging
+    console.log("codex_name Name:", codexform.CodexName);
+    console.log("category_name Name:", codexform.categoryName);
+    console.log("tags Name:", codexform.tag);
+    console.log("content :", codexform.content);
+    console.log("code_snippet :", codexform.code);
+    console.log("instructions :", codexform.instruction);
+    console.log("output :", codexform.output);
+    console.log("diffuclt_level :", codexform.level);
+    console.log("framework :", codexform.framework);
+    console.log("language :", codexform.language);
+    console.log("Image:", codexform.img);
+    // Spoof the PUT method by transforming the form data
+    codexform.transform(data => ({
+        ...data,
+        _method: 'PUT',
+    }));
 
-
-function submitCodexForm() {
-    codexform.put(route('codex.update', selectedCodex.id), {
-    forceFormData: true,
-  })
-}
-
+    codexform.post(route('codex.update', selectedCodex.value.id), {
+        preserveScroll: true,
+        forceFormData: true, // Required for sending FormData including files
+        onSuccess: () => {
+            console.log("Form submitted successfully.");
+            // Reset modal and form
+            src.value = null;
+            form.reset();
+            visible2.value = false;
+        },
+        onError: (errors) => {
+            console.error("Form submission failed.", errors);
+        },
+    });
+};
 
 
 

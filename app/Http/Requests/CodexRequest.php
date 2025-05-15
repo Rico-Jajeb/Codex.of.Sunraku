@@ -22,17 +22,17 @@ class CodexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'CodexName' => 'required|string|max:255',
-            'categoryName' => 'nullable|string|max:255', 
+            'codex_name' => 'required|string|max:255',
+            'category_name' => 'nullable|string|max:255', 
             'language' => 'required|array|max:255',
             'language.*' => 'string', // if each item is string
             'framework' => 'required|array|max:255',
             'framework.*' => 'string', // if each item is string
-            'tag' => 'required|string|max:355',
-            'level' => 'required|string|max:355',
+            'tags' => 'required|string|max:355',
+            'diffuclt_level' => 'required|string|max:355',
             'content' => 'required|string|max:355',
-            'code' => 'required|string|max:2355',
-            'instruction' => 'required|string|max:2355',
+            'code_snippet' => 'required|string|max:2355',
+            'instructions' => 'required|string|max:2355',
             'output' => 'required|string|max:355',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240', // Image validation
         ];

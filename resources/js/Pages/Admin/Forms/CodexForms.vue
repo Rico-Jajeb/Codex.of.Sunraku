@@ -4,17 +4,17 @@
                 <form  class=""  @submit.prevent="form.post('add.Project')">
                  
                     <div class="">
-                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Codex Name</label>
-                            <InputText class="!w-full" type="text" v-model="form.CodexName" placeholder="E.g., Insert Data into MySQL with Laravel" />
-                            <div v-if="form.errors.CodexName" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.CodexName }}
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Add Codex Name</label>
+                            <InputText class="!w-full" type="text" v-model="form.codex_name" placeholder="E.g., Insert Data into MySQL with Laravel" />
+                            <div v-if="form.errors.codex_name" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.codex_name }}
                             </div> 
                     </div>
                     <div class="">
                             <label for="Web Name" class="block mt-4 mb-2 text-lg font-medium text-gray-500 dark:text-white">Category2 Name</label>
-                            <InputText class="!w-full" type="text" v-model="form.categoryName" placeholder="E.g., Insert Data into MySQL with Laravel" />
-                            <div v-if="form.errors.categoryName" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.categoryName }}
+                            <InputText class="!w-full" type="text" v-model="form.category_name" placeholder="E.g., Insert Data into MySQL with Laravel" />
+                            <div v-if="form.errors.category_name" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.category_name }}
                             </div> 
                     </div>
   
@@ -55,31 +55,31 @@
                     
                     <div class="mt-4">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Tags</label>
-                            <InputText class="!w-full" type="text" v-model="form.tag" placeholder="Type and press Enter to add tags" /> 
+                            <InputText class="!w-full" type="text" v-model="form.tags" placeholder="Type and press Enter to add tags" /> 
                             <label for="Web Name" class="block mt-2 text-sm font-medium text-gray-500 dark:text-white">Press Enter to add a tag</label>
-                            <div v-if="form.errors.tag" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.tag }}
+                            <div v-if="form.errors.tags" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.tags }}
                             </div> 
                     </div>
                     <section class="mt-4">
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">difficulty Level</label>
                         <div class="md:flex md:flex-wrap gap-4 mt-4">
                             <div class="flex items-center gap-2">
-                                <RadioButton v-model="form.level" inputId="level1" name="level" value="basic"  />
+                                <RadioButton v-model="form.diffuclt_level" inputId="level1" name="level" value="basic"  />
                                 <label for="ingredient1">Basic</label>
                             </div>
                             <div class="flex items-center gap-2">
-                                <RadioButton v-model="form.level" inputId="level2" name="level" value="intermediate"  />
+                                <RadioButton v-model="form.diffuclt_level" inputId="level2" name="level" value="intermediate"  />
                                 <label for="ingredient2">Intermediate</label>
                             </div>
                             <div class="flex items-center gap-2">
-                                <RadioButton v-model="form.level" inputId="level3" name="level" value="advanced"  />
+                                <RadioButton v-model="form.diffuclt_level" inputId="level3" name="level" value="advanced"  />
                                 <label for="ingredient3">Advanced</label>
                             </div>
                             
                         </div>
-                        <div v-if="form.errors.level" class="text-red-500 text-sm mt-2">
-                            {{ form.errors.level }}
+                        <div v-if="form.errors.diffuclt_level" class="text-red-500 text-sm mt-2">
+                            {{ form.errors.diffuclt_level }}
                         </div> 
                     </section>
                     <header class="my-8">
@@ -95,17 +95,17 @@
                     </div>
                     <div class="mt-5">
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Code Snippet/Commands</label>
-                        <MonacoEditor v-model="form.code" language="javascript" class="h-80" />  
-                        <div v-if="form.errors.code" class="text-red-500 text-sm mt-2">
-                            {{ form.errors.code }}
+                        <MonacoEditor v-model="form.code_snippet" language="javascript" class="h-80" />  
+                        <div v-if="form.errors.code_snippet" class="text-red-500 text-sm mt-2">
+                            {{ form.errors.code_snippet }}
                         </div>                       
                     </div>
 
                     <div class="mt-5">
                         <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Instructions/Steps</label>
-                        <Textarea name="" id="" class="!w-full" v-model="form.instruction" placeholder="Step-by-step guidance if applicable..."/>
-                        <div v-if="form.errors.instruction" class="text-red-500 text-sm mt-2">
-                            {{ form.errors.instruction }}
+                        <Textarea name="" id="" class="!w-full" v-model="form.instructions" placeholder="Step-by-step guidance if applicable..."/>
+                        <div v-if="form.errors.instructions" class="text-red-500 text-sm mt-2">
+                            {{ form.errors.instructions }}
                         </div>  
                     </div>
                     <div class="mt-5">
@@ -199,20 +199,35 @@ watch(successMessage, (newValue) => {
     });
 
 
+    // const form = useForm({
+    //     //amo liwat ini an code para han system form
+    //     CodexName: null,
+    //     categoryName: null, 
+    //     language: [],
+    //     framework: [],
+    //     tag: null,
+    //     level: null,
+    //     content: null,
+    //     code: null,
+    //     instruction: null,
+    //     output: null,
+    //     img: null,
+      
+    // })
+
     const form = useForm({
         //amo liwat ini an code para han system form
-        CodexName: null,
-        categoryName: null, 
+        codex_name: null,
+        category_name: null, 
         language: [],
         framework: [],
-        tag: null,
-        level: null,
+        tags: null,
+        diffuclt_level: null,
         content: null,
-        code: null,
-        instruction: null,
+        code_snippet: null,
+        instructions: null,
         output: null,
         img: null,
-     
       
     })
 
@@ -222,7 +237,7 @@ watch(successMessage, (newValue) => {
     () => props.category,
     (newCategory) => {
         if (newCategory && newCategory.category_name) {
-        form.categoryName = newCategory.category_name;
+        form.category_name = newCategory.category_name;
         }
     },
     { immediate: true } // run immediately on first load
