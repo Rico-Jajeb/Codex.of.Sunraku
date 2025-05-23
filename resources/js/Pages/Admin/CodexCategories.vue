@@ -143,16 +143,6 @@
 
 
 
-        <!-- Adi an modal han update category form -->
-        <!-- <section>
-            <div class="card flex justify-center bg-red-500">
-                <Button label="Show" @click="visible2 = true" />
-                <Dialog v-model:visible="visible2" header="Update Category" :style="{ width: '25rem' }"  >
-                    <UpdateCategoryForm/>
-                </Dialog>
-            </div>
-        </section> -->-
-
             <!--UPDATE adi an knn category  modal -->
             <section>    
                 <Dialog v-model:visible="visible2" maximizable

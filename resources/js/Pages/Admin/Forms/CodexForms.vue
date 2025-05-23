@@ -1,10 +1,11 @@
 <template>
    
           
-                <form  class=""  @submit.prevent="form.post('add.Project')">
+                <form  class=""  @submit.prevent="form.post('add.Codex')">
+                <!-- <form @submit.prevent="submitForm" enctype="multipart/form-data"> -->
                  
                     <div class="">
-                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Add Codex Name</label>
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white"> Codex Name</label>
                             <InputText class="!w-full" type="text" v-model="form.codex_name" placeholder="E.g., Insert Data into MySQL with Laravel" />
                             <div v-if="form.errors.codex_name" class="text-red-500 text-sm mt-2">
                                 {{ form.errors.codex_name }}
@@ -122,6 +123,8 @@
   
                     <nav class="">
                         <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Codex</button>                    
+                    
+                          <!-- <button type="submit">Update Category</button> -->
                     </nav>
 
                 </form>              
@@ -232,7 +235,7 @@ watch(successMessage, (newValue) => {
     })
 
 
-    // when category changes, update form.categoryName
+    // Bali an knn category ini  han form, na ma display ngadto han input
     watch(
     () => props.category,
     (newCategory) => {
@@ -308,4 +311,30 @@ watch(successMessage, (newValue) => {
     const buttondisplay = ref();
     const icondisplay = ref();
     const templatedisplay = ref();
+
+
+
+
+
+// const submitForm = () => {
+  
+//     form.post(route('add.Codex'), {
+//         preserveScroll: true,
+//         forceFormData: true,
+//         onSuccess: () => {
+//             toast.add({
+//                 severity: 'success',
+//                 summary: 'Success message',
+//                 detail: 'Category added successfully!',
+//                 life: 10000,
+//             });
+
+//         },
+//         onError: (errors) => {
+//             console.error("Form submission failed.", errors);
+//         },
+//     });
+// };
+
+
 </script>

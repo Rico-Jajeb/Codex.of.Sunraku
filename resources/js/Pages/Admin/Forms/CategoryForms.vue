@@ -2,7 +2,7 @@
         <form @submit.prevent="submitForm" enctype="multipart/form-data">
 
             <div class="">
-                    <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">add Category name</label>
+                    <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Category name</label>
                     <InputText class="!w-full" type="text" v-model="form.CategoryName" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
                     <div v-if="form.errors.CategoryName" class="text-red-500 text-sm mt-2">
                         {{ form.errors.CategoryName }}
@@ -24,9 +24,9 @@
             
                 </div>
             <nav class="">
-                    <!-- <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
-             -->
-                <button type="submit">Update Category</button>
+                    <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
+            
+                <!-- <button type="submit">Update Category</button> -->
             </nav>
     </form>
     <div>
