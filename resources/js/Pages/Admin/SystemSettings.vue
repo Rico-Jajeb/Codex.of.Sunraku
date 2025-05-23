@@ -39,8 +39,8 @@
                     <div class="  xl:basis-1/2 md:basis-1/2 ">
                         <label for="email" class="block mb-2 text-lg font-medium  text-gray-900 dark:text-white">Logo</label>
                         <div class=" block sm:flex ">
-                            <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64 "  />
-                            <FileUpload mode="basic" @select="onFileSelect" customUpload auto severity="secondary" class="md:mt-0 mt-4 p-button-outlined ml-2 sm:ml-8 md:ml-2" />
+                            <img v-if="srcLogo" :src="srcLogo" alt="Image" class="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64 "  />
+                            <FileUpload mode="basic" @select="onFileSelectLogo" customUpload auto severity="secondary" class="md:mt-0 mt-4 p-button-outlined ml-2 sm:ml-8 md:ml-2" />
                         </div>
                     </div>
                     <div class="  xl:basis-1/2 md:basis-2/2 md:mt-0 mt-10">
@@ -54,7 +54,7 @@
                     
                 </section>
 
-     <div class="px-4">
+                <div class="px-4">
                     <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Changes</button>                    
                 </div>
 
@@ -84,6 +84,35 @@
     import { useToast } from 'primevue/usetoast'
     import Card from 'primevue/card';
     import SystemForm from '@/Pages/Admin/Forms/SystemForm.vue';
+
+
+
+      
+    const srcLogo = ref(null);
+    const src = ref(null);
+
+    function onFileSelectLogo(event) {
+        const file = event.files[0];
+        const reader = new FileReader();
+
+        reader.onload = async (e) => {
+            srcLogo.value = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+    function onFileSelect(event) {
+        const file = event.files[0];
+        const reader = new FileReader();
+
+        reader.onload = async (e) => {
+            src.value = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+
 
 
       const form = useForm({
