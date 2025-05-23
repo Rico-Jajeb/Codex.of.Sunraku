@@ -17,6 +17,7 @@ use App\Services\CodexServices;
 use App\Services\CodexImageService;
 use App\Services\CodexCategoryService;
 use App\Services\UpdateCodexService;
+use App\Services\DeleteCodexService;
 
 //MODEL
 use App\Models\CodexModel;
@@ -29,14 +30,16 @@ class CodexController extends Controller
     protected $CodexImageService;
     protected $CodexCategoryService;
     protected $UpdateCodexService;
+    protected $DeleteCodexService;
 
     public function __construct(CodexServices $CodexServices, CodexImageService $CodexImageService, CodexCategoryService $CodexCategoryService,
-    UpdateCodexService $UpdateCodexService)
+    UpdateCodexService $UpdateCodexService, DeleteCodexService $DeleteCodexService)
     {
         $this->CodexServices = $CodexServices;
         $this->CodexImageService = $CodexImageService;
         $this->CodexCategoryService = $CodexCategoryService;
         $this->UpdateCodexService = $UpdateCodexService;
+        $this->DeleteCodexService = $DeleteCodexService;
     }
     
 
@@ -122,5 +125,14 @@ class CodexController extends Controller
          return redirect()->route('codex.category')->with('success', "Codex updated Successfully!");
     }
  
+
+
+    public function DeleteCodex($id, DeleteCodexService $deleteService)
+    {
+        $success = $deleteService->deleteCodex($id);
+
+        return redirect()->route('codex.category')->with('success', "Deleted  Successfully!");
+    }
+
 
 }

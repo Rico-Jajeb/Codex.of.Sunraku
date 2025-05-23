@@ -73,3 +73,5 @@ Route::put('/codexup/{id}', [CodexController::class, 'updateCodex'])->name('code
 
 //kanan delete
 Route::delete('/posts/{id}', [CategoryCodexController::class, 'destroy'])->name('posts.destroy');
+
+Route::delete('/deleteCodex/{id}', [CodexController::class, 'DeleteCodex'])->name('codex.destroy');

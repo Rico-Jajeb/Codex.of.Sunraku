@@ -222,6 +222,20 @@
                 </Dialog>
             </section>
 
+            <section>
+                <Dialog v-model:visible="visible9" :header="`Delete '${selectedCategory.category_name}' Category`" :style="{ width: '25rem' }">
+                    <nav class="flex justify-center gap-6">
+                        <button @click="deleteCodex(item.id)" class=" bg-red-600 text-white px-3 py-1 rounded">
+                            <i class="pi pi-trash mr-2"></i> Delete
+                        </button>
+                        <button @click="closeCodexDelete()" class=" bg-green-600 text-white px-3 py-1 rounded">
+                            <i class="pi pi-times mr-2"></i> Cancel
+                        </button>                        
+                    </nav>
+
+                </Dialog>
+            </section>
+
             <!-- Category display info -->
             <section>
                 <!-- <Dialog v-model:visible="categoryInfoDisp" maximizable :header="`Codex Category: '${selectedCategory.category_name}'`" :style="{ width: '90vw' }">
@@ -274,8 +288,10 @@
                         <Column class="!text-end">
                             <template #body="{ data }">
                                 <nav class="flex gap-1">
-                                    <button @click="editCodexModal(data)" class=" py-2 px-4"><i class="pi pi-pencil" ></i></button>
-                                    <button @click="editCodexModal(data)" class=" py-2 px-4"><i class="pi pi-trash" ></i></button>                                    
+                                    <button @click="editCodexModal(data)" class=" py-2 px-4"><i class="pi pi-pencil" ></i></button>     
+                                    <button type="button" @click="deleteModalCodex(data)" class="mx-4">
+                                        <i class="pi pi-trash" style="font-size: 1rem"></i>
+                                    </button>                                  
                                 </nav>
 
                             </template>
@@ -423,8 +439,8 @@
                 </Dialog>
             </section>
 
-            <!-- new shit -->
-            <!-- new shit -->
+       
+           
             <div>
                 <!-- amo ini an kanan pop up notif pag nag submit msg -->
                 <Toast />
@@ -851,6 +867,7 @@ function openCategoryCard() {
     const visible = ref(false);
     const visible2 = ref(false);
     const visible3 = ref(false);
+    const visible9 = ref(false);
     const categoryInfoDisp = ref(false);
     const codexModal = ref(false);
 
@@ -875,6 +892,24 @@ function openCategoryCard() {
         visible3.value = false
     }
 
+    const deleteCodex = (id) => {
+        //amo ini an kanna delete
+        // bali amo ini an nkadto han button knan delete
+        router.delete(`/deleteCodex/${id}`, {
+        onSuccess: () => {
+              toast.add({
+                severity: 'success',
+                summary: 'Delete message',
+                detail: 'Deleted Successfully!', // Can hardcode or pull from props if needed
+                life: 10000,
+            });
+
+        }
+        })
+        // tapos ini liwat an code para pag na delete na matik ma close an modal
+        visible9.value = false
+    }
+
 
     const item = ref({ id: null })
 
@@ -884,8 +919,21 @@ function openCategoryCard() {
     visible3.value = true
     }
 
+    function deleteModalCodex(category) {
+        selectedCategory.value = category
+        item.value.id = category.id
+        visible9.value = true
+    }
+
+
+
+
     function closeDelete(){
         visible3.value = false
+    }
+
+    function closeCodexDelete(){
+        visible9.value = false
     }
 
 
