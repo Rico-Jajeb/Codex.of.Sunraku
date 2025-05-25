@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class SystemModel extends Model
 {
     use HasFactory;
-    protected $table = 'setting';
+    protected $table = 'settings_info';
     protected $fillable = [
-        'system_name', 'img',
+        'system_name', 'system_slogan', 'system_logo', 'system_favicon',
     
     ];
 }

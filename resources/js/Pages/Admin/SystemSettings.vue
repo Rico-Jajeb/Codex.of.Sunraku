@@ -87,6 +87,10 @@
 
 
 
+    const props = defineProps({
+        data: Array,
+    });
+
       
     const srcLogo = ref(null);
     const src = ref(null);
