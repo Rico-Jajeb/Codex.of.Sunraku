@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="  xl:basis-1/2 md:basis-2/2 md:mt-0 mt-10">
-                        <label for="email" class="block mb-2 text-lg font-medium  text-gray-900 dark:text-white">Favicon</label>
+                        <label for="email" class="block mb-2 text-lg font-medium  text-gray-900 dark:text-white">Background</label>
                         <div class=" block sm:flex ">
                             <Image v-if="!src" alt="user header" loading="lazy"  preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64"  :src="`/storage/output/${props.data.system_favicon}`" />
                     
@@ -74,7 +74,11 @@
 
          
         </main>
-            
+
+            <div>
+                <!-- amo ini an kanan pop up notif pag nag submit msg -->
+                <Toast />
+            </div>   
     </AppLayout>
 </template>
 
@@ -91,6 +95,10 @@
     import Card from 'primevue/card';
     import SystemForm from '@/Pages/Admin/Forms/SystemForm.vue';
 import Image from 'primevue/image';
+
+
+    const page = usePage()
+    const toast = useToast()
 
 
     const props = defineProps({
@@ -153,8 +161,8 @@ const submitForm = () => {
         onSuccess: () => {
             toast.add({
                 severity: 'success',
-                summary: 'Update message',
-                detail: 'Category Updated Successfully!', // Can hardcode or pull from props if needed
+                summary: 'Update Setting',
+                detail: 'Setting Updated Successfully!', // Can hardcode or pull from props if needed
                 life: 10000,
             });
             src.value = null;

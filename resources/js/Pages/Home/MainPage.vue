@@ -1,12 +1,27 @@
 <template>
     <MainLayout>
-        <main class="bg-red-300 p-3 rounded-xl h-[97vh] m-3  pt-20  ">
-                <section class="bg-yellow-300 max-w-7xl m-auto">
+        <!-- <main class="bg-red-300 p-3 rounded-xl h-[97vh] m-3  pt-20  ">
+                 <img alt="user header" loading="lazy"  class="h-full w-full object-cover rounded-t-lg"  :src="`/storage/output/${setting.system_favicon}`" />
+                        -->
+                 <!-- <main
+  class="relative bg-red-300 p-3 rounded-xl h-[97vh] m-3 pt-20 overflow-hidden"
+  :style="`background-image: url('/storage/output/${setting.system_favicon}'); background-size: cover; background-position: center;`"
+> -->
+
+<main class="relative  p-3 rounded-xl h-[97vh] m-3 pt-20 overflow-hidden">
+  <!-- Background Image -->
+  <img
+    alt="user header"
+    loading="lazy"
+    :src="`/storage/output/${setting.system_favicon}`"
+    class="absolute inset-0 w-full h-full object-cover -z-10"
+  />
+                <section class=" max-w-7xl m-auto">
                     <header class="text-center pt-10 pb-4">
                         <h1 class="text-5xl font-extrabold mt-0 md:mt-40">Build Your Codex, Unlock Your Potential.</h1>
                         <p class="mt-4 text-xl font-bold md:mt-6">SunRaku's personal Knowledge base for ideas, notes, and information.</p>
                     </header>
-                    <div class=" bg-green-400">
+                    <div class=" ">
                         <IconField class="mx-auto md:!w-[640px] !w-80"  >
                             <InputIcon class="pi pi-search" />
                             <InputText v-model="value1" placeholder="Search codex by title, content, or tags..." class="!w-full" />
@@ -40,7 +55,7 @@
     
 
             </aside>
-            <section class="bg-orange-300  flex flex-row  basis-5/6 flex-wrap justify-center gap-4">
+            <section class=" flex flex-row  basis-5/6 flex-wrap justify-center gap-4">
 
                 <!-- <Card class="!w-80 !h-80 " v-for="item in data" :key="item.id">
                     <template #title>
@@ -103,10 +118,17 @@
 
  
 
-    const { data, category } = defineProps({
+    const { data, category, setting } = defineProps({
         data: Array,
-        category: Array
+        category: Array,
+        setting: Object,
     })
+
+    // const props = defineProps({
+    //     data: Array,
+    //     category: Array,
+    //     data: Array,
+    // })
 
     const currentFilter = ref('all')
 

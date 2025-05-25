@@ -1,5 +1,5 @@
 <template>
-       <header class="h-20 flex gap-4 justify-between bg-blue-300 max-w-7xl m-auto fixed top-0 right-0 left-0 mt-0 md:mt-3">
+       <header class="h-20 flex gap-4 justify-between  max-w-7xl m-auto fixed top-0 right-0 left-0 mt-0 md:mt-3  z-50">
         <!-- Logo or Site Name -->
         <div class="text-lg font-bold text-gray-800 dark:text-white">
           <Link href="/" >SunRaku's Codex</Link>   
@@ -9,10 +9,11 @@
             <div class="max-w-screen-xl mx-auto flex items-center justify-between p-4">
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-6 ">
-                  <Link href="about" >Search</Link>
+                  <Link href="about" class="text-white text-1xl font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Search</Link>
+                  <Link href="about" class="text-white text-1xl font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Categories</Link>
+                  <Link href="about" class="text-white text-1xl font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Recent Notes</Link>
                 
-                  <Link href="about" >Categories</Link>
-                  <Link href="about" >Recent Notes</Link>
+                
                 </nav> 
                 <!-- This is the navigation button for login and register            -->
                 <nav class="ml-20">

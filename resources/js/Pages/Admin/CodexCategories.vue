@@ -607,17 +607,7 @@ const selectedCategory = ref({}); // ← whole object now
 
 const submitCodexForm = () => {
     // Log current input values for debugging
-    console.log("codex_name Name:", codexform.CodexName);
-    console.log("category_name Name:", codexform.categoryName);
-    console.log("tags Name:", codexform.tag);
-    console.log("content :", codexform.content);
-    console.log("code_snippet :", codexform.code);
-    console.log("instructions :", codexform.instruction);
-    console.log("output :", codexform.output);
-    console.log("diffuclt_level :", codexform.level);
-    console.log("framework :", codexform.framework);
-    console.log("language :", codexform.language);
-    console.log("Image:", codexform.img);
+  
     // Spoof the PUT method by transforming the form data
     codexform.transform(data => ({
         ...data,

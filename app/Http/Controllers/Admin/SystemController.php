@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -21,8 +23,9 @@ use App\Services\CodexImageService;
 use App\Services\SystemSettingService;
 use App\Services\DisplaySettingService;
 use App\Services\UpdateSettingService;
-use App\Services\SettingLogoService;
-use App\Services\SettingFaviconService;
+
+use App\Services\Image\SettingLogoService;
+use App\Services\Image\SettingFaviconService;
 
 
 //MODEL
