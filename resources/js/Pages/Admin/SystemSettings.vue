@@ -18,19 +18,19 @@
                 </header>
                 
 
-                <form action="">
+                 <form @submit.prevent="submitForm" enctype="multipart/form-data">
                     <div class="px-4">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">System name</label>
-                            <InputText class="!w-full" type="text" v-model="form.CategoryName" placeholder="Insert System Name" />
-                            <div v-if="form.errors.CategoryName" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.CategoryName }}
+                            <InputText class="!w-full" type="text" v-model="form.system_name" placeholder="Insert System Name" />
+                            <div v-if="form.errors.system_name" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.system_name }}
                             </div> 
                     </div>
                     <div class="px-4  mt-8 mb-8">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Slogan/Tagline</label>
-                            <InputText class="!w-full" type="text" v-model="form.CategoryName" placeholder="Insert Slogan/Tagline" />
-                            <div v-if="form.errors.CategoryName" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.CategoryName }}
+                            <InputText class="!w-full" type="text" v-model="form.system_slogan" placeholder="Insert Slogan/Tagline" />
+                            <div v-if="form.errors.system_slogan" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.system_slogan }}
                             </div> 
                     </div>
                   
@@ -39,15 +39,21 @@
                     <div class="  xl:basis-1/2 md:basis-1/2 ">
                         <label for="email" class="block mb-2 text-lg font-medium  text-gray-900 dark:text-white">Logo</label>
                         <div class=" block sm:flex ">
-                            <img v-if="srcLogo" :src="srcLogo" alt="Image" class="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64 "  />
-                            <FileUpload mode="basic" @select="onFileSelectLogo" customUpload auto severity="secondary" class="md:mt-0 mt-4 p-button-outlined ml-2 sm:ml-8 md:ml-2" />
+                            <Image v-if="!srcLogo" alt="user header" loading="lazy"  preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64"  :src="`/storage/output/${props.data.system_logo}`" />
+                    
+                            <Image v-if="srcLogo" :src="srcLogo" alt="Image" preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64 "  />
+                            <FileUpload mode="basic" @input="form.system_logo = $event.target.files[0]" @select="onFileSelectLogo" customUpload auto severity="secondary" class="md:mt-0 mt-4 p-button-outlined ml-2 sm:ml-8 md:ml-2" />
                         </div>
                     </div>
                     <div class="  xl:basis-1/2 md:basis-2/2 md:mt-0 mt-10">
                         <label for="email" class="block mb-2 text-lg font-medium  text-gray-900 dark:text-white">Favicon</label>
                         <div class=" block sm:flex ">
-                            <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64"  />
-                            <FileUpload mode="basic" @select="onFileSelect" customUpload auto severity="secondary" class="md:mt-0 mt-4 p-button-outlined ml-2 sm:ml-8 md:ml-2" />
+                            <Image v-if="!src" alt="user header" loading="lazy"  preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64"  :src="`/storage/output/${props.data.system_favicon}`" />
+                    
+                            <Image v-if="src" :src="src" alt="Image" preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64 "  />
+                 
+                            <FileUpload mode="basic" @input="form.system_favicon = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="md:mt-0 mt-4 p-button-outlined ml-2 sm:ml-8 md:ml-2" />
+                       
                         </div>
                     </div>
 
@@ -56,12 +62,12 @@
 
                 <div class="px-4">
                     <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Changes</button>                    
+               
                 </div>
 
                 </form>
 
             </section>
-
 
 
 
@@ -84,12 +90,13 @@
     import { useToast } from 'primevue/usetoast'
     import Card from 'primevue/card';
     import SystemForm from '@/Pages/Admin/Forms/SystemForm.vue';
-
+import Image from 'primevue/image';
 
 
     const props = defineProps({
-        data: Array,
-    });
+        data: Object
+    })
+
 
       
     const srcLogo = ref(null);
@@ -119,13 +126,52 @@
 
 
 
-      const form = useForm({
-        //amo liwat ini an code para han system form
-        CategoryName: null,
-        CategoryDesc: null,
-        img: null,
-   
+    const form = useForm({
+        system_name: props.data?.system_name ?? '',
+        system_slogan: props.data?.system_slogan ?? '',
+        system_logo:    null,
+        
+        system_favicon: null,
     })
+
+
+
+
+
+
+
+const submitForm = () => {
+ 
+    form.transform(data => ({
+        ...data,
+        _method: 'PUT',
+    }));
+
+    form.post(route('system.update',  props.data.id), {
+        preserveScroll: true,
+        forceFormData: true,
+        onSuccess: () => {
+            toast.add({
+                severity: 'success',
+                summary: 'Update message',
+                detail: 'Category Updated Successfully!', // Can hardcode or pull from props if needed
+                life: 10000,
+            });
+            src.value = null;
+            form.reset();
+            visible2.value = false;
+        },
+        onError: (errors) => {
+            console.error("Form submission failed.", errors);
+        },
+    });
+};
+
+
+
+
+
+
 
 
 </script>

@@ -21,6 +21,8 @@ use App\Services\CodexImageService;
 use App\Services\SystemSettingService;
 use App\Services\DisplaySettingService;
 use App\Services\UpdateSettingService;
+use App\Services\SettingLogoService;
+use App\Services\SettingFaviconService;
 
 
 //MODEL
@@ -34,14 +36,19 @@ class SystemController extends Controller
     protected $SystemSettingService;
     protected $DisplaySettingService;
     protected $UpdateSettingService;
+    protected $SettingLogoService;
+    protected $SettingFaviconService;
 
     public function __construct( CodexImageService $CodexImageService, SystemSettingService $SystemSettingService, 
-    DisplaySettingService $DisplaySettingService, UpdateSettingService $UpdateSettingService )
+    DisplaySettingService $DisplaySettingService, UpdateSettingService $UpdateSettingService, 
+    SettingLogoService $SettingLogoService, SettingFaviconService $SettingFaviconService )
     {
         $this->CodexImageService = $CodexImageService;
         $this->SystemSettingService = $SystemSettingService;
         $this->DisplaySettingService = $DisplaySettingService;
         $this->UpdateSettingService = $UpdateSettingService;
+        $this->SettingLogoService = $SettingLogoService;
+        $this->SettingFaviconService = $SettingFaviconService;
     }
 
 
@@ -75,18 +82,34 @@ class SystemController extends Controller
 
 
 
+    // public function updateSetting(SystemRequest $request, $id){
+    //     // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
+    //     $imageName = $this->CodexImageService->handleImageUpload($request); 
+
+    //     $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
+    
+    //     $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
+    
+    //     $this->UpdateSettingService->upSetting($id, $validated); //adi an code para han up services
+
+    //     return back();
+    // }
+
+
     public function updateSetting(SystemRequest $request, $id){
         // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
-        $imageName = $this->CodexImageService->handleImageUpload($request); 
+        $imageName = $this->SettingLogoService->handleImageUpload($request); 
+        $imageName2 = $this->SettingFaviconService->handleImageUpload($request); 
 
         $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
     
-        $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
+        $validated['system_logo'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
+        $validated['system_favicon'] = $imageName2;  // amo ini an code  para an unique img name an ma store ha db
     
         $this->UpdateSettingService->upSetting($id, $validated); //adi an code para han up services
 
-        return back();
+        // return redirect()->route('codex.category')->with('success', "Category Added Successfully!");return back();
+        return redirect()->route('system.settings')->with('success', "Category Updated Successfully!");
+
     }
-
-
 }

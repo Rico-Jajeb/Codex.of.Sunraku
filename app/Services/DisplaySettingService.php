@@ -12,7 +12,10 @@ class DisplaySettingService
 
     public function getAllData()
     {
-        return SystemModel::all();  // Retrieve all data (you can modify this to add any filtering or sorting logic)
+         //return SystemModel::all();  
+       return SystemModel::find(1); 
+
+
     }
  
     
