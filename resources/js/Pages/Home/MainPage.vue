@@ -1,25 +1,20 @@
 <template>
-    <MainLayout>
-        <!-- <main class="bg-red-300 p-3 rounded-xl h-[97vh] m-3  pt-20  ">
-                 <img alt="user header" loading="lazy"  class="h-full w-full object-cover rounded-t-lg"  :src="`/storage/output/${setting.system_favicon}`" />
-                        -->
-                 <!-- <main
-  class="relative bg-red-300 p-3 rounded-xl h-[97vh] m-3 pt-20 overflow-hidden"
-  :style="`background-image: url('/storage/output/${setting.system_favicon}'); background-size: cover; background-position: center;`"
-> -->
-
-<main class="relative  p-3 rounded-xl h-[97vh] m-3 pt-20 overflow-hidden">
-  <!-- Background Image -->
-  <img
-    alt="user header"
-    loading="lazy"
-    :src="`/storage/output/${setting.system_favicon}`"
-    class="absolute inset-0 w-full h-full object-cover -z-10"
-  />
+    <MainLayout
+        :data="data"
+        :category="category"
+        :setting="setting"
+        :can-login="canLogin"
+        :can-register="canRegister"
+        :laravel-version="laravelVersion"
+        :php-version="phpVersion"  >
+      
+        <main class="relative  p-3 rounded-xl h-[97vh] m-3 pt-20 overflow-hidden ">
+            <!-- Background Image -->
+            <img alt="System Background" loading="lazy" :src="`/storage/output/${setting.system_favicon}`" class="absolute inset-0 w-full h-full object-cover -z-10" />
                 <section class=" max-w-7xl m-auto">
                     <header class="text-center pt-10 pb-4">
-                        <h1 class="text-5xl font-extrabold mt-0 md:mt-40">Build Your Codex, Unlock Your Potential.</h1>
-                        <p class="mt-4 text-xl font-bold md:mt-6">SunRaku's personal Knowledge base for ideas, notes, and information.</p>
+                        <h1 class="text-5xl font-extrabold mt-0 md:mt-40">{{ setting.system_slogan }}</h1>
+                        <p class="mt-4 text-xl font-bold md:mt-6">SunRaku's personal Knowledge base for ideas, notes, and projects.</p>
                     </header>
                     <div class=" ">
                         <IconField class="mx-auto md:!w-[640px] !w-80"  >
@@ -28,20 +23,16 @@
                         </IconField>
                     </div>       
                     <div class="">
-                        <!-- <li v-for="(item, index) in msgg" :key="index">{{ item }}</li> -->
-                        <!-- <li v-for="(item, index) in data" :key="index">{{ item }}</li> -->
-                        <!-- <li v-for="item in data" :key="item.id">{{ item.codex_name }}</li> -->
-                        <!-- <li v-for="item in data" :key="item.id">
-        <strong>{{ item.codex_name }}</strong> - 
-        Language: {{ item.language }} | 
-        Framework: {{ item.framework }}
-      </li> -->
+                     
                     </div> 
                 </section>
         </main>
-        <article class="bg-blue-400 flex flex-row">
-            <aside class="bg-green-300 basis-1/6">
-                <h1 class="text-center text-xl font-bold  py-4">Category</h1>
+        <article class=" flex flex-row">
+            <aside class="bg-gray-800 basis-1/6 rounded-r-lg">
+                <h1 class="text-center text-xl font-bold text-white py-4"> 
+                    <i class="pi pi-tags mr-4" style="font-size: 1.1rem"></i>
+                    Categories
+                </h1>
                 <nav class="pl-3 ">
                         <button @click="currentFilter = 'all'" class="block">All</button>
                         <!-- amo adi an button para han category -->
@@ -55,49 +46,43 @@
     
 
             </aside>
-            <section class=" flex flex-row  basis-5/6 flex-wrap justify-center gap-4">
+               
+            <section class="bg-gray-200 basis-5/6  pb-4 rounded-lg">
+                
+                <header class=" flex justify-between px-4 pt-2">
+                    <h1 class="text-lg font-bold">Recent Notes</h1>
+                 
+                </header>
+                <!-- amo ini an kanan card -->
+                <section class="flex flex-row  flex-wrap justify-center gap-4 w-full mt-4">
+                    <Card class="!w-80 !h-80 !shadow-lg  " v-for="item in filteredItems.slice().reverse()" :key="item.id">
+                        <template #title>
+                            <header class="">
+                                <h1 class="truncate text-lg font-bold">{{ item.codex_name }}</h1>
+                            </header>
+                        </template>
+                        <template #content>
+                            <section class="">
+                                <p class="m-0 text-gray-500 text-md h-20 w-full overflow-hidden text-ellipsis ">
+                                {{ item.content }}
+                                </p>
+                            
+                                <nav class=" gap-2 mt-4">
+                                    <label for="" class="font-medium">Language:</label>
+                                    <p class="truncate h-8 text-gray-400 font-bold">{{ item.language.join(', ') }}</p>
 
-                <!-- <Card class="!w-80 !h-80 " v-for="item in data" :key="item.id">
-                    <template #title>
-                        <header>
-                            <h1>{{ item.codex_name }}</h1>
-                        </header>
-                    </template>
-                    <template #content>
-                        <p class="m-0">
-                        learn how to use My Codex effectively to organize your knowledge
-                        </p>
-                        <nav class="flex gap-2 mt-4">
-                            <button class="bg-blue-100 px-4 py-1 rounded-md">{{ item.language }}</button>
-                            <button class="bg-blue-100 px-4 py-1 rounded-md">{{ item.framework }}</button>                            
-                        </nav>
-                        <p>Updated Oct 15, 2023</p>
-                    </template>
-                  
-                </Card> -->
+                                    <label class="font-medium" for="">framework: </label>
+                                    <p class="  truncate h-8 text-gray-400 font-bold">{{ item.framework.join(', ') }}</p>                            
+                                </nav>
+                                <p class="mt-4 text-sm text-gray-500">Date: {{ new Date(item.created_at).toISOString().split('T')[0] }}</p>
 
+                            </section>
 
-                <Card class="!w-80 !h-80 " v-for="item in filteredItems" :key="item.id">
-                    <template #title>
-                        <header>
-                            <h1>{{ item.codex_name }}</h1>
-                        </header>
-                    </template>
-                    <template #content>
-                        <p class="m-0">
-                        learn how to use My Codex effectively to organize your knowledge
-                        </p>
-                        <nav class="flex gap-2 mt-4">
-                            <button class="bg-blue-100 px-4 py-1 rounded-md">{{ item.language }}</button>
-                            <button class="bg-blue-100 px-4 py-1 rounded-md">{{ item.framework }}</button>                            
-                        </nav>
-                        <p>Updated Oct 15, 2023</p>
-                    </template>
-                  
-                </Card>
-
-        
-     
+                        </template>
+                    
+                    </Card>
+                </section>
+          
 
             </section>
         </article>
@@ -118,25 +103,43 @@
 
  
 
-    const { data, category, setting } = defineProps({
-        data: Array,
-        category: Array,
-        setting: Object,
-    })
+  const props = defineProps({
+    data: Array,
+    category: Array,
+    setting: Object,
+    canLogin: Boolean,
+    canRegister: Boolean,
+    laravelVersion: String,
+    phpVersion: String,
+});
+ 
+
 
     // const props = defineProps({
     //     data: Array,
     //     category: Array,
-    //     data: Array,
+    //     setting: Object,
     // })
 
     const currentFilter = ref('all')
 
   
 
+    // const filteredItems = computed(() => {
+    // if (currentFilter.value === 'all') return data
+    // return data.filter(item => item.category_name === currentFilter.value)
+    // })
     const filteredItems = computed(() => {
-    if (currentFilter.value === 'all') return data
-    return data.filter(item => item.category_name === currentFilter.value)
-    })
+    if (currentFilter.value === 'all') return props.data
+    return props.data.filter(item => item.category_name === currentFilter.value)
+})
+
+
+
+
+
+
+
+
 
 </script>

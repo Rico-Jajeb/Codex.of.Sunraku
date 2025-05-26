@@ -1,33 +1,23 @@
 <template>
        <header class="h-20 flex gap-4 justify-between  max-w-7xl m-auto fixed top-0 right-0 left-0 mt-0 md:mt-3  z-50">
         <!-- Logo or Site Name -->
-        <div class="text-lg font-bold text-gray-800 dark:text-white">
-          <Link href="/" >SunRaku's Codex</Link>   
+        <div class=" flex items-center gap-4 ">
+                <Image alt="Logo" loading="lazy" :src="`/storage/output/${setting.system_logo}`" imageClass="h-14 w-14 rounded-full " preview />  
+                <Link href="/"  class="text-white  text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]  " > {{ setting.system_name }}</Link>    
         </div>
         <!-- Navigation  menu -->
-        <nav class=" border-gray-200 dark:bg-gray-900">
+        <nav class=" border-gray-200 dark:bg-gray-900 mt-3">
             <div class="max-w-screen-xl mx-auto flex items-center justify-between p-4">
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-6 ">
-                  <Link href="about" class="text-white text-1xl font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Search</Link>
-                  <Link href="about" class="text-white text-1xl font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Categories</Link>
-                  <Link href="about" class="text-white text-1xl font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Recent Notes</Link>
+                 
+                  <Link href="about" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Categories</Link>
+                  <Link href="about" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Recent Notes</Link>
+                  <Link href="about" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Projects</Link>
                 
                 
                 </nav> 
-                <!-- This is the navigation button for login and register            -->
-                <nav class="ml-20">
-                    <Link :href="route('login')" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                        Log in
-                    </Link>
-                    <Link :href="route('register')" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                        Register
-                    </Link>
-                    <!-- TEMPORARY LA INI PARA MADAGMIT PAG KADTO DASHBOARD  -->
-                    <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                            Dashboard
-                    </Link>
-                </nav>
+             
 
                 <!-- Hamburger Button (Mobile) -->
                 <button  @click="isMenuOpen = !isMenuOpen" class="md:hidden p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600">
@@ -62,6 +52,8 @@
 
 
     import { Head, Link } from '@inertiajs/vue3';
+import Image from 'primevue/image';
+ 
 
 defineProps({
     canLogin: {
@@ -77,6 +69,12 @@ defineProps({
     phpVersion: {
         type: String,
         required: true,
+    },
+
+    setting: {
+        type: Object,
+        required: true, // or true if you expect it always to be present
+        default: () => ({}), // optional default value
     },
 });
 
