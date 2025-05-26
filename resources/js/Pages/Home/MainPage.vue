@@ -27,20 +27,25 @@
                     </div> 
                 </section>
         </main>
-        <article class=" flex flex-row">
-            <aside class="bg-gray-800 basis-1/6 rounded-r-lg">
+        <article class=" flex flex-row ">
+            <aside class="bg-gray-800 basis-1/6 rounded-r-lg pb-4 ">
                 <h1 class="text-center text-xl font-bold text-white py-4"> 
                     <i class="pi pi-tags mr-4" style="font-size: 1.1rem"></i>
                     Categories
                 </h1>
-                <nav class="pl-3 ">
-                        <button @click="currentFilter = 'all'" class="block">All</button>
-                        <!-- amo adi an button para han category -->
-                        <div v-for="cat in category" :key="cat.id">
-                            <button @click="currentFilter = cat.category_name" class="block">
+                <Divider/>
+                <nav class=" text-white text-lg font-normal pl-14 ">
+                    <!-- "All" button -->
+                    <button @click="currentFilter = 'all'" :class="[ 'block mb-4 border-b-2', currentFilter === 'all' ? 'border-b-white ' : 'border-b-gray-800 '  ]" >
+                        All
+                    </button>
+                    <!-- Category buttons -->
+                    <div v-for="cat in category" :key="cat.id">
+                        <button  @click="currentFilter = cat.category_name" :class="[ 'block mb-1 border-b-2', currentFilter === cat.category_name ? 'border-b-white font-bold' : 'border-b-gray-800'  ]" >
                             {{ cat.category_name }}
-                            </button>
-                        </div>        
+                        </button>
+                    </div>
+
                 </nav>
 
     
@@ -63,7 +68,9 @@
                         </template>
                         <template #content>
                             <section class="">
+                                <label for=""></label>
                                 <p class="m-0 text-gray-500 text-md h-20 w-full overflow-hidden text-ellipsis ">
+                                   <span class="font-medium"> Content: </span>
                                 {{ item.content }}
                                 </p>
                             
@@ -97,7 +104,7 @@
   
     import IconField from 'primevue/iconfield';
     import InputIcon from 'primevue/inputicon';
-
+    import Divider from 'primevue/divider';
 
     import Card from 'primevue/card';
 
