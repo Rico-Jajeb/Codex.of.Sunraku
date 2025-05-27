@@ -15,7 +15,7 @@ class UpdateSettingService
         $system = SystemModel::findOrFail($id);
 
         $fillableFields = [
-            'system_name', 'system_slogan',
+            'system_name', 'system_slogan', 'facebook', 'linked', 'github', 'email',
         ]; // add more fields as needed
 
         if (isset($data['system_name'])) {
@@ -24,6 +24,22 @@ class UpdateSettingService
 
         if (isset($data['system_slogan'])) {
             $system->system_slogan = $data['system_slogan'];
+        }
+
+        if (isset($data['facebook'])) {
+            $system->facebook = $data['facebook'];
+        }
+
+        if (isset($data['linked'])) {
+            $system->linked = $data['linked'];
+        }
+
+        if (isset($data['github'])) {
+            $system->github = $data['github'];
+        }
+
+        if (isset($data['email'])) {
+            $system->email = $data['email'];
         }
 
        

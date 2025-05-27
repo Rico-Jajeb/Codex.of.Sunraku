@@ -24,8 +24,13 @@ class SystemRequest extends FormRequest
         return [
             'system_name' => 'required|string|max:255',
             'system_slogan' => 'required|string|max:255',
+            'facebook' => 'required|string|max:255',
+            'linked' => 'required|string|max:255',
+            'github' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
             'system_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240', // Image validation
             'system_favicon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240', // Image validation
+
         ];
     }
 }

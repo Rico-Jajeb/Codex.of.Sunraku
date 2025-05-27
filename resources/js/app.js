@@ -21,6 +21,10 @@ import Toast from 'primevue/toast';
 import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
 
+// adi an scroll animation
+import AnimateOnScroll from 'primevue/animateonscroll'
+
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
@@ -43,6 +47,9 @@ createInertiaApp({
         // amo ini an component para han global input box
         app.component('FloatLabel', FloatLabel);
         app.component('InputText', InputText);
+        // amo ini an kanan animate on scroll
+        app.directive('animateonscroll', AnimateOnScroll);
+
         app.mount(el);
     
     },

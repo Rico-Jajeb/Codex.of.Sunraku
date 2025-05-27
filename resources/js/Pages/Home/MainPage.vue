@@ -52,7 +52,7 @@
 
             </aside>
                
-            <section class="bg-gray-200 basis-5/6  pb-4 rounded-lg">
+            <section class="bg-gray-200 basis-5/6  pb-4 rounded-lg h-screen overflow-y-auto">
                 
                 <header class=" flex justify-between px-4 pt-2">
                     <h1 class="text-lg font-bold">Recent Notes</h1>
@@ -60,7 +60,7 @@
                 </header>
                 <!-- amo ini an kanan card -->
                 <section class="flex flex-row  flex-wrap justify-center gap-4 w-full mt-4">
-                    <Card class="!w-80 !h-80 !shadow-lg  " v-for="item in filteredItems.slice().reverse()" :key="item.id">
+                    <Card   class="!w-80 !h-80 !shadow-lg  " v-for="item in filteredItems.slice().reverse()" :key="item.id">
                         <template #title>
                             <header class="">
                                 <h1 class="truncate text-lg font-bold">{{ item.codex_name }}</h1>
@@ -131,7 +131,7 @@
         </article>
 
 
-
+    
 
     </MainLayout>
 

@@ -30,10 +30,10 @@ class CodexRequest extends FormRequest
             'framework.*' => 'string', // if each item is string
             'tags' => 'required|string|max:355',
             'diffuclt_level' => 'required|string|max:355',
-            'content' => 'required|string|max:355',
-            'code_snippet' => 'required|string|max:2355',
-            'instructions' => 'required|string|max:2355',
-            'output' => 'required|string|max:355',
+            'content' => 'required|string|max:6000',
+            'code_snippet' => 'required|string|max:6000',
+            'instructions' => 'required|string|max:6000',
+            'output' => 'required|string|max:6000',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240', // Image validation
         ];
     }

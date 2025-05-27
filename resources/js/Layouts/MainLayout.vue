@@ -12,7 +12,15 @@
         <main class="  min-h-screen ">
             <slot></slot>
         </main>
-    <Footer/>
+    <Footer
+        :data="data"
+        :category="category"
+        :setting="setting"
+        :can-login="canLogin"
+        :can-register="canRegister"
+        :laravel-version="laravelVersion"
+        :php-version="phpVersion"
+    />
 </template>
 
 <script setup>

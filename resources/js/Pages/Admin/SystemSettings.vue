@@ -33,37 +33,64 @@
                                 {{ form.errors.system_slogan }}
                             </div> 
                     </div>
-                  
 
-                          <section class=" mt-4 px-4  md:flex md:flex-row ">
-                    <div class="  xl:basis-1/2 md:basis-1/2 ">
-                        <label for="email" class="block mb-2 text-lg font-medium  text-gray-900 dark:text-white">Logo</label>
-                        <div class=" block sm:flex ">
-                            <Image v-if="!srcLogo" alt="user header" loading="lazy"  preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64"  :src="`/storage/output/${props.data.system_logo}`" />
-                    
-                            <Image v-if="srcLogo" :src="srcLogo" alt="Image" preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64 "  />
-                            <FileUpload mode="basic" @input="form.system_logo = $event.target.files[0]" @select="onFileSelectLogo" customUpload auto severity="secondary" class="md:mt-0 mt-4 p-button-outlined ml-2 sm:ml-8 md:ml-2" />
-                        </div>
+                    <div class="px-4 mb-8">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Facebook Link:</label>
+                            <InputText class="!w-full" type="text" v-model="form.facebook" placeholder="Insert System Name" />
+                            <div v-if="form.errors.facebook" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.facebook }}
+                            </div> 
                     </div>
-                    <div class="  xl:basis-1/2 md:basis-2/2 md:mt-0 mt-10">
-                        <label for="email" class="block mb-2 text-lg font-medium  text-gray-900 dark:text-white">Background</label>
-                        <div class=" block sm:flex ">
-                            <Image v-if="!src" alt="user header" loading="lazy"  preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64"  :src="`/storage/output/${props.data.system_favicon}`" />
-                    
-                            <Image v-if="src" :src="src" alt="Image" preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64 "  />
-                 
-                            <FileUpload mode="basic" @input="form.system_favicon = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="md:mt-0 mt-4 p-button-outlined ml-2 sm:ml-8 md:ml-2" />
-                       
-                        </div>
+                    <div class="px-4 mb-8">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Linked Link:</label>
+                            <InputText class="!w-full" type="text" v-model="form.linked" placeholder="Insert System Name" />
+                            <div v-if="form.errors.linked" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.linked }}
+                            </div> 
+                    </div>
+                    <div class="px-4 mb-8">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">github Link:</label>
+                            <InputText class="!w-full" type="text" v-model="form.github" placeholder="Insert System Name" />
+                            <div v-if="form.errors.github" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.github }}
+                            </div> 
+                    </div>
+                    <div class="px-4 mb-8">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">email:</label>
+                            <InputText class="!w-full" type="email" v-model="form.email" placeholder="Insert System Name" />
+                            <div v-if="form.errors.email" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.email }}
+                            </div> 
                     </div>
 
+                    <section class=" mt-4 px-4  md:flex md:flex-row ">
+                        <div class="  xl:basis-1/2 md:basis-1/2 ">
+                            <label for="email" class="block mb-2 text-lg font-medium  text-gray-900 dark:text-white">Logo</label>
+                            <div class=" block sm:flex ">
+                                <Image v-if="!srcLogo" alt="user header" loading="lazy"  preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64"  :src="`/storage/output/${props.data.system_logo}`" />
+                        
+                                <Image v-if="srcLogo" :src="srcLogo" alt="Image" preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64 "  />
+                                <FileUpload mode="basic" @input="form.system_logo = $event.target.files[0]" @select="onFileSelectLogo" customUpload auto severity="secondary" class="md:mt-0 mt-4 p-button-outlined ml-2 sm:ml-8 md:ml-2" />
+                            </div>
+                        </div>
+                        <div class="  xl:basis-1/2 md:basis-2/2 md:mt-0 mt-10">
+                            <label for="email" class="block mb-2 text-lg font-medium  text-gray-900 dark:text-white">Background</label>
+                            <div class=" block sm:flex ">
+                                <Image v-if="!src" alt="user header" loading="lazy"  preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64"  :src="`/storage/output/${props.data.system_favicon}`" />
+                        
+                                <Image v-if="src" :src="src" alt="Image" preview imageClass="shadow-md rounded-xl w-full md:w-40 md:h-40 h-64 "  />
                     
-                </section>
+                                <FileUpload mode="basic" @input="form.system_favicon = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="md:mt-0 mt-4 p-button-outlined ml-2 sm:ml-8 md:ml-2" />
+                        
+                            </div>
+                        </div>
+                    </section>
 
-                <div class="px-4">
-                    <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Changes</button>                    
-               
-                </div>
+    
+                    <div class="px-4">
+                        <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Changes</button>                    
+                
+                    </div>
 
                 </form>
 
@@ -137,8 +164,13 @@ import Image from 'primevue/image';
     const form = useForm({
         system_name: props.data?.system_name ?? '',
         system_slogan: props.data?.system_slogan ?? '',
+
+        facebook: props.data?.facebook ?? '',
+        linked: props.data?.linked ?? '',
+        github: props.data?.github ?? '',
+        email: props.data?.email ?? '',
+
         system_logo:    null,
-        
         system_favicon: null,
     })
 
