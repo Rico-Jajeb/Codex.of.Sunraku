@@ -1,9 +1,9 @@
 <template>
        <footer class="bg-black m-3 text-white rounded-lg h-96">
    
-            <section class="flex justify-between h-64 px-24">
+            <section class="md:flex  md:justify-between h-64 px-24">
                 <header class="flex  pt-24 ">
-                    <h1 class="text-3xl font-bold">{{ setting.system_slogan }}</h1>                   
+                    <h1 class="text-lg md:text-3xl font-bold">{{ setting.system_slogan }}</h1>                   
                 </header>
 
 
