@@ -28,13 +28,13 @@
                 </section>
         </main>
         <article class=" flex flex-row ">
-            <aside class="bg-gray-800 basis-1/6 rounded-r-lg pb-4 ">
-                <h1 class="text-center text-xl font-bold text-white py-4"> 
-                    <i class="pi pi-tags mr-4" style="font-size: 1.1rem"></i>
+            <aside class="bg-gray-800 basis-1.5/6 md:basis-1/6 rounded-r-lg pb-4 h-screen overflow-y-auto overflow-x-hidden ">
+                <h1 class="text-center  text-sm md:text-xl font-bold text-white py-4"> 
+                    <i class="pi pi-tags mr-0 md:mr-4" style="font-size: 1.1rem"></i>
                     Categories
                 </h1>
                 <Divider/>
-                <nav class=" text-white text-lg font-normal pl-14 ">
+                <nav class=" text-white text-sm md:text-lg font-normal pl-2 md:pl-14 ">
                     <!-- "All" button -->
                     <button @click="currentFilter = 'all'" :class="[ 'block mb-4 border-b-2', currentFilter === 'all' ? 'border-b-white ' : 'border-b-gray-800 '  ]" >
                         All
@@ -52,7 +52,7 @@
 
             </aside>
                
-            <section class="bg-gray-200 basis-5/6  pb-4 rounded-lg h-screen overflow-y-auto">
+            <section class="bg-gray-200 basis-5/6 md:basis-5/6  pb-4 rounded-lg h-screen overflow-y-auto">
                 
                 <header class=" flex justify-between px-4 pt-2">
                     <h1 class="text-lg font-bold">Recent Notes</h1>
@@ -60,7 +60,7 @@
                 </header>
                 <!-- amo ini an kanan card -->
                 <section class="flex flex-row  flex-wrap justify-center gap-4 w-full mt-4">
-                    <Card   class="!w-80 !h-80 !shadow-lg  " v-for="item in filteredItems.slice().reverse()" :key="item.id">
+                    <Card   class="!w-64 !md:w-80 !h-80 !shadow-lg  " v-for="item in filteredItems.slice().reverse()" :key="item.id">
                         <template #title>
                             <header class="">
                                 <h1 class="truncate text-lg font-bold">{{ item.codex_name }}</h1>

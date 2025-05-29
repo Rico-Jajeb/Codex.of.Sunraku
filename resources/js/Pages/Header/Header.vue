@@ -1,7 +1,7 @@
 <template>
        <header class="h-20 flex gap-4 justify-between  max-w-7xl m-auto fixed top-0 right-0 left-0 mt-0 md:mt-3  z-50">
         <!-- Logo or Site Name -->
-        <div class=" flex items-center gap-4 ">
+        <div class=" flex items-center gap-4 pl-4 pt-1 md:pt-0 md:pl-0">
                 <Image alt="Logo" loading="lazy" :src="`/storage/output/${setting.system_logo}`" imageClass="h-14 w-14 rounded-full " preview />  
                 <Link href="/"  class="text-white  text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]  " > {{ setting.system_name }}</Link>    
         </div>
@@ -14,8 +14,6 @@
                   <Link href="about" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Categories</Link>
                   <Link href="about" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Recent Notes</Link>
                   <Link href="about" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Projects</Link>
-                
-                
                 </nav> 
              
 
@@ -27,13 +25,16 @@
                 </button>
             </div>
             <!-- Mobile Navigation Menu -->
-            <div v-show="isMenuOpen" class="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-lg md:hidden transition-transform duration-300 ease-in-out">
-              <nav class="flex flex-col space-y-4 p-4">
-                <Link href="about" >About</Link>
-                  <Link href="about" >Services</Link>
-                  <Link href="about" >Tourist Spot</Link>
-                  <Link href="about" >Blogs</Link>
-                  <Link href="about" >Contact</Link> 
+            <div v-show="isMenuOpen" class="absolute top-0 left-0 w-full bg-white/30 backdrop-blur-md dark:bg-gray-900 shadow-lg md:hidden transition-transform duration-300 ease-in-out">
+                <section class="flex justify-end">
+                    <button class="pr-4 pt-4" type="button" @click="isMenuOpen = !isMenuOpen"><i class="pi pi-times" style="font-size: 1rem"></i></button>                    
+                </section>
+
+                <nav class="flex flex-col space-y-4 p-4">
+                <Link href="about" >Categories</Link>
+                  <Link href="about" >Recent Notes</Link>
+                  <Link href="about" >Projects</Link>
+               
               </nav>
             </div>
 
