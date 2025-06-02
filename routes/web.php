@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SystemController;
 
 
 use App\Http\Controllers\User\MainPageController;
+use App\Http\Controllers\User\CodexDocuController;
 
 // Route::get('/', function () {
 //     return Inertia::render('Home/MainPage', [
@@ -37,6 +38,8 @@ Route::middleware([
 
 //USER SIDE
 Route::get('Home',[MainPageController::class, 'Home'])->name('Main.page');
+
+Route::get('document',[CodexDocuController::class, 'codexDocu'])->name('codex.page');
 
 //ADMIN SIDE
 Route::get('codex',[CodexController::class, 'index'])->name('new.codex');

@@ -11,7 +11,8 @@
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-6 ">
                  
-                  <Link href="about" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Categories</Link>
+                  <Link href="Home"  v-if="page.url.includes('document')"  class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Home</Link>
+                  <Link href="document" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Categories</Link>
                   <Link href="about" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Recent Notes</Link>
                   <Link href="about" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Projects</Link>
                 </nav> 
@@ -48,13 +49,17 @@
     
     // This is for the hamburger nav
     import { ref } from 'vue';
-    const isMenuOpen = ref(false);
-
-
-
-    import { Head, Link } from '@inertiajs/vue3';
-import Image from 'primevue/image';
  
+
+
+
+    import { Head, Link, router } from '@inertiajs/vue3';
+    import Image from 'primevue/image';
+
+    import { usePage } from '@inertiajs/vue3'
+
+const isMenuOpen = ref(false);
+const page = usePage()
 
 defineProps({
     canLogin: {

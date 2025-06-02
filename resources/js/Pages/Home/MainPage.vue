@@ -14,7 +14,7 @@
                 <section class=" max-w-7xl m-auto">
                     <header class="text-center pt-10 pb-4">
                         <h1 class="text-5xl font-extrabold mt-0 md:mt-40">{{ setting.system_slogan }}</h1>
-                        <p class="mt-4 text-xl font-bold md:mt-6">SunRaku's personal Knowledge base for ideas, notes, and projects.</p>
+                        <p class="mt-4 text-xl font-bold md:mt-6">{{ setting.system_name }} personal Knowledge base for ideas, notes, and projects.</p>
                     </header>
                     <div class=" ">
                         <IconField class="mx-auto md:!w-[640px] !w-80"  >
@@ -40,11 +40,37 @@
                         All
                     </button>
                     <!-- Category buttons -->
-                    <div v-for="cat in category" :key="cat.id">
+                    <!-- <div v-for="cat in category" :key="cat.id">
                         <button  @click="currentFilter = cat.category_name" :class="[ 'block mb-1 border-b-2', currentFilter === cat.category_name ? 'border-b-white font-bold' : 'border-b-gray-800'  ]" >
                             {{ cat.category_name }}
                         </button>
-                    </div>
+                    </div> -->
+<!--           
+<Accordion value="1" v-for="cat in category" :key="cat.id">
+    <AccordionPanel value="0" >
+        <AccordionHeader :class="['!bg-gray-800 !p-0 !text-white !text-lg !font-normal ' , currentFilter === cat.category_name ? '!border-b-red-600 font-bold' : 'border-b-gray-800'] " @click="currentFilter = cat.category_name"> {{ cat.category_name }}</AccordionHeader>
+        <AccordionContent class="!bg-red-700" v-for="item in filteredItems.slice().reverse()" :key="item.id" >
+            <button class="m-0 !bg-red-600 !p-0" @click="currentFilter = item.codex_name" >
+                {{ item.codex_name }} 
+            </button>
+        </AccordionContent>
+    </AccordionPanel>
+</Accordion> -->
+          
+<Accordion value="1" v-for="cat in category" :key="cat.id">
+    <AccordionPanel value="0" >
+        <AccordionHeader :class="['!bg-gray-800 !p-0 !text-white !text-lg !font-normal ' , currentFilter === cat.category_name ? '!border-b-red-600 font-bold' : 'border-b-gray-800'] " @click="currentFilter = cat.category_name"> {{ cat.category_name }}</AccordionHeader>
+        <AccordionContent class="!bg-red-700" v-for="item in filteredItems.slice().reverse()" :key="item.id" >
+            <button type="button" class="m-0 !bg-red-600 !p-0" >
+                {{ item.codex_name }} 
+            </button>
+        </AccordionContent>
+    </AccordionPanel>
+</Accordion>
+          
+
+
+
 
                 </nav>
 
@@ -154,6 +180,20 @@
     import MonacoEditor from '@/Pages/Admin/MonacoEditor/MonacoEditor.vue';
  
 
+
+    import Accordion from 'primevue/accordion';
+    import AccordionPanel from 'primevue/accordionpanel';
+    import AccordionHeader from 'primevue/accordionheader';
+    import AccordionContent from 'primevue/accordioncontent';
+
+
+
+
+
+
+
+
+
     const props = defineProps({
         data: Array,
         category: Array,
@@ -169,10 +209,30 @@
     // ini na code is para han button categories ha main page na ma display an codex based ha category na gin click
     const currentFilter = ref('all')
 
+    // const currentCodex = ref('')
+
     const filteredItems = computed(() => {
         if (currentFilter.value === 'all') return props.data
         return props.data.filter(item => item.category_name === currentFilter.value)
     })
+
+    // const filteredCodex = computed(() => {
+    //     if (currentCodex.value === '') return props.data
+    //     return props.data.filter(item => item.codex_name === currentCodex.value)
+    // })
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
 
 
     // ini liwat is para han codex modal pag gin click an eye icon ha card ma display an mga info han card ha 
@@ -191,6 +251,9 @@
         selectedCodeSnippet.value = category.code_snippet || '';
         categoryInfoDisp.value = true;
     }
+
+ 
+
 
 
 
