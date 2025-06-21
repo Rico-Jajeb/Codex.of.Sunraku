@@ -15,7 +15,7 @@
         </template>
         <main class="py-1 max-w-7xl mx-auto sm:px-6 lg:px-8">
             <section class="flex justify-center w-full py-8 gap-2">     
-                <button  type="button"  @click="openCategoryCard()">
+                <button  type="button"  @click="openCategoryCard()" >
                     <i class="pi pi-table mr-2"></i>
                 </button>
                 <button type="button"  @click="openCategoryTable()">
@@ -55,15 +55,15 @@
                             <div class="flex justify-end">
 
                                 <!-- Eye BUTTON -->
-                                <button type="button" @click="openCategoryInfoModal(item)" class="mr-4">
+                                <button type="button" @click="openCategoryInfoModal(item)" class="mr-4" v-tooltip.top="'Click to View Codex'">
                                     <i class="pi pi-eye" style="font-size: 1rem"></i>
                                 </button>
                                 <!-- UPDATE BUTTON -->
-                                <button type="button" @click="openModal(item)">
+                                <button type="button" @click="openModal(item)" v-tooltip.top="'Click to Edit Category'">
                                     <i class="pi pi-file-edit" style="font-size: 1rem"></i>
                                 </button>
                                 <!-- DELETE BUTTON -->
-                                <button type="button" @click="deleteModal(item)" class="mx-4">
+                                <button type="button" @click="deleteModal(item)" class="mx-4" v-tooltip.top="'Click to Delete Category'">
                                     <i class="pi pi-trash" style="font-size: 1rem"></i>
                                 </button>   
                                 <!-- Amo ini an kann category status -->
@@ -259,32 +259,44 @@
                         <Column field="framework" header="framework" sortable />
                         <Column field="tags" header="tags" sortable />
                         <Column field="diffuclt_level" header="difficult level" sortable />
-                        <!-- <Column field="content" header="content" sortable /> -->
                         <Column field="content" header="content" sortable>
                             <template #body="slotProps">
-                                <button type="button"   @click="openContentModal(slotProps.data.content)" v-tooltip.top="'Click to View Content'">
-                                    <div class="overflow-hidden  whitespace-nowrap max-w-[200px]">
+                                <button type="button"   @click="openContentModal(slotProps.data.content, 'Content')" v-tooltip.top="'Click to View Content'">
+                                    <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px]">
                                     {{ slotProps.data.content }}
                                     </div>                                    
                                 </button>
-                    
-
                             </template>
-
-
                         </Column>
-
-                        <!-- <Column field="instructions" header="instruction22" sortable /> -->
-                        <Column field="instructions" header="Instruction" sortable>
+                        <Column field="content" header="Instructions" sortable>
                             <template #body="slotProps">
-                                <div class="overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px]">
-                                {{ slotProps.data.instructions }}
-                                </div>
+                                <button type="button"   @click="openContentModal(slotProps.data.instructions, 'Instruction')" v-tooltip.top="'Click to View Instruction'">
+                                    <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px]">
+                                    {{ slotProps.data.instructions }}
+                                    </div>                                    
+                                </button>
                             </template>
                         </Column>
-
-                        <Column field="code_snippet" header="code snippet" sortable />
-                        <Column field="output" header="output" sortable />
+                        <!-- <Column field="code_snippet" header="code snippet" sortable /> -->
+                        <Column field="code_snippet" header="code snippet" sortable>
+                            <template #body="slotProps">
+                                <button type="button"   @click="openCodeModal(slotProps.data.code_snippet)" v-tooltip.top="'Click to View Code'">
+                                    <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px]">
+                                    {{ slotProps.data.code_snippet }}
+                                    </div>                                    
+                                </button>
+                            </template>
+                        </Column>
+                        <!-- <Column field="output" header="output" sortable /> -->
+                        <Column field="output" header="output" sortable>
+                            <template #body="slotProps">
+                                <button type="button"   @click="openContentModal(slotProps.data.output, 'Output')" v-tooltip.top="'Click to View Output'">
+                                    <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px]">
+                                    {{ slotProps.data.output }}
+                                    </div>                                    
+                                </button>
+                            </template>
+                        </Column>
                         <!-- <Column field="img" header="Image" sortable /> -->
                            <Column field="img" header="Image" sortable>
                                 <template #body="{ data }">
@@ -300,8 +312,8 @@
                         <Column class="!text-end">
                             <template #body="{ data }">
                                 <nav class="flex gap-1">
-                                    <button @click="editCodexModal(data)" class=" py-2 px-4"><i class="pi pi-pencil" ></i></button>     
-                                    <button type="button" @click="deleteModalCodex(data)" class="mx-4">
+                                    <button @click="editCodexModal(data)" class=" py-2 px-4" v-tooltip.top="'Click to Edit'"><i class="pi pi-pencil" ></i></button>     
+                                    <button type="button" @click="deleteModalCodex(data)" class="mx-4" v-tooltip.top="'Click to Delete'">
                                         <i class="pi pi-trash" style="font-size: 1rem"></i>
                                     </button>                                  
                                 </nav>
@@ -451,9 +463,15 @@
                 </Dialog>
             </section>
 
-                <Dialog v-model:visible="contentMod" maximizable  modal header="Content" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-                        <h1 class=" text-ellipsis">   {{ selectedContent }}</h1>
-                </Dialog>  
+            <!-- Bali amo ini an modal para han view content,instructions, output han kanan codex -->
+            <Dialog v-model:visible="contentMod" maximizable  modal  :header="selectedType" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+                    <h1 class=" text-ellipsis">   {{ selectedContent }}</h1>
+            </Dialog>  
+           
+            <!-- Bali amo ini an modal para han view code han kanan codex -->
+            <Dialog v-model:visible="codeMod" maximizable  modal  header="Code Snippet" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+                     <MonacoEditor language="javascript" class="h-86"  v-model="selectedCode"  />    
+            </Dialog>  
            
             <div>
                 <!-- amo ini an kanan pop up notif pag nag submit msg -->
@@ -875,13 +893,22 @@ function openCategoryCard() {
     const categoryInfoDisp = ref(false);
     const codexModal = ref(false);
 
-    const contentMod = ref(false)
-    const selectedContent = ref('')
-    
-    // When a row is clicked, update the modal content and show it
-    function openContentModal(content) {
-    selectedContent.value = content
-    contentMod.value = true
+    const contentMod = ref(false);
+    const selectedContent = ref('');
+    const selectedType = ref('');
+    // amo ini an kanan modal  han content han codex pag ginclick ma vview an info
+    function openContentModal(content, type) {
+        selectedContent.value = content
+        selectedType.value = type
+        contentMod.value = true
+    }
+
+    const codeMod = ref(false);
+    const selectedCode = ref('');
+
+    function openCodeModal(content) {
+        selectedCode.value = content
+        codeMod.value = true
     }
 //------------------------------------------------------------- DELETE ------------------------------------------------
 
