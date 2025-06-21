@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Admin\CodexController;
 use App\Http\Controllers\Admin\CategoryCodexController;
 use App\Http\Controllers\Admin\SystemController;
+use App\Http\Controllers\Admin\ProjectController;
 
 
 use App\Http\Controllers\User\MainPageController;
@@ -45,6 +46,7 @@ Route::get('document',[CodexDocuController::class, 'codexDocu'])->name('codex.pa
 Route::get('codex',[CodexController::class, 'index'])->name('new.codex');
 Route::get('category',[CategoryCodexController::class, 'index'])->name('codex.category');
 Route::get('settings',[SystemController::class, 'systemSetting'])->name('system.settings');
+Route::get('systemProjects',[ProjectController::class, 'projects'])->name('system.projects');
 
 
 //kanan form
