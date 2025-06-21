@@ -259,8 +259,30 @@
                         <Column field="framework" header="framework" sortable />
                         <Column field="tags" header="tags" sortable />
                         <Column field="diffuclt_level" header="difficult level" sortable />
-                        <Column field="content" header="content" sortable />
-                        <Column field="instructions" header="instruction" sortable />
+                        <!-- <Column field="content" header="content" sortable /> -->
+                        <Column field="content" header="content" sortable>
+                            <template #body="slotProps">
+                                <button type="button"   @click="openContentModal(slotProps.data.content)" v-tooltip.top="'Click to View Content'">
+                                    <div class="overflow-hidden  whitespace-nowrap max-w-[200px]">
+                                    {{ slotProps.data.content }}
+                                    </div>                                    
+                                </button>
+                    
+
+                            </template>
+
+
+                        </Column>
+
+                        <!-- <Column field="instructions" header="instruction22" sortable /> -->
+                        <Column field="instructions" header="Instruction" sortable>
+                            <template #body="slotProps">
+                                <div class="overflow-hidden text-ellipsis whitespace-nowrap max-w-[200px]">
+                                {{ slotProps.data.instructions }}
+                                </div>
+                            </template>
+                        </Column>
+
                         <Column field="code_snippet" header="code snippet" sortable />
                         <Column field="output" header="output" sortable />
                         <!-- <Column field="img" header="Image" sortable /> -->
@@ -429,7 +451,9 @@
                 </Dialog>
             </section>
 
-       
+                <Dialog v-model:visible="contentMod" maximizable  modal header="Content" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+                        <h1 class=" text-ellipsis">   {{ selectedContent }}</h1>
+                </Dialog>  
            
             <div>
                 <!-- amo ini an kanan pop up notif pag nag submit msg -->
@@ -851,7 +875,14 @@ function openCategoryCard() {
     const categoryInfoDisp = ref(false);
     const codexModal = ref(false);
 
-
+    const contentMod = ref(false)
+    const selectedContent = ref('')
+    
+    // When a row is clicked, update the modal content and show it
+    function openContentModal(content) {
+    selectedContent.value = content
+    contentMod.value = true
+    }
 //------------------------------------------------------------- DELETE ------------------------------------------------
 
     const deletePost = (id) => {

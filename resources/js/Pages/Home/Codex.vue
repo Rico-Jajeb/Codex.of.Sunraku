@@ -12,18 +12,10 @@
         <main class=" pt-24 max-w-7xl m-auto">
 
             <section class=" flex items-center mb-4">
-                <!-- <IconField class="mx-auto md:!w-[640px] !w-80"  >
-                    <InputIcon class="pi pi-search" />
-                    <InputText v-model="search" placeholder="Search codex by title, content, or tags..." class="!w-[640px]" />
-                
-                      
-                </IconField> -->
                 <button type="button" label="Show" @click="visible = true" class="mx-auto text-gray-500 border-gray-400 border-2 rounded-md px-4 py-1"><i class="pi pi-search mr-4" style="font-size: 1rem"></i> Search codex by title, content, or tags...</button>
             </section> 
 
             <section class="flex">
-
-            
                 <!-- Sticky Sidebar -->
                 <aside class=" sticky top-24 h-screen overflow-y-auto overflow-x-hidden  w-1/6 border-r-2 border-gray-700">
                     <header class="mb-4">
@@ -44,15 +36,9 @@
                     </nav>
     
                 </aside>
-
-
-
-
-
                 <!-- Scrollable Content -->
                 <section class=" w-5/6 overflow-y-auto">
                     <!-- Simulated long content -->
-       
                     <div class="h-[2000px] pl-32 mt-8" >
                         <div  class=" " v-for="codex in data" :key="codex.id">
                             <div v-if="selectCodex === codex.id" class=" pl-8 ">
@@ -91,10 +77,8 @@
             </section>
         </main>
 
-
-     
+        <!-- kanan search modal ini -->
         <Dialog v-model:visible="visible" maximizable  modal header="Search Codex" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-         
             <IconField class="mx-auto md:!w-[640px] !w-80"  >
                 <InputIcon class="pi pi-search" />
                 <InputText v-model="search" placeholder="Search codex by title..." class="!w-[280px] md:!w-[640px]" />
@@ -105,8 +89,6 @@
                     <button type="button"  @click="dispCodex(codex.id)" class=" w-full text-start text-gray-700 hover:bg-gray-200">{{ codex.codex_name }}</button> 
                 </div>                  
             </section>
-                 
-                   
         </Dialog>
 
     </MainLayout>
@@ -116,15 +98,11 @@
     import MainLayout from '@/Layouts/MainLayout.vue';
     import Image from 'primevue/image';
     import { ref, watch, computed  } from 'vue'
-
     import InputIcon from 'primevue/inputicon';
-  import IconField from 'primevue/iconfield';
-
-import Dialog from 'primevue/dialog';
-
-import 'primeicons/primeicons.css'
-
-      //amo ini an knan monaco editor
+    import IconField from 'primevue/iconfield';
+    import Dialog from 'primevue/dialog';
+    import 'primeicons/primeicons.css'
+    //amo ini an knan monaco editor
     import MonacoEditor from '@/Pages/Admin/MonacoEditor/MonacoEditor.vue';
  
     const props = defineProps({
@@ -137,9 +115,6 @@ import 'primeicons/primeicons.css'
         phpVersion: String,
     });
  
-
-
-
 
     const show = ref(false)
     const selected = ref(null)
@@ -173,6 +148,7 @@ import 'primeicons/primeicons.css'
 
     const visible = ref(false);
    
+    // amo ini an kanan codes para han search
     const filteredProducts = computed(() =>
     props.data.filter(p =>
         p.codex_name.toLowerCase().includes(search.value.toLowerCase())

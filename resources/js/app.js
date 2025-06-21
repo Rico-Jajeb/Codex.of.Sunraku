@@ -22,8 +22,8 @@ import FloatLabel from 'primevue/floatlabel';
 import InputText from 'primevue/inputtext';
 
 // adi an scroll animation
-import AnimateOnScroll from 'primevue/animateonscroll'
-
+import AnimateOnScroll from 'primevue/animateonscroll';
+import Tooltip from 'primevue/tooltip';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -49,6 +49,9 @@ createInertiaApp({
         app.component('InputText', InputText);
         // amo ini an kanan animate on scroll
         app.directive('animateonscroll', AnimateOnScroll);
+        //adi kanan tool tip
+        app.directive('tooltip', Tooltip);
+
 
         app.mount(el);
     
