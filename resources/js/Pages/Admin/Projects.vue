@@ -10,6 +10,7 @@
         <main class="pt-10">
             <section class="max-w-7xl  mx-auto  sm:px-6 lg:px-8 pb-8 bg-white overflow-hidden shadow-xl rounded-lg">
                 <h1>Projects</h1>
+                <ProjectForm/>
             </section>
         </main>
     </AppLayout>
@@ -29,5 +30,7 @@
     import Card from 'primevue/card';
     import SystemForm from '@/Pages/Admin/Forms/SystemForm.vue';
     import Image from 'primevue/image';
+    
+    import ProjectForm from '@/Pages/Admin/Forms/ProjectForms.vue';
     
 </script>

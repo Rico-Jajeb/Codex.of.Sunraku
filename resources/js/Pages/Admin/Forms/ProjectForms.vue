@@ -1,13 +1,88 @@
 <template>
                 <form  class=""  @submit.prevent="form.post('add.Setting')" >
                         <div class="">
-                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">add Category name</label>
+                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Project name</label>
                                 <InputText class="!w-full" type="text" v-model="form.system_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
                                 <div v-if="form.errors.system_name" class="text-red-500 text-sm mt-2">
                                     {{ form.errors.setting_name }}
                                 </div> 
                         </div>
-
+                        <div class="mt-4">
+                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Description</label>
+                                <InputText class="!w-full" type="text" v-model="form.system_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                <div v-if="form.errors.system_name" class="text-red-500 text-sm mt-2">
+                                    {{ form.errors.setting_name }}
+                                </div> 
+                        </div>
+                        <section class="mt-4">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">difficulty Level</label>
+                            <div class="md:flex md:flex-wrap gap-4 mt-4">
+                                <div class="flex items-center gap-2">
+                                    <RadioButton v-model="form.diffuclt_level" inputId="level1" name="level" value="basic"  />
+                                    <label for="ingredient1">Basic</label>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <RadioButton v-model="form.diffuclt_level" inputId="level2" name="level" value="intermediate"  />
+                                    <label for="ingredient2">Intermediate</label>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <RadioButton v-model="form.diffuclt_level" inputId="level3" name="level" value="advanced"  />
+                                    <label for="ingredient3">Advanced</label>
+                                </div>
+                                
+                            </div>
+                            <div v-if="form.errors.diffuclt_level" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.diffuclt_level }}
+                            </div> 
+                        </section>
+                        <section class=" mt-4  md:flex md:flex-row ">
+                            <div class="xl:basis-1/2 md:basis-1/2  md:mr-8">
+                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Language</label>
+                                    <MultiSelect 
+                                        v-model="form.language" 
+                                        display="chip" 
+                                        :options="language" 
+                                        optionLabel="name" 
+                                        optionValue="code"
+                                        filter 
+                                        placeholder="Select a language"
+                                        :maxSelectedLabels="3" 
+                                        class="w-full" />
+                                        <div v-if="form.errors.language" class="text-red-500 text-sm mt-2">
+                                            {{ form.errors.language }}
+                                        </div> 
+                            </div>                        
+                            <div class="xl:basis-1/2 md:basis-1/2 md:ml-8 mt-4 md:mt-0">
+                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Framework</label>
+                                    <MultiSelect 
+                                        v-model="form.framework" 
+                                        display="chip" 
+                                        :options="framework" 
+                                        optionLabel="name" 
+                                        optionValue="code"
+                                        filter 
+                                        placeholder="Select a framework"
+                                        :maxSelectedLabels="3" 
+                                        class="w-full" />
+                                        <div v-if="form.errors.framework" class="text-red-500 text-sm mt-2">
+                                            {{ form.errors.framework }}
+                                        </div> 
+                            </div>                        
+                        </section>
+                        <div class="mt-4">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Github URL</label>
+                            <InputText class="!w-full" type="text" v-model="form.system_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                            <div v-if="form.errors.system_name" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.setting_name }}
+                            </div> 
+                        </div>
+                        <div class="mt-4">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Live URL</label>
+                            <InputText class="!w-full" type="text" v-model="form.system_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                            <div v-if="form.errors.system_name" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.setting_name }}
+                            </div> 
+                        </div>
                             
                         <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Category Image Cover</label>
                         <div class="card flex flex-col items-center gap-6 mt-4">                
@@ -26,29 +101,120 @@
     import FileUpload from 'primevue/fileupload';
     import InputText from 'primevue/inputtext';
     import { useForm } from '@inertiajs/vue3' // amo ini an knan system form
-    import { computed, watch } from 'vue'
+    import { computed, watch, ref } from 'vue'
     import { usePage } from '@inertiajs/vue3'
     import { useToast } from 'primevue/usetoast'
+  
+    import RadioButton from 'primevue/radiobutton';
+
+    import MultiSelect from 'primevue/multiselect';
+   import Textarea from 'primevue/textarea';
+    
+
 
 
     
-function onFileSelect(event) {
-    const file = event.files[0];
-    const reader = new FileReader();
+    const page = usePage()
+    const toast = useToast()
 
-    reader.onload = async (e) => {
-        src.value = e.target.result;
-    };
+    const successMessage = computed(() => page.props.flash?.success)
 
-    reader.readAsDataURL(file);
-}
+    // Automatically show toast when successMessage changes
+    watch(successMessage, (newValue) => {
+    if (newValue) {
+        toast.add({
+        severity: 'success',
+        summary: 'Success message',
+        detail: newValue,
+        life: 10000,
+        })
+    }
+    })
 
-const form = useForm({
-    //amo liwat ini an code para han system form
-    system_name: null,
-    img: null,
 
-})
 
+
+
+    const src = ref(null);
+
+    function onFileSelect(event) {
+        const file = event.files[0];
+        const reader = new FileReader();
+
+        reader.onload = async (e) => {
+            src.value = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+
+    const form = useForm({
+        //amo liwat ini an code para han system form
+        proj_name: null,
+        proj_description: null,
+        language: [],
+        framework: [],
+        img: null,
+        screenshots: null,
+        github_url: null,
+        live_url: null,
+        status: null,
+    })
+
+
+    const framework = ref([
+        //amo ini an kanan framework na ginamit han select input
+        { name: 'Vue', code: 'Vue' },
+        { name: 'React', code: 'React' },
+        { name: 'Angular', code: 'Angular' },
+        { name: 'Svelte', code: 'Svelte' },
+        { name: 'Next.js', code: 'Next.js' },
+        { name: 'Nuxt.js', code: 'Nuxt.js' },
+        { name: 'Laravel', code: 'Laravel' },
+        { name: 'Symfony', code: 'Symfony' },
+        { name: 'Django', code: 'Django' },
+        { name: 'Flask', code: 'Flask' },
+        { name: 'Express', code: 'Express' },
+        { name: 'NestJS', code: 'NestJS' },
+        { name: 'Ruby on Rails', code: 'Ruby on Rails' },
+        { name: 'Spring Boot', code: 'Spring Boot' },
+        { name: 'ASP.NET Core', code: 'ASP.NET Core' },
+        { name: 'Inertia.js', code: 'Inertia.js' },
+        { name: 'Remix', code: 'Remix' },
+        { name: 'Blitz.js', code: 'Blitz.js' },
+        { name: 'RedwoodJS', code: 'RedwoodJS' },
+        { name: 'React Native', code: 'React Native' },
+        { name: 'Flutter', code: 'Flutter' },
+        { name: 'Ionic', code: 'Ionic' },
+        { name: 'Slim', code: 'Slim' },
+        { name: 'FastAPI', code: 'FastAPI' },
+        { name: 'Lumen', code: 'Lumen' },
+        { name: 'Koa', code: 'Koa' },
+        { name: 'Qwik', code: 'Qwik' },
+        { name: 'SolidJS', code: 'SolidJS' },
+        { name: 'T3 Stack', code: 'T3 Stack' }
+
+    ]);
+    
+    const language = ref([
+        //amo ini an kanan langauge na ginamit han select input
+        { name: 'PHP', code: 'PHP' },
+        { name: 'JavaScript', code: 'JavaScript' },
+        { name: 'TypeScript', code: 'TypeScript' },
+        { name: 'Python', code: 'Python' },
+        { name: 'Ruby', code: 'Ruby' },
+        { name: 'Java', code: 'Java' },
+        { name: 'C#', code: 'C#' },
+        { name: 'C++', code: 'C++' },
+        { name: 'Go', code: 'Go' },
+        { name: 'Dart', code: 'Dart' },
+        { name: 'Swift', code: 'Swift' },
+        { name: 'Kotlin', code: 'Kotlin' },
+        { name: 'Rust', code: 'Rust' },
+        { name: 'Scala', code: 'Scala' },
+        { name: 'Perl', code: 'Perl' },
+        { name: 'Elixir', code: 'Elixir' }
+    ]);
 
 </script>

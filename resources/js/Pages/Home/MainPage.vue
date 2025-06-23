@@ -28,65 +28,17 @@
                 </section>
         </main>
         <article class=" flex flex-row ">
-            <aside class="bg-gray-800 basis-1.5/6 md:basis-1/6 rounded-r-lg pb-4 h-screen overflow-y-auto overflow-x-hidden ">
-                <h1 class="text-center  text-sm md:text-xl font-bold text-white py-4"> 
-                    <i class="pi pi-tags mr-0 md:mr-4" style="font-size: 1.1rem"></i>
-                    Categories
-                </h1>
-                <Divider/>
-                <nav class=" text-white text-sm md:text-lg font-normal pl-2 md:pl-14 ">
-                    <!-- "All" button -->
-                    <button @click="currentFilter = 'all'" :class="[ 'block mb-4 border-b-2', currentFilter === 'all' ? 'border-b-white ' : 'border-b-gray-800 '  ]" >
-                        All
-                    </button>
-                    <!-- Category buttons -->
-                    <!-- <div v-for="cat in category" :key="cat.id">
-                        <button  @click="currentFilter = cat.category_name" :class="[ 'block mb-1 border-b-2', currentFilter === cat.category_name ? 'border-b-white font-bold' : 'border-b-gray-800'  ]" >
-                            {{ cat.category_name }}
-                        </button>
-                    </div> -->
-<!--           
-<Accordion value="1" v-for="cat in category" :key="cat.id">
-    <AccordionPanel value="0" >
-        <AccordionHeader :class="['!bg-gray-800 !p-0 !text-white !text-lg !font-normal ' , currentFilter === cat.category_name ? '!border-b-red-600 font-bold' : 'border-b-gray-800'] " @click="currentFilter = cat.category_name"> {{ cat.category_name }}</AccordionHeader>
-        <AccordionContent class="!bg-red-700" v-for="item in filteredItems.slice().reverse()" :key="item.id" >
-            <button class="m-0 !bg-red-600 !p-0" @click="currentFilter = item.codex_name" >
-                {{ item.codex_name }} 
-            </button>
-        </AccordionContent>
-    </AccordionPanel>
-</Accordion> -->
-          
-<Accordion value="1" v-for="cat in category" :key="cat.id">
-    <AccordionPanel value="0" >
-        <AccordionHeader :class="['!bg-gray-800 !p-0 !text-white !text-lg !font-normal ' , currentFilter === cat.category_name ? '!border-b-red-600 font-bold' : 'border-b-gray-800'] " @click="currentFilter = cat.category_name"> {{ cat.category_name }}</AccordionHeader>
-        <AccordionContent class="!bg-red-700" v-for="item in filteredItems.slice().reverse()" :key="item.id" >
-            <button type="button" class="m-0 !bg-red-600 !p-0" >
-                {{ item.codex_name }} 
-            </button>
-        </AccordionContent>
-    </AccordionPanel>
-</Accordion>
-          
-
-
-
-
-                </nav>
-
-    
-
-            </aside>
+   
                
-            <section class="bg-gray-200 basis-5/6 md:basis-5/6  pb-4 rounded-lg h-screen overflow-y-auto">
+            <section class="bg-gray-200 w-full  pb-4 rounded-lg h-[400px] overflow-y-auto">
                 
-                <header class=" flex justify-between px-4 pt-2">
-                    <h1 class="text-lg font-bold">Recent Notes</h1>
+                <header class=" flex justify-between px-4 pt-2 ">
+                    <h1 class="text-lg font-bold">Recent Codex</h1>
                  
                 </header>
                 <!-- amo ini an kanan card -->
                 <section class="flex flex-row  flex-wrap justify-center gap-4 w-full mt-4">
-                    <Card   class="!w-64 !md:w-80 !h-80 !shadow-lg  " v-for="item in filteredItems.slice().reverse()" :key="item.id">
+                    <Card   class="!w-64 !md:w-80 !h-80 !shadow-lg  " v-for="item in filteredItems.slice().reverse().slice(0, 5)" :key="item.id">
                         <template #title>
                             <header class="">
                                 <h1 class="truncate text-lg font-bold">{{ item.codex_name }}</h1>
@@ -110,7 +62,7 @@
                                 <div class="flex justify-between mt-4">
                                     <p class=" text-sm text-gray-500">Date: {{ new Date(item.created_at).toISOString().split('T')[0] }}  </p>
                                        <!-- Eye BUTTON -->
-                                    <button type="button" @click="openCategoryInfoModal(item)" class="mr-4">
+                                    <button type="button" @click="openCategoryInfoModal(item)" class="mr-4" v-tooltip.top="'Click To View'">
                                         <i class="pi pi-eye" style="font-size: 1rem"></i>
                                     </button>
                                 </div>
@@ -158,6 +110,41 @@
 
 
     
+        <section>
+            <h1>haha</h1>
+                <!-- <div class="card">
+                    <Carousel :value="products" :numVisible="3" :numScroll="1" :responsiveOptions="responsiveOptions" circular :autoplayInterval="3000">
+                        <template #item="slotProps">
+                            <div class="border border-surface-200 dark:border-surface-700 rounded m-2  p-4">
+                   
+                                <div class="mb-4 font-medium">{{ slotProps.data.codex_name }}</div>
+                         
+                            </div>
+                        </template>
+                    </Carousel>
+                </div> -->
+  <div class="overflow-hidden w-full relative bg-yellow-300">
+    <div
+      ref="carouselRef"
+      class="flex transition-transform duration-500 ease-in-out justify-center "
+      :style="{ transform: `translateX(-${currentIndex * cardWidth}px)` }" :class="bg-red-500"
+    >
+      <div
+        v-for="gg in data"
+        :key="gg.id"
+        class="min-w-[200px] max-w-[200px] mx-2 bg-white shadow-md rounded-lg p-4"
+      >
+        <h3 class="font-bold text-lg text-gray-800">
+          {{ gg.codex_name }}test
+        </h3>
+        <!-- Add more content if needed -->
+      </div>
+    </div>
+  </div>
+
+  <h1>end</h1>
+    
+        </section>
 
     </MainLayout>
 
@@ -166,7 +153,7 @@
 
 <script setup>
     import MainLayout from '@/Layouts/MainLayout.vue';
-    import { ref, computed, watch } from 'vue'
+    import { ref, computed, watch, onMounted, onBeforeUnmount  } from 'vue'
   
     import IconField from 'primevue/iconfield';
     import InputIcon from 'primevue/inputicon';
@@ -185,6 +172,9 @@
     import AccordionPanel from 'primevue/accordionpanel';
     import AccordionHeader from 'primevue/accordionheader';
     import AccordionContent from 'primevue/accordioncontent';
+
+    import Carousel from 'primevue/carousel';
+import { data } from 'autoprefixer';
 
 
 
@@ -256,5 +246,56 @@
 
 
 
+
+// onMounted(() => {
+//     data.getProductsSmall().then((data) => (products.value = data.slice(0, 9)));
+// })
+
+
+// const products = computed(() => props.data);
+
+// const responsiveOptions = ref([
+//     {
+//         breakpoint: '1400px',
+//         numVisible: 2,
+//         numScroll: 1
+//     },
+//     {
+//         breakpoint: '1199px',
+//         numVisible: 3,
+//         numScroll: 1
+//     },
+//     {
+//         breakpoint: '767px',
+//         numVisible: 2,
+//         numScroll: 1
+//     },
+//     {
+//         breakpoint: '575px',
+//         numVisible: 1,
+//         numScroll: 1
+//     }
+// ]);
+
+
+const cardWidth = 200 + 16 // card width + margin (adjust if needed)
+const carouselRef = ref(null)
+const currentIndex = ref(0)
+let interval = null
+
+// Autoplay logic
+onMounted(() => {
+  console.log("Data received:", props.data); // 🔍 see if array is filled
+  interval = setInterval(() => {
+    if (props.data.length > 0) {
+      currentIndex.value = (currentIndex.value + 1) % props.data.length;
+    }
+  }, 1000);
+});
+
+
+onBeforeUnmount(() => {
+  clearInterval(interval)
+})
 
 </script>
