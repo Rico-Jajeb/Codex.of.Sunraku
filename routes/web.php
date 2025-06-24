@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CodexController;
 use App\Http\Controllers\Admin\CategoryCodexController;
 use App\Http\Controllers\Admin\SystemController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TechSkillController;
 
 
 use App\Http\Controllers\User\MainPageController;
@@ -47,6 +48,7 @@ Route::get('codex',[CodexController::class, 'index'])->name('new.codex');
 Route::get('category',[CategoryCodexController::class, 'index'])->name('codex.category');
 Route::get('settings',[SystemController::class, 'systemSetting'])->name('system.settings');
 Route::get('systemProjects',[ProjectController::class, 'projects'])->name('system.projects');
+Route::get('techSkill',[TechSkillController::class, 'techPage'])->name('system.skills');
 
 
 //kanan form
