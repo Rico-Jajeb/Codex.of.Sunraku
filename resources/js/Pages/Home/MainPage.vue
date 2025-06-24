@@ -27,18 +27,21 @@
                     </div> 
                 </section>
         </main>
+       
         <article class=" flex flex-row ">
    
                
-            <section class="bg-gray-200 w-full  pb-4 rounded-lg h-[400px] overflow-y-auto">
-                
-                <header class=" flex justify-between px-4 pt-2 ">
+ 
+
+            <section class="bg-gray-200 w-full  pb-4  rounded-t-lg h-[450px] overflow-y-auto relative">
+
+                <header class=" flex justify-between px-4 py-8 max-w-7xl m-auto">
                     <h1 class="text-lg font-bold">Recent Codex</h1>
                  
                 </header>
                 <!-- amo ini an kanan card -->
-                <section class="flex flex-row  flex-wrap justify-center gap-4 w-full mt-4">
-                    <Card   class="!w-64 !md:w-80 !h-80 !shadow-lg  " v-for="item in filteredItems.slice().reverse().slice(0, 5)" :key="item.id">
+                <section class="flex flex-row  flex-wrap justify-center gap-4 w-full mt-4  max-w-7xl m-auto">
+                    <Card   class="!w-64 !md:w-80 !h-80 !shadow-lg  " v-for="item in filteredItems.slice().reverse().slice(0, 4)" :key="item.id">
                         <template #title>
                             <header class="">
                                 <h1 class="truncate text-lg font-bold">{{ item.codex_name }}</h1>
@@ -110,41 +113,33 @@
 
 
     
-        <section>
-            <h1>haha</h1>
-                <!-- <div class="card">
-                    <Carousel :value="products" :numVisible="3" :numScroll="1" :responsiveOptions="responsiveOptions" circular :autoplayInterval="3000">
-                        <template #item="slotProps">
-                            <div class="border border-surface-200 dark:border-surface-700 rounded m-2  p-4">
-                   
-                                <div class="mb-4 font-medium">{{ slotProps.data.codex_name }}</div>
-                         
-                            </div>
-                        </template>
-                    </Carousel>
-                </div> -->
-  <div class="overflow-hidden w-full relative bg-yellow-300">
-    <div
-      ref="carouselRef"
-      class="flex transition-transform duration-500 ease-in-out justify-center "
-      :style="{ transform: `translateX(-${currentIndex * cardWidth}px)` }" :class="bg-red-500"
-    >
-      <div
-        v-for="gg in data"
-        :key="gg.id"
-        class="min-w-[200px] max-w-[200px] mx-2 bg-white shadow-md rounded-lg p-4"
-      >
-        <h3 class="font-bold text-lg text-gray-800">
-          {{ gg.codex_name }}test
-        </h3>
-        <!-- Add more content if needed -->
-      </div>
-    </div>
-  </div>
+          <section class="bg-gray-200 py-32  rounded-b-lg relative ">
 
-  <h1>end</h1>
-    
-        </section>
+                    <div class="overflow-hidden    relative h-[150px] max-w-7xl m-auto">
+
+                        <div class="absolute -left-8 top-0 h-full w-32  bg-gray-200 blur-md z-50"></div>
+                            <!-- Right Blur -->
+                    <div class="absolute -right-8 top-0 h-full w-32 bg-gray-200 blur-md z-50"></div>
+                        <div
+                        class="flex w-max animate-carousel"
+                        ref="carouselRef"
+                        >
+                    
+                        <div
+                            v-for="(item, index) in loopedData"
+                            :key="index"
+                            class="min-w-[200px] max-w-[200px] mx-2 h-32 mt-4 bg-white shadow-md rounded-lg p-4"
+                        >
+                            <h3 class="font-bold text-lg text-gray-800">
+                            {{ item.codex_name }}
+                            </h3>
+                        </div>
+                        </div>
+                    </div>                
+            </section>    
+
+
+  
 
     </MainLayout>
 
@@ -298,4 +293,23 @@ onBeforeUnmount(() => {
   clearInterval(interval)
 })
 
+const loopedData = computed(() => [...props.data, ...props.data])
+
+
 </script>
+
+
+<style scoped>
+@keyframes carousel {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-carousel {
+  animation: carousel 20s linear infinite;
+}
+</style>
