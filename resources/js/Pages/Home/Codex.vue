@@ -12,7 +12,7 @@
         <main class=" pt-24 max-w-7xl m-auto">
 
             <section class=" flex items-center mb-4">
-                <button type="button" label="Show" @click="visible = true" class="mx-auto text-gray-500 border-gray-400 border-2 rounded-md px-4 py-1"><i class="pi pi-search mr-4" style="font-size: 1rem"></i> Search codex by title, content, or tags...</button>
+                <button type="button" label="Show" @click="visible = true" class="z-50 mx-auto text-gray-500 border-gray-400 border-2 rounded-md px-4 py-1"><i class="pi pi-search mr-4" style="font-size: 1rem"></i> Search codex by title, content, or tags...</button>
             </section> 
 
             <section class="flex">
@@ -21,13 +21,13 @@
                     <header class="mb-4">
                         <h1 class="text-lg font-bold text-gray-500">Codex Category</h1>
                     </header>
-                    <nav class="" v-for="cat in category" :key="cat.id">
+                    <nav class=" overflow-y-auto  hover:bg-gray-200" v-for="cat in category" :key="cat.id">
                     
-                        <button type="button"  @click="codeee(cat.category_name)" class=" font-medium">
+                        <button type="button"  @click="codeee(cat.category_name)" class=" font-medium w-full text-left">
                             {{ cat.category_name }} 
                         </button>
 
-                        <div   v-if="selected === cat.category_name"  class="mt-1 space-y-2 transition-all duration-300" v-for="codex in data" :key="codex.id">
+                        <div   v-if="selected === cat.category_name"  class="mt-1 space-y-2 transition-all duration-300 bg-yellow-300 overflow-y-auto " v-for="codex in data" :key="codex.id">
                             <div v-if="selected === codex.category_name" class="bg-white  p-3 ">
                                 <button type="button"  @click="dispCodex(codex.id)" class=" w-full text-start text-gray-700">{{ codex.codex_name }}</button>
                             </div>    
@@ -53,10 +53,10 @@
                                     <p class="text-gray-900 mt-2">Level:  <span class="text-gray-500">{{ codex.diffuclt_level  }}</span> </p>
 
                                     <p class="text-gray-900 mt-6">Content</p>
-                                    <p class="text-gray-500 mt-4 whitespace-normal break-words overflow-hidden">{{ codex.content  }}</p>
+                                    <p class="text-gray-500 mt-4 whitespace-pre-line break-words overflow-hidden">{{ codex.content  }}</p>
 
                                     <p class="text-gray-900 mt-6">Instructions</p>
-                                    <p class="text-gray-500 mt-4 whitespace-normal break-words overflow-hidden">{{ codex.instructions  }}</p>
+                                    <p class="text-gray-500 mt-4  break-words overflow-hidden whitespace-pre-line">{{ codex.instructions  }}</p>
 
                                     <div class="my-4">
                                         <label for="" class="text-md text-gray-900 font-bold ">Code: </label>
@@ -64,7 +64,7 @@
                                     </div>
                             
                                     <p class="text-gray-900 mt-6">Output</p>
-                                    <p class="text-gray-500 mt-4 whitespace-normal break-words overflow-hidden">{{ codex.output  }}</p>
+                                    <p class="text-gray-500 mt-4 whitespace-pre-line break-words overflow-hidden">{{ codex.output  }}</p>
 
                                     <div class="mt-6">
                                         <Image  alt="user header" loading="lazy"  preview imageClass="shadow-md rounded-xl w-full md:h-40 h-64 "  :src="`/storage/output/${codex.img}`" />

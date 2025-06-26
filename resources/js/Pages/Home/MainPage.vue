@@ -91,8 +91,8 @@
                             <p class="text-gray-500 font-bold text-md"> <span class="text-md text-gray-900 font-bold">Tags:</span>  {{ selectedCodex.tags }}</p>
                             <p class="text-gray-500 font-bold text-md"> <span class="text-md text-gray-900 font-bold">Level:</span>  {{ selectedCodex.diffuclt_level }}</p>
                             
-                            <p class="text-gray-700 text-md mt-4"><span class="text-md text-gray-900 font-bold">Content:</span> {{ selectedCodex.content }}</p>
-                            <p class="text-gray-700 text-md mt-4"><span class="text-md text-gray-900 font-bold">Instructions:</span> {{ selectedCodex.instructions }}</p>
+                            <p class="text-gray-700 text-md mt-4 whitespace-pre-line"><span class="text-md text-gray-900 font-bold">Content:</span> {{ selectedCodex.content }}</p>
+                            <p class="text-gray-700 text-md mt-4 whitespace-pre-line"><span class="text-md text-gray-900 font-bold">Instructions:</span> {{ selectedCodex.instructions }}</p>
                             
                             
                             <div class="my-4">
@@ -100,7 +100,7 @@
                                 <MonacoEditor  :key="selectedCodex.id"  language="javascript" class="h-86"  v-model="selectedCodeSnippet"  />                                  
                             </div>
 
-                            <p class="text-gray-700 text-md mt-4 mb-3"><span class="text-md text-gray-900 font-bold">Output:</span> {{ selectedCodex.output }}</p>
+                            <p class="text-gray-700 text-md mt-4 mb-3 whitespace-pre-line"><span class="text-md text-gray-900 font-bold">Output:</span> {{ selectedCodex.output }}</p>
 
                             <Image  alt="user header" loading="lazy"  preview imageClass="shadow-md rounded-xl w-full md:h-40 h-64 "  :src="`/storage/output/${selectedCodex.img}`" />
 

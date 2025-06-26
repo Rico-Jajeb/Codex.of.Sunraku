@@ -21,6 +21,7 @@ class TechSkillController extends Controller
 
 
     protected $TechSkillService;
+    protected $CodexImageService;
 
     public function __construct(TechSkillService $TechSkillService, CodexImageService $CodexImageService) {
         $this->TechSkillService = $TechSkillService;
