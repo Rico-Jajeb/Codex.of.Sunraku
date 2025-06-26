@@ -59,6 +59,8 @@ Route::post('add.Category', [CategoryCodexController::class, 'addCategory'])->na
 
 Route::post('add.Setting', [SystemController::class, 'addSettings2'])->name('addSetting');
 
+Route::post('add.Tech', [TechSkillController::class, 'addTechSkill'])->name('add.Tech');
+
 //kanan update form
 //Route::post('/categories/update/{id}', [CategoryCodexController::class, 'update'])->name('categories.update');
 Route::put('/categories/{id}', [CategoryCodexController::class, 'updateCategory'])->name('categories.update');

@@ -1,1 +1,23 @@
-it buhata liwat is an kanan category card pag hover dapat mayda hiya like to view or some shit
+it buhata liwat is an kanan category card pag hover dapat mayda hiya like to view or some 
+
+
+mayda ak na isip bali diba mayda ka codex  sugad an codex 1 bbutangan kon logs, ambot anot ma upay na approach like a comment hiya han nanabo 
+what i mean by nanabo  bagat sugad mayda ka na encounter na bag o poyde mo ig comment ngadto han logs, 
+bali amo ini:  5. Start Documenting Breakdowns
+In your Codex, keep a log:
+
+🔧 "Form didn’t submit — 2025-06-25"
+
+Issue: I forgot form = useForm()
+
+Fix: Added useForm and declared fields
+
+What I learned: Don’t forget forceFormData if using files
+
+This will reduce repeat frustration and builds a library of your own solutions.
+
+
+
+
+LAST: do a automatic backup, what i mean by this is use a automation uploading of csv into google drive every 30days
+ so that the data in your db won't be erased incase something happened. also try if you can upload the db itself.
