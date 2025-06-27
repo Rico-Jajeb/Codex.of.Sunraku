@@ -12,6 +12,8 @@ use App\Http\Requests\TechSkillRequest;
 //SERVICE
 use App\Services\TechSkillService;
 use App\Services\CodexImageService;
+use App\Services\DisplayTechSkillService;
+use App\Services\UpdateTechSkillService;
 
 //MODELS
 use App\Models\TechSkillModel; 
@@ -22,15 +24,23 @@ class TechSkillController extends Controller
 
     protected $TechSkillService;
     protected $CodexImageService;
+    protected $DisplayTechSkillService;
+    protected $UpdateTechSkillService;
 
-    public function __construct(TechSkillService $TechSkillService, CodexImageService $CodexImageService) {
+    public function __construct(TechSkillService $TechSkillService, CodexImageService $CodexImageService,
+     DisplayTechSkillService $DisplayTechSkillService, UpdateTechSkillService $UpdateTechSkillService) {
         $this->TechSkillService = $TechSkillService;
         $this->CodexImageService = $CodexImageService;
+        $this->DisplayTechSkillService = $DisplayTechSkillService;
+        $this->UpdateTechSkillService = $UpdateTechSkillService;
     }
 
 
     public function techPage(){
-        return Inertia::render('Admin/TechSkill');
+        $data = $this->DisplayTechSkillService->displayTech();
+        return Inertia::render('Admin/TechSkill',
+        ['data' => $data])
+        ;
     }
 
 
@@ -45,5 +55,29 @@ class TechSkillController extends Controller
 
         return redirect()->route('system.skills')->with('success', "Category Added Successfully!");
     }
+
+
+
+
+
+
+    public function updateTechSkill(TechSkillRequest $request, $id){
+        // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
+        $imageName = $this->CodexImageService->handleImageUpload($request); 
+
+        $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
+    
+        $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
+    
+        $this->UpdateTechSkillService->upSkill($id, $validated); //adi an code para han up services
+
+        // return redirect()->route('codex.category')->with('success', "Category Added Successfully!");return back();
+        return redirect()->route('system.skills')->with('success', "Category Updated Successfully!");
+
+    }
+
+
+
+
 
 }

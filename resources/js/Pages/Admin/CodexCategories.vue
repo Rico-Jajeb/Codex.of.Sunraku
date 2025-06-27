@@ -332,9 +332,6 @@
                 <Dialog v-model:visible="codexInfoDisp"  :header="`Codex Category: '${selectedCodex?.codex_name ?? ''}'`" maximizable class=" max-w-7xl  mx-auto sm:px-6 lg:px-1 bg-red-600">
                 
                         
-                            <h2>{{ selectedCodex.id }}</h2>
-                        <!-- <form  class=""  @submit.prevent="form.post('')"> -->
-                        <!-- <form @submit.prevent="form.put(route('codex.update', selectedCodex.id))"> -->
                         <form @submit.prevent="submitCodexForm" enctype="multipart/form-data">
 
                         <div class="">

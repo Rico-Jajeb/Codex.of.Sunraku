@@ -125,13 +125,9 @@
                         ref="carouselRef"
                         >
                     
-                        <div
-                            v-for="(item, index) in loopedData"
-                            :key="index"
-                            class="min-w-[200px] max-w-[200px] mx-2 h-32 mt-4 bg-white shadow-md rounded-lg p-4"
-                        >
+                        <div v-for="(item, index) in loopedData" :key="index" class="min-w-[200px] max-w-[200px] mx-2 h-32 mt-4   p-4">
                             <h3 class="font-bold text-lg text-gray-800">
-                            {{ item.codex_name }}
+                                <Image  alt="user header" loading="lazy"   imageClass="  w-20 h-20 "  :src="`/storage/output/${item.img}`" />
                             </h3>
                         </div>
                         </div>
@@ -182,6 +178,7 @@ import { data } from 'autoprefixer';
     const props = defineProps({
         data: Array,
         category: Array,
+        skill: Array,
         setting: Object,
         canLogin: Boolean,
         canRegister: Boolean,
@@ -279,13 +276,21 @@ const currentIndex = ref(0)
 let interval = null
 
 // Autoplay logic
+// onMounted(() => {
+//   console.log("Data received:", props.data); // 🔍 see if array is filled
+//   interval = setInterval(() => {
+//     if (props.data.length > 0) {
+//       currentIndex.value = (currentIndex.value + 1) % props.data.length;
+//     }
+//   }, 1000);
+// });
 onMounted(() => {
-  console.log("Data received:", props.data); // 🔍 see if array is filled
+  console.log("Data received:", props.skill); // 🔍 see if array is filled
   interval = setInterval(() => {
-    if (props.data.length > 0) {
+    if (props.skill.length > 0) {
       currentIndex.value = (currentIndex.value + 1) % props.data.length;
     }
-  }, 1000);
+  }, 1);
 });
 
 
@@ -293,7 +298,7 @@ onBeforeUnmount(() => {
   clearInterval(interval)
 })
 
-const loopedData = computed(() => [...props.data, ...props.data])
+const loopedData = computed(() => [...props.skill, ...props.skill])
 
 
 </script>

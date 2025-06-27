@@ -1,13 +1,14 @@
 <template>
-        <h1>form page tech skill</h1>
+        
 
         <form @submit.prevent="submitForm" enctype="multipart/form-data">
-             <InputText class="!w-full" type="text" v-model="form.tech_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+              <label for="Web Name" class="block mt-4 mb-2 text-md font-bold text-gray-700 dark:text-white">Skill Name</label>
+             <InputText class="!w-full" type="text" v-model="form.tech_name" placeholder="Insert Skill name......" />
                       <div v-if="form.errors.tech_name" class="text-red-500 text-sm mt-2">
                         {{ form.errors.tech_name }}
                     </div> 
             <br>
-            <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Category Image Cover</label>
+            <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Skill Logo</label>
             <div class="card flex flex-col items-center gap-6 mt-4">                
                     <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
                     <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />

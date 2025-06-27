@@ -73,6 +73,9 @@ Route::put('/system/{id}', [SystemController::class, 'updateSetting'])->name('sy
 Route::put('/codexup/{id}', [CodexController::class, 'updateCodex'])->name('codex.update');
 
 
+Route::put('/skillup/{id}', [TechSkillController::class, 'updateTechSkill'])->name('skill.update');
+
+
 
 
 

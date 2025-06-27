@@ -12,6 +12,7 @@ use Illuminate\Foundation\Application;
 use App\Services\CodexDisplayService;
 use App\Services\DisplayCategoryCodexService;
 use App\Services\DisplaySettingService;
+use App\Services\DisplayTechSkillService;
 
 class MainPageController extends Controller
 {
@@ -19,13 +20,15 @@ class MainPageController extends Controller
     protected $CodexDisplayService;
     protected $DisplayCategoryCodexService;
     protected $DisplaySettingService;
+    protected $DisplayTechSkillService;
 
     public function __construct(CodexDisplayService $CodexDisplayService, DisplayCategoryCodexService $DisplayCategoryCodexService,
-            DisplaySettingService $DisplaySettingService )
+            DisplaySettingService $DisplaySettingService, DisplayTechSkillService $DisplayTechSkillService )
     {
         $this->CodexDisplayService = $CodexDisplayService;
         $this->DisplayCategoryCodexService = $DisplayCategoryCodexService;
         $this->DisplaySettingService = $DisplaySettingService;
+        $this->DisplayTechSkillService = $DisplayTechSkillService;
     }
 
 
@@ -34,6 +37,7 @@ class MainPageController extends Controller
         $data = $this->CodexDisplayService->getAllData();
         $category = $this->DisplayCategoryCodexService->getAllData();
         $setting = $this->DisplaySettingService->getAllData();
+        $skill = $this->DisplayTechSkillService->displayTech();
         
         return Inertia::render('Home/MainPage', [
             'canLogin' => Route::has('login'),
@@ -47,6 +51,7 @@ class MainPageController extends Controller
             'category' => $category,
             // amo ini an knan system info, logo, background image
             'setting' => $setting,
+            'skill' => $skill,
         ]);
 
     }

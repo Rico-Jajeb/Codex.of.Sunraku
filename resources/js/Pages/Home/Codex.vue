@@ -21,15 +21,15 @@
                     <header class="mb-4">
                         <h1 class="text-lg font-bold text-gray-500">Codex Category</h1>
                     </header>
-                    <nav class=" overflow-y-auto  hover:bg-gray-200" v-for="cat in category" :key="cat.id">
+                    <nav class=" overflow-y-auto  hover:text-gray-400" v-for="cat in category" :key="cat.id">
                     
                         <button type="button"  @click="codeee(cat.category_name)" class=" font-medium w-full text-left">
                             {{ cat.category_name }} 
                         </button>
 
-                        <div   v-if="selected === cat.category_name"  class="mt-1 space-y-2 transition-all duration-300 bg-yellow-300 overflow-y-auto " v-for="codex in data" :key="codex.id">
-                            <div v-if="selected === codex.category_name" class="bg-white  p-3 ">
-                                <button type="button"  @click="dispCodex(codex.id)" class=" w-full text-start text-gray-700">{{ codex.codex_name }}</button>
+                        <div   v-if="selected === cat.category_name"  class="mt-1 space-y-2 transition-all duration-300 bg-yellow-300 overflow-y-auto  " v-for="codex in data" :key="codex.id">
+                            <div v-if="selected === codex.category_name" class="bg-white h-20 overflow-hidden hover:text-gray-400  p-3 ">
+                                <button type="button"  @click="dispCodex(codex.id)" class=" w-full text-start text-gray-700 hover:text-gray-400">{{ codex.codex_name }}</button>
                             </div>    
                         </div>                   
 
