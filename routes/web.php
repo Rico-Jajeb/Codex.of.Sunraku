@@ -86,4 +86,6 @@ Route::put('/skillup/{id}', [TechSkillController::class, 'updateTechSkill'])->na
 //kanan delete
 Route::delete('/posts/{id}', [CategoryCodexController::class, 'destroy'])->name('posts.destroy');
 
+Route::delete('/skill/{id}', [TechSkillController::class, 'destroy'])->name('skill.destroy');
+
 Route::delete('/deleteCodex/{id}', [CodexController::class, 'DeleteCodex'])->name('codex.destroy');

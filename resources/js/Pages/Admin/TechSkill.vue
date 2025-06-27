@@ -34,7 +34,7 @@
                             <template #body="{ data }">
                                 <nav class="flex gap-1">
                                     <button type="button" @click="openModal(data)" class=" py-2 px-4" v-tooltip.top="'Click to Edit'"><i class="pi pi-pencil" ></i></button>     
-                                    <button type="button" @click="deleteModalCodex(data)" class="mx-4" v-tooltip.top="'Click to Delete'">
+                                    <button type="button" @click="deleteModal(data)" class="mx-4" v-tooltip.top="'Click to Delete'">
                                         <i class="pi pi-trash" style="font-size: 1rem"></i>
                                     </button>                                  
                                 </nav>
@@ -75,6 +75,25 @@
            <Dialog  v-model:visible="sc"  maximizable :header="`Skill `" :style="{ width: '300px' }" >
                 <TechSkillForm/>
            </Dialog>
+
+
+
+            <!--DELETE amo ini an delete modal kanan category -->
+            <section>
+                <Dialog v-model:visible="visible3" :header="`Delete '${selectedCategory.tech_name}' Category`" :style="{ width: '25rem' }">
+                    <nav class="flex justify-center gap-6">
+                        <button @click="deletePost(item.id)" class=" bg-red-600 text-white px-3 py-1 rounded">
+                            <i class="pi pi-trash mr-2"></i> Delete
+                        </button>
+                        <button @click="closeDelete()" class=" bg-green-600 text-white px-3 py-1 rounded">
+                            <i class="pi pi-times mr-2"></i> Cancel
+                        </button>                        
+                    </nav>
+
+                </Dialog>
+            </section>
+
+
 
             <div>
                 <!-- amo ini an kanan pop up notif pag nag submit msg -->
@@ -189,7 +208,37 @@ const submitForm = () => {
 };
 
 
+//----------------------- delete -------------------------
+
+ const visible3 = ref(false);
+const item = ref({ id: null })
+    function deleteModal(data) {
+        selectedCategory.value = data
+        item.value.id = data.id
+        visible3.value = true
+    }
+
+ function closeDelete(){
+        visible3.value = false
+    }
 
 
+     const deletePost = (id) => {
+        //amo ini an kanna delete
+        // bali amo ini an nkadto han button knan delete
+        router.delete(`/skill/${id}`, {
+        onSuccess: () => {
+              toast.add({
+                severity: 'success',
+                summary: 'Delete message',
+                detail: 'Deleted Successfully!', // Can hardcode or pull from props if needed
+                life: 10000,
+            });
+
+        }
+        })
+        // tapos ini liwat an code para pag na delete na matik ma close an modal
+        visible3.value = false
+    }
 
 </script>
