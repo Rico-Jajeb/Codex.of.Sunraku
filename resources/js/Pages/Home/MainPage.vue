@@ -112,27 +112,27 @@
         </article>
 
 
-    
-          <section class="bg-gray-200 py-32  rounded-b-lg relative ">
+        <!-- kanan carousel in an mga skill -->
+        <section class="bg-gray-200 py-32  rounded-b-lg relative ">
 
-                    <div class="overflow-hidden    relative h-[150px] max-w-7xl m-auto">
+                <div class="overflow-hidden    relative h-[150px] max-w-7xl m-auto">
 
-                        <div class="absolute -left-8 top-0 h-full w-32  bg-gray-200 blur-md z-50"></div>
-                            <!-- Right Blur -->
-                    <div class="absolute -right-8 top-0 h-full w-32 bg-gray-200 blur-md z-50"></div>
-                        <div
-                        class="flex w-max animate-carousel"
-                        ref="carouselRef"
-                        >
-                    
-                        <div v-for="(item, index) in loopedData" :key="index" class="min-w-[200px] max-w-[200px] mx-2 h-32 mt-4   p-4">
-                            <h3 class="font-bold text-lg text-gray-800">
-                                <Image  alt="user header" loading="lazy"   imageClass="  w-20 h-20 "  :src="`/storage/output/${item.img}`" />
-                            </h3>
-                        </div>
-                        </div>
-                    </div>                
-            </section>    
+                    <div class="absolute -left-8 top-0 h-full w-32  bg-gray-200 blur-md z-50"></div>
+                        <!-- Right Blur -->
+                <div class="absolute -right-8 top-0 h-full w-32 bg-gray-200 blur-md z-50"></div>
+                    <div
+                    class="flex w-max animate-carousel"
+                    ref="carouselRef"
+                    >
+                
+                    <div v-for="(item, index) in loopedData" :key="index" class="min-w-[200px] max-w-[200px] mx-2 h-32 mt-4   p-4">
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <Image  alt="user header" loading="lazy"   imageClass="  w-20 h-20 "  :src="`/storage/output/${item.img}`" />
+                        </h3>
+                    </div>
+                    </div>
+                </div>                
+        </section>    
 
 
   
@@ -275,15 +275,7 @@ const carouselRef = ref(null)
 const currentIndex = ref(0)
 let interval = null
 
-// Autoplay logic
-// onMounted(() => {
-//   console.log("Data received:", props.data); // 🔍 see if array is filled
-//   interval = setInterval(() => {
-//     if (props.data.length > 0) {
-//       currentIndex.value = (currentIndex.value + 1) % props.data.length;
-//     }
-//   }, 1000);
-// });
+
 onMounted(() => {
   console.log("Data received:", props.skill); // 🔍 see if array is filled
   interval = setInterval(() => {
@@ -315,6 +307,6 @@ const loopedData = computed(() => [...props.skill, ...props.skill])
 }
 
 .animate-carousel {
-  animation: carousel 20s linear infinite;
+  animation: carousel 50s linear infinite;
 }
 </style>
