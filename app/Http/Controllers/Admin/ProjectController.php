@@ -14,6 +14,7 @@ use App\Http\Requests\ProjectRequest;
 //SERVICE
 use App\Services\CodexImageService;
 use App\Services\ProjectService;
+use App\Services\DisplayProjectService;
 
 
 use App\Models\ProjectModel; 
@@ -23,17 +24,22 @@ class ProjectController extends Controller
     
     protected $ProjectService;
     protected $CodexImageService;
+    protected $DisplayProjectService;
 
 
-    public function __construct(ProjectService $ProjectService, CodexImageService $CodexImageService) {
+    public function __construct(ProjectService $ProjectService, CodexImageService $CodexImageService, DisplayProjectService $DisplayProjectService) {
         $this->ProjectService = $ProjectService;
         $this->CodexImageService = $CodexImageService;
+        $this->DisplayProjectService = $DisplayProjectService;
     }
 
 
 
     public function projects(){
-        return Inertia::render('Admin/Projects');
+        $data = $this->DisplayProjectService->displayProject();
+        return Inertia::render('Admin/Projects', [
+            'data' => $data,
+        ]);
     }
 
 

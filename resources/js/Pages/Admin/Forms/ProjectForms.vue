@@ -83,7 +83,7 @@
                                 {{ form.errors.live_url }}
                             </div> 
                         </div>
-                       <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Skill Logo</label>
+                       <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Project Cover</label>
                         <div class="card flex flex-col items-center gap-6 mt-4">                
                                 <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
                                 <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
