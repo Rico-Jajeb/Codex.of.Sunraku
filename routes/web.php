@@ -62,6 +62,7 @@ Route::post('add.Setting', [SystemController::class, 'addSettings2'])->name('add
 Route::post('add.Tech', [TechSkillController::class, 'addTechSkill'])->name('add.Tech');
 
 Route::post('add.Projects', [ProjectController::class, 'AddProject'])->name('add.Projects');
+Route::post('add.ScreenShot', [ProjectController::class, 'AddScreenShot'])->name('add.ScreenShot');
 
 //kanan update form
 //Route::post('/categories/update/{id}', [CategoryCodexController::class, 'update'])->name('categories.update');

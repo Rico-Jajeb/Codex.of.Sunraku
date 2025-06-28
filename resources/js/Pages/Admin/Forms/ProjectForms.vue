@@ -88,8 +88,8 @@
                                 <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
                                 <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
                             
-                        
                         </div>
+                 
                         <nav class="">
                                 <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
                         </nav>
@@ -125,6 +125,7 @@
 
     const src = ref(null);
 
+ 
     function onFileSelect(event) {
         const file = event.files[0];
         const reader = new FileReader();
@@ -137,6 +138,8 @@
     }
 
 
+
+
     const form = useForm({
         //amo liwat ini an code para han system form
         proj_name: null,
@@ -147,7 +150,6 @@
         img: null,
         github_url: null,
         live_url: null,
-      
     })
 
 

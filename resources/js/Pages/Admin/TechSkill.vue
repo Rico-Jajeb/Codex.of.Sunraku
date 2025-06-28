@@ -9,7 +9,11 @@
         <main class="pt-10">
             <section class="max-w-7xl  mx-auto  sm:px-6 lg:px-8 pb-8 bg-white overflow-hidden shadow-xl rounded-lg">
                 
-                <nav class=" mt-8  flex justify-end ">
+                <nav class=" mt-8  flex justify-between ">
+                    <div class=""></div>
+                    <header>
+                        <h1 class="text-lg font-medium">List of Skills</h1>
+                    </header>
                     <button type="button" @click="TechModal()" class="md:mr-8 mr-0"  v-tooltip.top="'Add New Skill'"><i class="pi pi-plus" style="font-size: 1.1rem"></i></button>                   
                 </nav>
 

@@ -21,4 +21,11 @@ class ProjectModel extends Model
         'language' => 'array',
         'framework' => 'array',
     ];
+
+
+    public function screenshots()
+    {
+        return $this->hasMany(ProjectScreenshot::class, 'project_id', 'id');
+    }
+
 }

@@ -12,14 +12,14 @@
                 <!-- <button type="button" @click="projModal(data)">Click me</button> -->
                 
                 <nav class=" mt-8  flex justify-end ">
-                    <button type="button" @click="projModal()" class="md:mr-8 mr-0"  v-tooltip.top="'Add New Skill'"><i class="pi pi-plus" style="font-size: 1.1rem"></i></button>                   
+                    <button type="button" @click="projModal()" class="md:mr-8 mr-0"  v-tooltip.top="'Add New Project'"><i class="pi pi-plus" style="font-size: 1.1rem"></i></button>                   
                 </nav>
 
     
                 <DataTable v-model:selection="TechSkill" dataKey="id" :value="data"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
                         
                             <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-                            <Column field="proj_name" header="Skill" sortable />
+                            <Column field="proj_name" header="Project" sortable />
                             <Column field="img" header="Image" sortable>
                                 <template #body="{ data }">
                                 <Image 
@@ -33,6 +33,8 @@
                 
                     </DataTable>         
             </section>
+
+            <ScreenshotForms/>
         </main>
 
 
@@ -60,6 +62,7 @@
 <script setup>
     import AppLayout from '@/Layouts/AppLayout.vue';
     import ProjectForm from '@/Pages/Admin/Forms/ProjectForms.vue'; 
+    import ScreenshotForms from './Forms/ScreenshotForms.vue';
 
    
     import { computed, ref, watchEffect , watch, onMounted     } from 'vue';
