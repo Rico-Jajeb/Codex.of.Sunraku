@@ -13,6 +13,12 @@
                 <ProjectForm/>
             </section>
         </main>
+
+
+          <div>
+                <!-- amo ini an kanan pop up notif pag nag submit msg -->
+                <Toast />
+            </div>
     </AppLayout>
 
 </template>
@@ -33,4 +39,10 @@
     
     import ProjectForm from '@/Pages/Admin/Forms/ProjectForms.vue';
     
+
+
+        const page = usePage()
+    const toast = useToast()
+
+    const src = ref(null);
 </script>

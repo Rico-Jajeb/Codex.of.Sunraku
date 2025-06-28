@@ -19,7 +19,7 @@
                       <DataTable v-model:selection="TechSkill" dataKey="id" :value="data"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
                       
                         <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-                        <Column field="tech_name" header="codex_name" sortable />
+                        <Column field="tech_name" header="Skill" sortable />
                         <Column field="img" header="Image" sortable>
                             <template #body="{ data }">
                             <Image 

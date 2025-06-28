@@ -11,14 +11,14 @@ class ProjectModel extends Model
     protected $table = 'projects';
     protected $fillable = [
         'proj_name', 'proj_description', 
-        'thumbnail', 'github_url',
+        'img', 'github_url',
         'live_url', 'status',
+        'language', 'framework' 
     ];
 
     protected $casts = [
         //amo ini an kanan multiselect han codex an kanan language ngan framework
         'language' => 'array',
         'framework' => 'array',
-        'screenshots' => 'array',
     ];
 }

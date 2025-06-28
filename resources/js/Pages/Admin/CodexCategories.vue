@@ -253,10 +253,37 @@
                       
                         <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
 
-                        <Column field="codex_name" header="codex_name" sortable />
+                        <!-- <Column field="codex_name" header="codex_name" sortable /> -->
+                        <Column field="content" header="content" sortable>
+                            <template #body="slotProps">
+                                <button type="button"   @click="openContentModal(slotProps.data.codex_name, 'Codex name')" v-tooltip.top="'Click to View Codex'">
+                                    <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px]">
+                                    {{ slotProps.data.codex_name }}
+                                    </div>                                    
+                                </button>
+                            </template>
+                        </Column>
                         <Column field="category_name" header="category_name" sortable />
-                        <Column field="language" header="language" sortable />
-                        <Column field="framework" header="framework" sortable />
+                        <!-- <Column field="language" header="language" sortable /> -->
+                        <Column field="content" header="content" sortable>
+                            <template #body="slotProps">
+                                <button type="button"   @click="openContentModal(slotProps.data.language, 'Language')" v-tooltip.top="'Click to View Language'">
+                                    <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px]">
+                                    {{ slotProps.data.language }}
+                                    </div>                                    
+                                </button>
+                            </template>
+                        </Column>
+                        <!-- <Column field="framework" header="framework" sortable /> -->
+                        <Column field="content" header="content" sortable>
+                            <template #body="slotProps">
+                                <button type="button"   @click="openContentModal(slotProps.data.framework, 'Framewrok')" v-tooltip.top="'Click to View Framework'">
+                                    <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px]">
+                                    {{ slotProps.data.framework }}
+                                    </div>                                    
+                                </button>
+                            </template>
+                        </Column>
                         <Column field="tags" header="tags" sortable />
                         <Column field="diffuclt_level" header="difficult level" sortable />
                         <Column field="content" header="content" sortable>

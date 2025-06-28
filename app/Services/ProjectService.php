@@ -14,13 +14,12 @@ class ProjectService
             'proj_name' => $data['proj_name'],
             'proj_description' => $data['proj_description'],
             'framework' => $data['framework'],
-            'tags' => $data['tags'],
+            'language' => $data['language'],
             'status' => $data['status'],
             'github_url' => $data['github_url'],
             'live_url' => $data['live_url'],
-
-            'thumbnail' => $data['img'],
-            'screenshots' => $data['screenshots'],
+            'img' => $data['img'],
+            
         ]);
     }
 

@@ -1,38 +1,38 @@
 <template>
-                <form  class=""  @submit.prevent="form.post('add.Setting')" >
+                   <form @submit.prevent="submitForm" enctype="multipart/form-data">
                         <div class="">
                                 <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Project name</label>
-                                <InputText class="!w-full" type="text" v-model="form.system_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
-                                <div v-if="form.errors.system_name" class="text-red-500 text-sm mt-2">
-                                    {{ form.errors.setting_name }}
+                                <InputText class="!w-full" type="text" v-model="form.proj_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                <div v-if="form.errors.proj_name" class="text-red-500 text-sm mt-2">
+                                    {{ form.errors.proj_name }}
                                 </div> 
                         </div>
                         <div class="mt-4">
                                 <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Description</label>
-                                <InputText class="!w-full" type="text" v-model="form.system_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
-                                <div v-if="form.errors.system_name" class="text-red-500 text-sm mt-2">
-                                    {{ form.errors.setting_name }}
+                                <InputText class="!w-full" type="text" v-model="form.proj_description" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                <div v-if="form.errors.proj_description" class="text-red-500 text-sm mt-2">
+                                    {{ form.errors.proj_description }}
                                 </div> 
                         </div>
                         <section class="mt-4">
-                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">difficulty Level</label>
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Status Level</label>
                             <div class="md:flex md:flex-wrap gap-4 mt-4">
                                 <div class="flex items-center gap-2">
-                                    <RadioButton v-model="form.diffuclt_level" inputId="level1" name="level" value="basic"  />
-                                    <label for="ingredient1">Basic</label>
+                                    <RadioButton v-model="form.status" inputId="level1" name="level" value="Ongoing"  />
+                                    <label for="ingredient1">Ongoing</label>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <RadioButton v-model="form.diffuclt_level" inputId="level2" name="level" value="intermediate"  />
-                                    <label for="ingredient2">Intermediate</label>
+                                    <RadioButton v-model="form.status" inputId="level2" name="level" value="Completed"  />
+                                    <label for="ingredient2">Completed</label>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <RadioButton v-model="form.diffuclt_level" inputId="level3" name="level" value="advanced"  />
-                                    <label for="ingredient3">Advanced</label>
+                                    <RadioButton v-model="form.status" inputId="level3" name="level" value="On Hold"  />
+                                    <label for="ingredient3">On Hold</label>
                                 </div>
                                 
                             </div>
-                            <div v-if="form.errors.diffuclt_level" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.diffuclt_level }}
+                            <div v-if="form.errors.status" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.status }}
                             </div> 
                         </section>
                         <section class=" mt-4  md:flex md:flex-row ">
@@ -71,26 +71,25 @@
                         </section>
                         <div class="mt-4">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Github URL</label>
-                            <InputText class="!w-full" type="text" v-model="form.system_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
-                            <div v-if="form.errors.system_name" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.setting_name }}
+                            <InputText class="!w-full" type="text" v-model="form.github_url" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                            <div v-if="form.errors.github_url" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.github_url }}
                             </div> 
                         </div>
                         <div class="mt-4">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Live URL</label>
-                            <InputText class="!w-full" type="text" v-model="form.system_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
-                            <div v-if="form.errors.system_name" class="text-red-500 text-sm mt-2">
-                                {{ form.errors.setting_name }}
+                            <InputText class="!w-full" type="text" v-model="form.live_url" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                            <div v-if="form.errors.live_url" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.live_url }}
                             </div> 
                         </div>
-                            
-                        <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Category Image Cover</label>
+                       <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Skill Logo</label>
                         <div class="card flex flex-col items-center gap-6 mt-4">                
                                 <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
                                 <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
                             
                         
-                            </div>
+                        </div>
                         <nav class="">
                                 <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3"><i class="pi pi-save mr-1"></i> Save </button>                    
                         </nav>
@@ -119,18 +118,7 @@
 
     const successMessage = computed(() => page.props.flash?.success)
 
-    // Automatically show toast when successMessage changes
-    watch(successMessage, (newValue) => {
-    if (newValue) {
-        toast.add({
-        severity: 'success',
-        summary: 'Success message',
-        detail: newValue,
-        life: 10000,
-        })
-    }
-    })
-
+    
 
 
 
@@ -155,11 +143,11 @@
         proj_description: null,
         language: [],
         framework: [],
+        status: null,
         img: null,
-        screenshots: null,
         github_url: null,
         live_url: null,
-        status: null,
+      
     })
 
 
@@ -217,4 +205,23 @@
         { name: 'Elixir', code: 'Elixir' }
     ]);
 
+
+const submitForm = () => {
+    form.post(route('add.Projects'), {
+        preserveScroll: true,
+        forceFormData: true,
+        onSuccess: () => {
+            toast.add({
+                severity: 'success',
+                summary: 'Success message',
+                detail: 'Project added successfully!',
+                life: 10000,
+            });
+
+        },
+        onError: (errors) => {
+            console.error("Form submission failed.", errors);
+        },
+    });
+};
 </script>

@@ -51,7 +51,7 @@ Route::get('systemProjects',[ProjectController::class, 'projects'])->name('syste
 Route::get('techSkill',[TechSkillController::class, 'techPage'])->name('system.skills');
 
 
-//kanan form
+//kanan create form
 Route::post('add.Codex', [CodexController::class, 'AddCodex'])->name('addProject');
 
 Route::post('add.Category', [CategoryCodexController::class, 'addCategory'])->name('add.Category');
@@ -60,6 +60,8 @@ Route::post('add.Category', [CategoryCodexController::class, 'addCategory'])->na
 Route::post('add.Setting', [SystemController::class, 'addSettings2'])->name('addSetting');
 
 Route::post('add.Tech', [TechSkillController::class, 'addTechSkill'])->name('add.Tech');
+
+Route::post('add.Projects', [ProjectController::class, 'AddProject'])->name('add.Projects');
 
 //kanan update form
 //Route::post('/categories/update/{id}', [CategoryCodexController::class, 'update'])->name('categories.update');
