@@ -51,7 +51,8 @@
 
 
        <Dialog v-model:visible="SCModal" header="Screen Shot"  maximizable>
-            <TestForm  :project-id="SelectedProjId" />
+            <!-- <TestForm  :project-id="SelectedProjId" /> -->
+            <ScreenshotForms :project-id="SelectedProjId"/>
         </Dialog>
 
 

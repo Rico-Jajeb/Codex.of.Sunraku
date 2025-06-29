@@ -17,6 +17,7 @@ use App\Services\CodexImageService;
 use App\Services\ProjectService;
 use App\Services\DisplayProjectService;
 use App\Services\ScreenShotService;
+use App\Services\ImageScreenShotService;
 
 
 use App\Models\ProjectModel; 
@@ -28,14 +29,16 @@ class ProjectController extends Controller
     protected $CodexImageService;
     protected $DisplayProjectService;
     protected $ScreenShotService;
+    protected $ImageScreenShotService;
 
 
     public function __construct(ProjectService $ProjectService, CodexImageService $CodexImageService, DisplayProjectService $DisplayProjectService, 
-    ScreenShotService $ScreenShotService) {
+    ScreenShotService $ScreenShotService, ImageScreenShotService $ImageScreenShotService) {
         $this->ProjectService = $ProjectService;
         $this->CodexImageService = $CodexImageService;
         $this->DisplayProjectService = $DisplayProjectService;
         $this->ScreenShotService = $ScreenShotService;
+        $this->ImageScreenShotService = $ImageScreenShotService;
     }
 
 
@@ -69,10 +72,10 @@ class ProjectController extends Controller
         $validated = $request->validated();
  
     
-        $imageName = $this->CodexImageService->handleImageUpload($request);
+        $imageName = $this->ImageScreenShotService->handleImageUpload($request);
         $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
        
-        $this->ScreenShotRequest->create($validated); // tas ig ppasa an data ngadto serivice para pag insert ngadto database
+        $this->ScreenShotService->create($validated); // tas ig ppasa an data ngadto serivice para pag insert ngadto database
 
         // return redirect()->back()->with('success', "Codex Added Successfully!");
         return redirect()->route('system.projects')->with('success', "Codex Added Successfully!");

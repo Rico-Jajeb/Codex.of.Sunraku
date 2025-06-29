@@ -20,7 +20,10 @@ class ScreenShotService
         // return $project->screenshots()->create([
         //     'img' => $data['img'],
         // ]);
-        return TestModel::create([
+             
+        $project = ProjectModel::findOrFail($data['project_id']);
+
+        return $project->screenshots()->create([
             'img' => $data['img'],
         ]);
     }

@@ -22,6 +22,7 @@ class ScreenShotRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'project_id' => 'nullable|string|max:255',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240', // Image validation
         ];
     }

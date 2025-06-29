@@ -1,6 +1,7 @@
 <template>
     <form @submit.prevent="submitForm" enctype="multipart/form-data">
-            <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Project Cover</label>
+            <InputText class="!w-full" type="hidden" v-model="form.project_id" :value="projectId" placeholder="Insert Skill name......" />
+            <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload project Screenshot </label>
             <div class="card flex flex-col items-center gap-6 mt-4">                
                     <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
                     <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
@@ -35,7 +36,9 @@
 
     
 
-
+   const props = defineProps({
+        projectId: Number,
+    })
 
 
     const src = ref(null);
@@ -56,11 +59,13 @@
 
 
     const form = useForm({
+        project_id: null,
         img: null,  
     })
 
 
 const submitForm = () => {
+    form.project_id = props.projectId // ensure correct id
     form.post(route('add.ScreenShot'), {
         preserveScroll: true,
         forceFormData: true,

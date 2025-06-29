@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory; 
 
 use App\Models\TestModel; 
+use App\Models\ProjectScreenshot; 
 
 class ProjectModel extends Model
 {
@@ -30,8 +31,11 @@ class ProjectModel extends Model
     //     return $this->hasMany(ProjectScreenshot::class);
     // }
 
-    public function test(){
-        return $this->hasMany(TestModel::class,  'project_id' );
+    // public function test(){
+    //     return $this->hasMany(TestModel::class,  'project_id' );
+    // }
+    public function screenshots(){
+        return $this->hasMany(ProjectScreenshot::class,  'project_id' );
     }
 
 }
