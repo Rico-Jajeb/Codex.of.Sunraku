@@ -30,16 +30,29 @@
                                 preview  imageClass="h-16 object-cover rounded-md"  />
                                 </template>
                             </Column>
-                
+                            <Column class="!text-end" header="Actions">
+                                <template #body="{ data }">
+                                    <nav class="flex gap-1">
+                                        <button type="button" @click="screeshotModal(data.id)" class=" py-2 px-4" v-tooltip.top="'Add Image'"><i class="pi pi-plus" >{{ data.id }}</i></button>     
+                                        <button type="button" @click="openModal(data)" class=" py-2 px-4" v-tooltip.top="'Click to Edit'"><i class="pi pi-pencil" ></i></button>     
+                                        <button type="button" @click="deleteModal(data)" class="mx-4" v-tooltip.top="'Click to Delete'">
+                                            <i class="pi pi-trash" style="font-size: 1rem"></i>
+                                        </button>                                  
+                                    </nav>
+                                </template>
+                            </Column>
                     </DataTable>         
             </section>
 
-            <ScreenshotForms/>
+            <!-- <ScreenshotForms/> -->
+            
         </main>
 
 
 
-
+       <Dialog v-model:visible="SCModal" header="Screen Shot"  maximizable>
+            <TestForm  :project-id="SelectedProjId" />
+        </Dialog>
 
 
 
@@ -50,6 +63,7 @@
         <Dialog v-model:visible="projDis" header="Add Project" maximizable>
                 <ProjectForm/>
         </Dialog>
+ 
 
         <div>
             <!-- amo ini an kanan pop up notif pag nag submit msg -->
@@ -63,7 +77,7 @@
     import AppLayout from '@/Layouts/AppLayout.vue';
     import ProjectForm from '@/Pages/Admin/Forms/ProjectForms.vue'; 
     import ScreenshotForms from './Forms/ScreenshotForms.vue';
-
+    import TestForm from './Forms/TestForm.vue';
    
     import { computed, ref, watchEffect , watch, onMounted     } from 'vue';
     import 'primeicons/primeicons.css'
@@ -109,6 +123,21 @@
     function projModal (data){
         projDis.value = true;
     }
+
+
+
+//------------------ Screen Shot ------------------------
+
+    const SCModal = ref(false);
+  
+    const SelectedProjId = ref(null);
+
+    function screeshotModal(id){
+        SelectedProjId.value = id;
+        SCModal.value = true;
+    }
+
+
 
 
 </script>

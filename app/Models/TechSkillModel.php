@@ -10,7 +10,7 @@ class TechSkillModel extends Model
     use HasFactory;
     protected $table = 'tech_skills';
     protected $fillable = [
-        'tech_name' ,'img',
+        'tech_name' ,'img', 
     
     ];
 }

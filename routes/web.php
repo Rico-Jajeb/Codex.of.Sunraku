@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CategoryCodexController;
 use App\Http\Controllers\Admin\SystemController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TechSkillController;
+use App\Http\Controllers\Admin\TestController;
 
 
 use App\Http\Controllers\User\MainPageController;
@@ -63,6 +64,8 @@ Route::post('add.Tech', [TechSkillController::class, 'addTechSkill'])->name('add
 
 Route::post('add.Projects', [ProjectController::class, 'AddProject'])->name('add.Projects');
 Route::post('add.ScreenShot', [ProjectController::class, 'AddScreenShot'])->name('add.ScreenShot');
+
+Route::post('add.Test', [TestController::class, 'addTest'])->name('add.Test');
 
 //kanan update form
 //Route::post('/categories/update/{id}', [CategoryCodexController::class, 'update'])->name('categories.update');

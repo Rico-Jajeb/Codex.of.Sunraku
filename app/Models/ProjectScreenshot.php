@@ -22,6 +22,6 @@ class ProjectScreenshot extends Model
      */
     public function project()
     {
-        return $this->belongsTo(ProjectModel::class, 'project_id', 'id');
+        return $this->belongsTo(ProjectModel::class);
     }
 }

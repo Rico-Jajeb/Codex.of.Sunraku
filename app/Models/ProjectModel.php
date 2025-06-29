@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory; 
 
+use App\Models\TestModel; 
+
 class ProjectModel extends Model
 {
     use HasFactory;
@@ -23,9 +25,13 @@ class ProjectModel extends Model
     ];
 
 
-    public function screenshots()
-    {
-        return $this->hasMany(ProjectScreenshot::class, 'project_id', 'id');
+    // public function screenshots()
+    // {
+    //     return $this->hasMany(ProjectScreenshot::class);
+    // }
+
+    public function test(){
+        return $this->hasMany(TestModel::class,  'project_id' );
     }
 
 }
