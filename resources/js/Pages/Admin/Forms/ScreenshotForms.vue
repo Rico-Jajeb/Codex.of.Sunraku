@@ -73,7 +73,7 @@ const submitForm = () => {
             toast.add({
                 severity: 'success',
                 summary: 'Success message',
-                detail: 'Project added successfully!',
+                detail: 'ScreenShot added successfully!',
                 life: 10000,
             });
 

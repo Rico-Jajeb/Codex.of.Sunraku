@@ -18,6 +18,7 @@ use App\Services\ProjectService;
 use App\Services\DisplayProjectService;
 use App\Services\ScreenShotService;
 use App\Services\ImageScreenShotService;
+use App\Services\DisplayScreenShotService;
 
 
 use App\Models\ProjectModel; 
@@ -30,23 +31,28 @@ class ProjectController extends Controller
     protected $DisplayProjectService;
     protected $ScreenShotService;
     protected $ImageScreenShotService;
+    protected $DisplayScreenShotService;
 
 
     public function __construct(ProjectService $ProjectService, CodexImageService $CodexImageService, DisplayProjectService $DisplayProjectService, 
-    ScreenShotService $ScreenShotService, ImageScreenShotService $ImageScreenShotService) {
+    ScreenShotService $ScreenShotService, ImageScreenShotService $ImageScreenShotService,
+    DisplayScreenShotService $DisplayScreenShotService) {
         $this->ProjectService = $ProjectService;
         $this->CodexImageService = $CodexImageService;
         $this->DisplayProjectService = $DisplayProjectService;
         $this->ScreenShotService = $ScreenShotService;
         $this->ImageScreenShotService = $ImageScreenShotService;
+        $this->DisplayScreenShotService = $DisplayScreenShotService;
     }
 
 
 
     public function projects(){
         $data = $this->DisplayProjectService->displayProject();
+        $ScreenShots = $this->DisplayScreenShotService->getAllData();
         return Inertia::render('Admin/Projects', [
             'data' => $data,
+            'ScreenShots' => $ScreenShots,
         ]);
     }
 
