@@ -20,6 +20,7 @@ use App\Services\ScreenShotService;
 use App\Services\ImageScreenShotService;
 use App\Services\DisplayScreenShotService;
 use App\Services\UpdateProjectService;
+use App\Services\DeleteProjectService;
 
 
 use App\Models\ProjectModel; 
@@ -34,11 +35,13 @@ class ProjectController extends Controller
     protected $ImageScreenShotService;
     protected $DisplayScreenShotService;
     protected $UpdateProjectService;
+    protected $DeleteProjectService;
 
 
     public function __construct(ProjectService $ProjectService, CodexImageService $CodexImageService, DisplayProjectService $DisplayProjectService, 
     ScreenShotService $ScreenShotService, ImageScreenShotService $ImageScreenShotService,
-    DisplayScreenShotService $DisplayScreenShotService, UpdateProjectService $UpdateProjectService) {
+    DisplayScreenShotService $DisplayScreenShotService, UpdateProjectService $UpdateProjectService,
+    DeleteProjectService $DeleteProjectService) {
         $this->ProjectService = $ProjectService;
         $this->CodexImageService = $CodexImageService;
         $this->DisplayProjectService = $DisplayProjectService;
@@ -46,6 +49,7 @@ class ProjectController extends Controller
         $this->ImageScreenShotService = $ImageScreenShotService;
         $this->DisplayScreenShotService = $DisplayScreenShotService;
         $this->UpdateProjectService = $UpdateProjectService;
+        $this->DeleteProjectService = $DeleteProjectService;
     }
 
 
@@ -92,7 +96,7 @@ class ProjectController extends Controller
     }
 
 
-       public function updateProject(ProjectRequest $request, $id){
+    public function updateProject(ProjectRequest $request, $id){
         // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
         $imageName = $this->CodexImageService->handleImageUpload($request); 
 
@@ -107,4 +111,12 @@ class ProjectController extends Controller
 
     }
     
+    public function destroyProject($id, DeleteProjectService $deleteService)
+    {
+        $success = $deleteService->deleteProject($id);
+
+        return redirect()->route('system.projects')->with('success', "Deleted  Successfully!");
+    }
+
+
 }

@@ -70,6 +70,27 @@
                                     </nav>
                                 </template>
                             </Column>
+                            <Column field="content" header="Status" sortable>
+                                <template #body="slotProps">
+                                    <button type="button"   @click="openContentModal(slotProps.data.status, 'Status')" v-tooltip.top="'Click to View'">
+                                        <div class="" v-if="slotProps.data.status == 'On Hold'">
+                                            <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px] w-36 bg-gray-400 rounded-lg">
+                                                {{ slotProps.data.status }}
+                                            </div>
+                                        </div>                                    
+                                        <div class="" v-if="slotProps.data.status == 'Completed'">
+                                            <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px] w-36 bg-green-400 rounded-lg">
+                                                {{ slotProps.data.status }}
+                                            </div>
+                                        </div>                                    
+                                        <div class="" v-if="slotProps.data.status == 'Ongoing'">
+                                            <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px] w-36 bg-blue-400 rounded-lg">
+                                                {{ slotProps.data.status }}
+                                            </div>
+                                        </div>                                    
+                                    </button>
+                                </template>
+                            </Column>
                             <Column field="content" header="Language" sortable>
                                 <template #body="slotProps">
                                     <button type="button"   @click="openContentModal(slotProps.data.language, 'Language')" v-tooltip.top="'Click to View'">
@@ -106,15 +127,7 @@
                                     </button>
                                 </template>
                             </Column>
-                            <Column field="content" header="Status" sortable>
-                                <template #body="slotProps">
-                                    <button type="button"   @click="openContentModal(slotProps.data.status, 'Status')" v-tooltip.top="'Click to View'">
-                                        <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px] w-36">
-                                            {{ slotProps.data.status }}
-                                        </div>                                    
-                                    </button>
-                                </template>
-                            </Column>
+    
 
                     </DataTable>         
             </section>     
@@ -253,6 +266,21 @@
                     </form>
                         
         </Dialog>
+
+            <!--DELETE amo ini an delete modal kanan category -->
+            <section>
+                <Dialog v-model:visible="visible3" :header="`Delete '${selectedCategory.tech_name}' Category`" :style="{ width: '25rem' }">
+                    <nav class="flex justify-center gap-6">
+                        <button @click="deletePost(item.id)" class=" bg-red-600 text-white px-3 py-1 rounded">
+                            <i class="pi pi-trash mr-2"></i> Delete
+                        </button>
+                        <button @click="closeDelete()" class=" bg-green-600 text-white px-3 py-1 rounded">
+                            <i class="pi pi-times mr-2"></i> Cancel
+                        </button>                        
+                    </nav>
+
+                </Dialog>
+            </section>
 
         <div>
             <!-- amo ini an kanan pop up notif pag nag submit msg -->
@@ -487,5 +515,40 @@ const submitForm = () => {
     ]);
 
 
+
+    
+//----------------------- delete -------------------------
+
+    const visible3 = ref(false);
+    const item = ref({ id: null })
+        
+    function deleteModal(data) {
+            selectedCategory.value = data
+            item.value.id = data.id
+            visible3.value = true
+    }
+
+    function closeDelete(){
+            visible3.value = false
+    }
+
+
+    const deletePost = (id) => {
+        //amo ini an kanna delete
+        // bali amo ini an nkadto han button knan delete
+        router.delete(`/deletProject/${id}`, {
+        onSuccess: () => {
+            toast.add({
+                severity: 'success',
+                summary: 'Delete message',
+                detail: 'Deleted Successfully!', // Can hardcode or pull from props if needed
+                life: 10000,
+            });
+
+        }
+        })
+        // tapos ini liwat an code para pag na delete na matik ma close an modal
+        visible3.value = false
+    }
 
 </script>

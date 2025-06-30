@@ -97,3 +97,5 @@ Route::delete('/posts/{id}', [CategoryCodexController::class, 'destroy'])->name(
 Route::delete('/skill/{id}', [TechSkillController::class, 'destroy'])->name('skill.destroy');
 
 Route::delete('/deleteCodex/{id}', [CodexController::class, 'DeleteCodex'])->name('codex.destroy');
+
+Route::delete('/deletProject/{id}', [ProjectController::class, 'destroyProject'])->name('project.destroy');
