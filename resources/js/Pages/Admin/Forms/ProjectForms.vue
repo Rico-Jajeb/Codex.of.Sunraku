@@ -2,14 +2,14 @@
                    <form @submit.prevent="submitForm" enctype="multipart/form-data">
                         <div class="">
                                 <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Project name</label>
-                                <InputText class="!w-full" type="text" v-model="form.proj_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                <InputText class="!w-full" type="text" v-model="form.proj_name" placeholder="Insert Project name...." />
                                 <div v-if="form.errors.proj_name" class="text-red-500 text-sm mt-2">
                                     {{ form.errors.proj_name }}
                                 </div> 
                         </div>
                         <div class="mt-4">
                                 <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Description</label>
-                                <InputText class="!w-full" type="text" v-model="form.proj_description" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                <InputText class="!w-full" type="text" v-model="form.proj_description" placeholder="Insert Project Description...." />
                                 <div v-if="form.errors.proj_description" class="text-red-500 text-sm mt-2">
                                     {{ form.errors.proj_description }}
                                 </div> 

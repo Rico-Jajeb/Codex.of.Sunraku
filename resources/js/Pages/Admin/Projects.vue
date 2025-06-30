@@ -154,10 +154,13 @@
         
         <!-- bali kanan gallery han screenshot liwat ini -->
         <Dialog v-model:visible="galleryMod" maximizable  modal  :header="selectedGalleryType" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-            <section class=" flex gap-4 flex-wrap ">
+            <section class=" grid md:grid-cols-4 grid-cols-1 gap-4 flex-wrap ">
                 <section class="" v-for="SC in props.ScreenShots" key="SC.id" >
-                    <div v-if="selectedGallery == SC.project_id" class="w-36">       
-                        <Image  alt="user header" loading="lazy" :src="`/storage/screenshot/${SC.img}`" preview  imageClass="h-16  object-cover rounded-md"  />
+                    <div v-if="selectedGallery == SC.project_id" class=" flex  justify-center">       
+                        <Image  alt="user header" loading="lazy" :src="`/storage/screenshot/${SC.img}`" preview  imageClass="h-36 w-full  object-cover rounded-md"  />
+                        <button type="button" @click="deleteModalScreenshot(SC)" class="py-2 px-4" v-tooltip.top="'Click to Delete'">
+                            <i class="pi pi-trash" style="font-size: 1rem"></i>
+                        </button>   
                     </div>
                 </section>                
             </section>
@@ -269,12 +272,26 @@
 
             <!--DELETE amo ini an delete modal kanan category -->
             <section>
-                <Dialog v-model:visible="visible3" :header="`Delete '${selectedCategory.tech_name}' Category`" :style="{ width: '25rem' }">
+                <Dialog v-model:visible="visible3" :header="`Delete '${selectedCategory.proj_name}' Project`" :style="{ width: '25rem' }">
                     <nav class="flex justify-center gap-6">
                         <button @click="deletePost(item.id)" class=" bg-red-600 text-white px-3 py-1 rounded">
-                            <i class="pi pi-trash mr-2"></i> Delete
+                            <i class="pi pi-trash mr-2"></i> Delete 
                         </button>
                         <button @click="closeDelete()" class=" bg-green-600 text-white px-3 py-1 rounded">
+                            <i class="pi pi-times mr-2"></i> Cancel
+                        </button>                        
+                    </nav>
+
+                </Dialog>
+            </section>
+            <!--DELETE amo ini an delete modal kanan Screenshots -->
+            <section>
+                <Dialog v-model:visible="visible4" :header="`Delete Screenshot`" :style="{ width: '25rem' }">
+                    <nav class="flex justify-center gap-6">
+                        <button @click="deletescreenshoot(item1.id)" class=" bg-red-600 text-white px-3 py-1 rounded">
+                            <i class="pi pi-trash mr-2"></i> Delete 
+                        </button>
+                        <button @click="closeDelete2()" class=" bg-green-600 text-white px-3 py-1 rounded">
                             <i class="pi pi-times mr-2"></i> Cancel
                         </button>                        
                     </nav>
@@ -550,5 +567,44 @@ const submitForm = () => {
         // tapos ini liwat an code para pag na delete na matik ma close an modal
         visible3.value = false
     }
+
+    //screenshot delete
+    const selectedscreenshot = ref(false);
+    const visible4 = ref(false);
+    const item1 = ref({ id: null })
+        
+    function deleteModalScreenshot(ScreenShots) {
+            selectedscreenshot.value = ScreenShots
+            item1.value.id = ScreenShots.id
+            visible4.value = true
+    }
+
+    function closeDelete2(){
+            visible4.value = false
+    }
+
+
+
+    const deletescreenshoot = (id) => {
+        //amo ini an kanna delete
+        // bali amo ini an nkadto han button knan delete
+        router.delete(`/deletScreenshot/${id}`, {
+        onSuccess: () => {
+            toast.add({
+                severity: 'success',
+                summary: 'Delete message',
+                detail: 'Deleted Successfully!', // Can hardcode or pull from props if needed
+                life: 10000,
+            });
+
+        }
+        })
+        // tapos ini liwat an code para pag na delete na matik ma close an modal
+        visible4.value = false
+    }
+
+
+
+
 
 </script>

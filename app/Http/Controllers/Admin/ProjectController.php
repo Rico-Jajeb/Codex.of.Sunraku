@@ -21,6 +21,7 @@ use App\Services\ImageScreenShotService;
 use App\Services\DisplayScreenShotService;
 use App\Services\UpdateProjectService;
 use App\Services\DeleteProjectService;
+use App\Services\DeleteScreenshotService;
 
 
 use App\Models\ProjectModel; 
@@ -36,12 +37,13 @@ class ProjectController extends Controller
     protected $DisplayScreenShotService;
     protected $UpdateProjectService;
     protected $DeleteProjectService;
+    protected $DeleteScreenshotService;
 
 
     public function __construct(ProjectService $ProjectService, CodexImageService $CodexImageService, DisplayProjectService $DisplayProjectService, 
     ScreenShotService $ScreenShotService, ImageScreenShotService $ImageScreenShotService,
     DisplayScreenShotService $DisplayScreenShotService, UpdateProjectService $UpdateProjectService,
-    DeleteProjectService $DeleteProjectService) {
+    DeleteProjectService $DeleteProjectService, DeleteScreenshotService $DeleteScreenshotService) {
         $this->ProjectService = $ProjectService;
         $this->CodexImageService = $CodexImageService;
         $this->DisplayProjectService = $DisplayProjectService;
@@ -50,6 +52,7 @@ class ProjectController extends Controller
         $this->DisplayScreenShotService = $DisplayScreenShotService;
         $this->UpdateProjectService = $UpdateProjectService;
         $this->DeleteProjectService = $DeleteProjectService;
+        $this->DeleteScreenshotService = $DeleteScreenshotService;
     }
 
 
@@ -114,6 +117,14 @@ class ProjectController extends Controller
     public function destroyProject($id, DeleteProjectService $deleteService)
     {
         $success = $deleteService->deleteProject($id);
+
+        return redirect()->route('system.projects')->with('success', "Deleted  Successfully!");
+    }
+
+
+    public function destroyScreenshot($id, DeleteScreenshotService $deleteService)
+    {
+        $success = $deleteService->deleteSkill($id);
 
         return redirect()->route('system.projects')->with('success', "Deleted  Successfully!");
     }

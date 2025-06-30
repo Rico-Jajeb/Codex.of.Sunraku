@@ -99,3 +99,5 @@ Route::delete('/skill/{id}', [TechSkillController::class, 'destroy'])->name('ski
 Route::delete('/deleteCodex/{id}', [CodexController::class, 'DeleteCodex'])->name('codex.destroy');
 
 Route::delete('/deletProject/{id}', [ProjectController::class, 'destroyProject'])->name('project.destroy');
+
+Route::delete('/deletScreenshot/{id}', [ProjectController::class, 'destroyScreenshot'])->name('screenshot.destroy');
