@@ -19,6 +19,7 @@ use App\Services\DisplayProjectService;
 use App\Services\ScreenShotService;
 use App\Services\ImageScreenShotService;
 use App\Services\DisplayScreenShotService;
+use App\Services\UpdateProjectService;
 
 
 use App\Models\ProjectModel; 
@@ -32,17 +33,19 @@ class ProjectController extends Controller
     protected $ScreenShotService;
     protected $ImageScreenShotService;
     protected $DisplayScreenShotService;
+    protected $UpdateProjectService;
 
 
     public function __construct(ProjectService $ProjectService, CodexImageService $CodexImageService, DisplayProjectService $DisplayProjectService, 
     ScreenShotService $ScreenShotService, ImageScreenShotService $ImageScreenShotService,
-    DisplayScreenShotService $DisplayScreenShotService) {
+    DisplayScreenShotService $DisplayScreenShotService, UpdateProjectService $UpdateProjectService) {
         $this->ProjectService = $ProjectService;
         $this->CodexImageService = $CodexImageService;
         $this->DisplayProjectService = $DisplayProjectService;
         $this->ScreenShotService = $ScreenShotService;
         $this->ImageScreenShotService = $ImageScreenShotService;
         $this->DisplayScreenShotService = $DisplayScreenShotService;
+        $this->UpdateProjectService = $UpdateProjectService;
     }
 
 
@@ -85,6 +88,22 @@ class ProjectController extends Controller
 
         // return redirect()->back()->with('success', "Codex Added Successfully!");
         return redirect()->route('system.projects')->with('success', "Codex Added Successfully!");
+
+    }
+
+
+       public function updateProject(ProjectRequest $request, $id){
+        // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
+        $imageName = $this->CodexImageService->handleImageUpload($request); 
+
+        $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
+    
+        $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
+    
+        $this->UpdateProjectService->upProject($id, $validated); //adi an code para han up services
+
+        // return redirect()->route('codex.category')->with('success', "Category Added Successfully!");return back();
+        return redirect()->route('system.projects')->with('success', "Category Updated Successfully!");
 
     }
     

@@ -81,6 +81,8 @@ Route::put('/codexup/{id}', [CodexController::class, 'updateCodex'])->name('code
 
 Route::put('/skillup/{id}', [TechSkillController::class, 'updateTechSkill'])->name('skill.update');
 
+Route::put('/projectup/{id}', [ProjectController::class, 'updateProject'])->name('project.update');
+
 
 
 
