@@ -6,7 +6,7 @@
         :can-login="canLogin"
         :can-register="canRegister"
         :laravel-version="laravelVersion"
-        :php-version="phpVersion"  >
+        :php-version="phpVersion"  title="Main Page" >
       
         <main class="relative  p-3 rounded-xl h-[97vh] m-3 pt-20 overflow-hidden ">
             <!-- Background Image -->
@@ -28,98 +28,98 @@
                 </section>
         </main>
        
-        <article class=" flex flex-row ">
-   
-               
- 
-
-            <section class="bg-gray-200 w-full  pb-4  rounded-t-lg h-[450px] overflow-y-auto relative">
+        <article class=" flex flex-row  " >
+            <section class="bg-gray-300 w-full  pb-4  rounded-t-lg  relative">
 
                 <header class=" flex justify-between px-4 py-8 max-w-7xl m-auto">
-                    <h1 class="text-lg font-bold">Recent Codex</h1>
-                 
+                    <div class="">
+                        <h1 class="text-3xl font-bold">Recent Codex</h1>
+                        <p class="text-lg font-medium text-gray-800 mt-1">Latest documentation and code snippets from my knowledge base.</p>                        
+                    </div>
                 </header>
                 <!-- amo ini an kanan card -->
-                <section class="flex flex-row  flex-wrap justify-center gap-4 w-full mt-4  max-w-7xl m-auto">
-                    <Card   class="!w-64 !md:w-80 !h-80 !shadow-lg  " v-for="item in filteredItems.slice().reverse().slice(0, 4)" :key="item.id">
+                <section class="grid md:grid-cols-4 grid-cols-1    flex-wrap justify-center gap-4 w-full mt-4  max-w-7xl m-auto px-8 md:px-0">
+                    <Card   class=" !w-sm !md:w-sm !h-md !shadow-lg transition transform hover:-translate-y-2" v-for="item in filteredItems.slice().reverse().slice(0, 4)" :key="item.id" >
                         <template #title>
                             <header class="">
-                                <h1 class="truncate text-lg font-bold">{{ item.codex_name }}</h1>
+                                <h1 class="truncate text-xl text-gray-950 font-bold">{{ item.codex_name }}</h1>
                             </header>
                         </template>
                         <template #content>
                             <section class="">
                                 <label for=""></label>
-                                <p class="m-0 text-gray-500 text-md h-20 w-full overflow-hidden text-ellipsis ">
-                                   <span class="font-medium"> Content: </span>
-                                {{ item.content }}
-                                </p>
+                                <p class="m-0 text-gray-500 text-md font-medium h-20 w-full overflow-hidden text-ellipsis ">{{ item.content }}</p>
                             
                                 <nav class=" gap-2 mt-4">
-                                    <label for="" class="font-medium">Language:</label>
-                                    <p class="truncate h-8 text-gray-400 font-bold">{{ item.language.join(', ') }}</p>
-
-                                    <label class="font-medium" for="">framework: </label>
-                                    <p class="  truncate h-8 text-gray-400 font-bold">{{ item.framework.join(', ') }}</p>                            
+                                    <div class="flex flex-wrap gap-2 truncate ">
+                                        <p
+                                        v-for="lang in item.language.slice(0,4)"
+                                        :key="lang.id"
+                                        :class="['px-2 py-1 rounded truncate text-xs font-bold', languageColors[lang]?.bg || 'bg-gray-200', languageColors[lang]?.text || 'text-black'] "
+                                        >
+                                        {{ lang }}
+                                        </p>
+                                    </div>
+                                                                    
+                                    <div class="flex flex-wrap gap-2 truncate mt-3">
+                                        <div
+                                        v-for="fw in item.framework.slice(0,4)"
+                                        :key="fw.id"
+                                        :class="['px-2 py-1 rounded truncate overflow-x-hidden text-xs font-bold', frameworkColors[fw]?.bg || 'bg-gray-200', frameworkColors[fw]?.text || 'text-black']"
+                                        >
+                                        {{ fw }}
+                                        </div>
+                                    </div>
                                 </nav>
                                 <div class="flex justify-between mt-4">
-                                    <p class=" text-sm text-gray-500">Date: {{ new Date(item.created_at).toISOString().split('T')[0] }}  </p>
+                                    <p class=" text-sm text-gray-500">{{ new Date(item.created_at).toISOString().split('T')[0] }}  </p>
                                        <!-- Eye BUTTON -->
                                     <button type="button" @click="openCategoryInfoModal(item)" class="mr-4" v-tooltip.top="'Click To View'">
                                         <i class="pi pi-eye" style="font-size: 1rem"></i>
                                     </button>
                                 </div>
-                               
-                               
-
                             </section>
-
                         </template>
-                    
                     </Card>
                 </section>
           
-
-
-            <section>
-                    <Dialog  v-model:visible="categoryInfoDisp" maximizable   :header="`Codex: '${selectedCodex?.codex_name ?? ''}'`" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"  >
-                        <section class="pt-1">
-                         
-                            <p class="text-gray-500 font-bold text-md"> <span class="text-md text-gray-900 font-bold">Category:</span>  {{ selectedCodex.category_name }}</p>
-                            <p class="text-gray-500 font-bold text-md"> <span class="text-md text-gray-900 font-bold">Language:</span>  {{ selectedCodex.language.join(', ') }}</p>
-                            <p class="text-gray-500 font-bold text-md"> <span class="text-md text-gray-900 font-bold">Framework:</span>  {{ selectedCodex.framework.join(', ') }}</p>
-                            <p class="text-gray-500 font-bold text-md"> <span class="text-md text-gray-900 font-bold">Tags:</span>  {{ selectedCodex.tags }}</p>
-                            <p class="text-gray-500 font-bold text-md"> <span class="text-md text-gray-900 font-bold">Level:</span>  {{ selectedCodex.diffuclt_level }}</p>
+                <section>
+                        <Dialog  v-model:visible="categoryInfoDisp" maximizable   :header="`Codex: '${selectedCodex?.codex_name ?? ''}'`" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"  >
+                            <section class="pt-1">
                             
-                            <p class="text-gray-700 text-md mt-4 whitespace-pre-line"><span class="text-md text-gray-900 font-bold">Content:</span> {{ selectedCodex.content }}</p>
-                            <p class="text-gray-700 text-md mt-4 whitespace-pre-line"><span class="text-md text-gray-900 font-bold">Instructions:</span> {{ selectedCodex.instructions }}</p>
-                            
-                            
-                            <div class="my-4">
-                                <label for="" class="text-md text-gray-900 font-bold ">Code: </label>
-                                <MonacoEditor  :key="selectedCodex.id"  language="javascript" class="h-86"  v-model="selectedCodeSnippet"  />                                  
-                            </div>
+                                <p class="text-gray-500 font-bold text-md"> <span class="text-md text-gray-900 font-bold">Category:</span>  {{ selectedCodex.category_name }}</p>
+                                <p class="text-gray-500 font-bold text-md"> <span class="text-md text-gray-900 font-bold">Language:</span>  {{ selectedCodex.language.join(', ') }}</p>
+                                <p class="text-gray-500 font-bold text-md"> <span class="text-md text-gray-900 font-bold">Framework:</span>  {{ selectedCodex.framework.join(', ') }}</p>
+                                <p class="text-gray-500 font-bold text-md"> <span class="text-md text-gray-900 font-bold">Tags:</span>  {{ selectedCodex.tags }}</p>
+                                <p class="text-gray-500 font-bold text-md"> <span class="text-md text-gray-900 font-bold">Level:</span>  {{ selectedCodex.diffuclt_level }}</p>
+                                
+                                <p class="text-gray-700 text-md mt-4 whitespace-pre-line"><span class="text-md text-gray-900 font-bold">Content:</span> {{ selectedCodex.content }}</p>
+                                <p class="text-gray-700 text-md mt-4 whitespace-pre-line"><span class="text-md text-gray-900 font-bold">Instructions:</span> {{ selectedCodex.instructions }}</p>
+                                <div class="my-4">
+                                    <label for="" class="text-md text-gray-900 font-bold ">Code: </label>
+                                    <MonacoEditor  :key="selectedCodex.id"  language="javascript" class="h-86"  v-model="selectedCodeSnippet"  />                                  
+                                </div>
+                                <p class="text-gray-700 text-md mt-4 mb-3 whitespace-pre-line"><span class="text-md text-gray-900 font-bold">Output:</span> {{ selectedCodex.output }}</p>
 
-                            <p class="text-gray-700 text-md mt-4 mb-3 whitespace-pre-line"><span class="text-md text-gray-900 font-bold">Output:</span> {{ selectedCodex.output }}</p>
-
-                            <Image  alt="user header" loading="lazy"  preview imageClass="shadow-md rounded-xl w-full md:h-40 h-64 "  :src="`/storage/output/${selectedCodex.img}`" />
-
-                        </section>
-                    </Dialog>
-            </section>
-
+                                <Image  alt="user header" loading="lazy"  preview imageClass="shadow-md rounded-xl w-full md:h-40 h-64 "  :src="`/storage/output/${selectedCodex.img}`" />
+                            </section>
+                        </Dialog>
+                </section>
             </section>
         </article>
 
 
         <!-- kanan carousel in an mga skill -->
-        <section class="bg-gray-200 py-32  rounded-b-lg relative ">
+        <section class="bg-gray-300 py-32  rounded-b-lg relative ">
+           <header class=" flex justify-center items-center">
+                <h1 class="text-3xl font-bold font-mono">Technology Stack</h1>
+           </header>
 
                 <div class="overflow-hidden    relative h-[150px] max-w-7xl m-auto">
 
-                    <div class="absolute -left-8 top-0 h-full w-32  bg-gray-200 blur-md z-50"></div>
+                    <div class="absolute -left-8 top-0 h-full w-32  bg-gray-300 blur-md z-50"></div>
                         <!-- Right Blur -->
-                <div class="absolute -right-8 top-0 h-full w-32 bg-gray-200 blur-md z-50"></div>
+                <div class="absolute -right-8 top-0 h-full w-32 bg-gray-300 blur-md z-50"></div>
                     <div
                     class="flex w-max animate-carousel"
                     ref="carouselRef"
@@ -127,15 +127,87 @@
                 
                     <div v-for="(item, index) in loopedData" :key="index" class="min-w-[200px] max-w-[200px] mx-2 h-32 mt-4   p-4">
                         <h3 class="font-bold text-lg text-gray-800">
-                            <Image  alt="user header" loading="lazy"   imageClass="  w-20 h-20 "  :src="`/storage/output/${item.img}`" />
+                            <Image  alt="user header" loading="lazy"   imageClass=" grayscale hover:grayscale-0 transition w-20 h-20 "  :src="`/storage/output/${item.img}`" />
                         </h3>
                     </div>
                     </div>
                 </div>                
         </section>    
 
+        <section class="w-full bg-gray-300 pb-36 pt-8">
+            <div class="max-w-7xl m-auto px-4">
+                <header class="mb-12 ">
+                    <h1 class="text-lg text-gray-800">HIGHLIGHTS</h1>
+                    <h1 class="text-4xl text-gray-800 font-bold">Exclusive Project</h1>
+                </header>       
+                
+                <article class="grid  lg:grid-cols-3 grid-cols-1 gap-12 px-3 md:px-0">
+                    <Card style="width: 25rem; overflow: hidden" v-for="proj in project.slice(0,3)" key="proj.id" class="!w-80 md:!w-full" >
+                        <template #header>
+                            <Image image-class="h-64" alt="project Image" loading="lazy" preview :src="`/storage/output/${proj.img}`"   />
+                        </template>
+                        <template #title>{{ proj.proj_name }}</template>
+                        <!-- <template #subtitle>Card subtitle</template> -->
+                        <template #content>
+                            <p class="m-0 h-24 w-full overflow-hidden text-ellipsis">
+                               {{ proj.proj_description }}
+                            </p>
+                        </template>
+                        <template #footer>
+                            <div class="flex gap-4 mt-1">
+                                    <div
+                                        v-for="fw in proj.framework.slice(0,4)"
+                                        :key="fw.id"
+                                        :class="['px-2 py-1 rounded truncate overflow-x-hidden text-xs font-bold', frameworkColors[fw]?.bg || 'bg-gray-200', frameworkColors[fw]?.text || 'text-black']"
+                                        >
+                                        {{ fw }}
+                                    </div>
+                                   
+                            </div>
+                            <div class="mt-2 flex justify-between ">
+                                <div class="flex gap-2">
+                                    <a :href="proj.github_url" target="_blank" rel="noopener noreferrer" v-tooltip.top="'Go to Github'"><i class="pi pi-github" style="font-size: 1.5rem"></i></a>
+                                    <a :href="proj.live_url" target="_blank" rel="noopener noreferrer" v-tooltip.top="'Go to live server'"><i class="pi pi-globe" style="font-size: 1.5rem"></i></a>
+                                </div>
 
-  
+                                <Badge value="" severity="success"></Badge>
+                            </div>
+                        </template>
+                    </Card>
+                </article>
+
+
+
+
+
+
+
+
+
+
+
+                <!-- <article class="grid  lg:grid-cols-2 grid-cols-1 gap-12  ">
+                    <div class="" v-for="proj in project" key="proj.id">
+                            <Galleria :value="images" :numVisible="5" containerStyle="max-width: 640px"
+                                :showThumbnails="false" :showIndicators="true" :changeItemOnIndicatorHover="true">
+                                <template #item="slotProps">
+                                    <Image :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" image-class="h-96 w-[100vw] object-cover rounded-md" preview  />
+                                </template>
+                            </Galleria>
+                   
+                        <h1 class="text-2xl font-bold mt-4">{{ proj.proj_name }}</h1>     
+                        <p> {{ proj.proj_description }}</p>  
+                        <p class="text-md font-thin text-gray-500">Language: <span class="text-gray-800 text-md font-semibold">{{ proj.language.join(', ') }}</span> </p>                 
+                        <p class="text-md font-thin text-gray-500">Framework: <span class="text-gray-800 text-md font-semibold">{{ proj.framework.join(', ') }}</span> </p>                 
+                    </div>
+                </article> -->
+            </div>
+
+       
+        
+
+        </section>
+        
 
     </MainLayout>
 
@@ -167,6 +239,9 @@
     import Carousel from 'primevue/carousel';
 import { data } from 'autoprefixer';
 
+    import Galleria from 'primevue/galleria';
+import Badge from 'primevue/badge';
+import OverlayBadge from 'primevue/overlaybadge';
 
 
 
@@ -179,6 +254,9 @@ import { data } from 'autoprefixer';
         data: Array,
         category: Array,
         skill: Array,
+        project: Array,
+        screenshotimg: Array,
+
         setting: Object,
         canLogin: Boolean,
         canRegister: Boolean,
@@ -291,6 +369,92 @@ onBeforeUnmount(() => {
 })
 
 const loopedData = computed(() => [...props.skill, ...props.skill])
+
+
+
+
+
+
+
+//--------------------------- PROJECT -----------------------------
+const images = ref();
+
+const activeIndex = ref(0);
+
+const responsiveOptions = ref([
+    {
+        breakpoint: '1300px',
+        numVisible: 4
+    },
+    {
+        breakpoint: '575px',
+        numVisible: 1
+    }
+]);
+
+onMounted(() => {
+    images.value = props.screenshotimg.map(proj => ({
+        itemImageSrc: `/storage/screenshot/${proj.img}`,
+        thumbnailImageSrc: `/storage/screenshot/${proj.img}`, // Use same img if no separate thumbnail
+        alt: proj.img // Or proj.name/title if available
+    }));
+});
+
+
+//---------------------------- CODEX CARDS -------------------------
+const languageColors = {
+  PHP:         { bg: 'bg-purple-300', text: 'text-purple-800' },
+  JavaScript:  { bg: 'bg-yellow-300', text: 'text-yellow-800' },
+  TypeScript:  { bg: 'bg-blue-300', text: 'text-blue-800' },
+  Python:      { bg: 'bg-green-300', text: 'text-green-800' },
+  Ruby:        { bg: 'bg-red-300', text: 'text-red-800' },
+  Java:        { bg: 'bg-orange-300', text: 'text-orange-800' },
+  'C#':        { bg: 'bg-indigo-300', text: 'text-indigo-800' },
+  'C++':       { bg: 'bg-gray-300', text: 'text-gray-800' },
+  Go:          { bg: 'bg-cyan-300', text: 'text-cyan-800' },
+  Dart:        { bg: 'bg-teal-300', text: 'text-teal-800' },
+  Swift:       { bg: 'bg-orange-200', text: 'text-orange-800' },
+  Kotlin:      { bg: 'bg-purple-200', text: 'text-purple-800' },
+  Rust:        { bg: 'bg-orange-400', text: 'text-orange-900' },
+  Scala:       { bg: 'bg-red-400', text: 'text-red-900' },
+  Perl:        { bg: 'bg-pink-300', text: 'text-pink-800' },
+  Elixir:      { bg: 'bg-violet-300', text: 'text-violet-800' },
+};
+
+
+const frameworkColors = {
+  Vue:            { bg: 'bg-green-300', text: 'text-green-800' },
+  React:          { bg: 'bg-blue-300', text: 'text-blue-800' },
+  Angular:        { bg: 'bg-red-300', text: 'text-red-800' },
+  Svelte:         { bg: 'bg-orange-300', text: 'text-orange-800' },
+  'Next.js':      { bg: 'bg-gray-300', text: 'text-gray-800' },
+  'Nuxt.js':      { bg: 'bg-emerald-300', text: 'text-emerald-800' },
+  Codeigniter:    { bg: 'bg-orange-200', text: 'text-orange-800' },
+  Laravel:        { bg: 'bg-rose-300', text: 'text-rose-800' },
+  Symfony:        { bg: 'bg-gray-300', text: 'text-gray-800' },
+  Django:         { bg: 'bg-green-300', text: 'text-green-800' },
+  Flask:          { bg: 'bg-gray-200', text: 'text-gray-800' },
+  Express:        { bg: 'bg-gray-400', text: 'text-gray-800' },
+  NestJS:         { bg: 'bg-red-300', text: 'text-red-800' },
+  'Ruby on Rails':{ bg: 'bg-pink-300', text: 'text-pink-800' },
+  'Spring Boot':  { bg: 'bg-green-200', text: 'text-green-800' },
+  'ASP.NET Core': { bg: 'bg-blue-200', text: 'text-blue-800' },
+  'Inertia.js':   { bg: 'bg-purple-300', text: 'text-purple-800' },
+  Remix:          { bg: 'bg-indigo-300', text: 'text-indigo-800' },
+  'Blitz.js':     { bg: 'bg-yellow-300', text: 'text-yellow-800' },
+  RedwoodJS:      { bg: 'bg-red-400', text: 'text-red-900' },
+  'React Native': { bg: 'bg-cyan-300', text: 'text-cyan-800' },
+  Flutter:        { bg: 'bg-sky-300', text: 'text-sky-800' },
+  Ionic:          { bg: 'bg-blue-300', text: 'text-blue-800' },
+  Slim:           { bg: 'bg-gray-300', text: 'text-gray-800' },
+  FastAPI:        { bg: 'bg-teal-300', text: 'text-teal-800' },
+  Lumen:          { bg: 'bg-yellow-200', text: 'text-yellow-800' },
+  Koa:            { bg: 'bg-green-200', text: 'text-green-800' },
+  Qwik:           { bg: 'bg-purple-200', text: 'text-purple-800' },
+  SolidJS:        { bg: 'bg-blue-200', text: 'text-blue-800' },
+  'T3 Stack':     { bg: 'bg-violet-300', text: 'text-violet-800' },
+};
+
 
 
 </script>

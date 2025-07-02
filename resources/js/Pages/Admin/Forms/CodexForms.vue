@@ -258,6 +258,7 @@ watch(successMessage, (newValue) => {
         { name: 'Svelte', code: 'Svelte' },
         { name: 'Next.js', code: 'Next.js' },
         { name: 'Nuxt.js', code: 'Nuxt.js' },
+        { name: 'Codeigniter', code: 'Codeigniter' },
         { name: 'Laravel', code: 'Laravel' },
         { name: 'Symfony', code: 'Symfony' },
         { name: 'Django', code: 'Django' },

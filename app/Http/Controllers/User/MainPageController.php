@@ -13,6 +13,8 @@ use App\Services\CodexDisplayService;
 use App\Services\DisplayCategoryCodexService;
 use App\Services\DisplaySettingService;
 use App\Services\DisplayTechSkillService;
+use App\Services\DisplayProjectService;
+use App\Services\DisplayScreenShotService;
 
 class MainPageController extends Controller
 {
@@ -21,14 +23,19 @@ class MainPageController extends Controller
     protected $DisplayCategoryCodexService;
     protected $DisplaySettingService;
     protected $DisplayTechSkillService;
+    protected $DisplayProjectService;
+    protected $DisplayScreenShotService;
 
     public function __construct(CodexDisplayService $CodexDisplayService, DisplayCategoryCodexService $DisplayCategoryCodexService,
-            DisplaySettingService $DisplaySettingService, DisplayTechSkillService $DisplayTechSkillService )
+            DisplaySettingService $DisplaySettingService, DisplayTechSkillService $DisplayTechSkillService, 
+            DisplayProjectService $DisplayProjectService, DisplayScreenShotService $DisplayScreenShotService )
     {
         $this->CodexDisplayService = $CodexDisplayService;
         $this->DisplayCategoryCodexService = $DisplayCategoryCodexService;
         $this->DisplaySettingService = $DisplaySettingService;
         $this->DisplayTechSkillService = $DisplayTechSkillService;
+        $this->DisplayProjectService = $DisplayProjectService;
+        $this->DisplayScreenShotService = $DisplayScreenShotService;
     }
 
 
@@ -38,6 +45,8 @@ class MainPageController extends Controller
         $category = $this->DisplayCategoryCodexService->getAllData();
         $setting = $this->DisplaySettingService->getAllData();
         $skill = $this->DisplayTechSkillService->displayTech();
+        $project = $this->DisplayProjectService->displayProject();
+        $screenshotimg = $this->DisplayScreenShotService->getAllData();
         
         return Inertia::render('Home/MainPage', [
             'canLogin' => Route::has('login'),
@@ -52,6 +61,8 @@ class MainPageController extends Controller
             // amo ini an knan system info, logo, background image
             'setting' => $setting,
             'skill' => $skill,
+            'project' => $project,
+            'screenshotimg' => $screenshotimg,
         ]);
 
     }

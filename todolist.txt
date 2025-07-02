@@ -21,3 +21,77 @@ This will reduce repeat frustration and builds a library of your own solutions.
 
 LAST: do a automatic backup, what i mean by this is use a automation uploading of csv into google drive every 30days
  so that the data in your db won't be erased incase something happened. also try if you can upload the db itself.
+
+
+
+
+
+
+
+
+
+
+
+
+
+ const images = ref();
+
+
+// onMounted(() => {
+//     images.value = props.screenshotimg.map(proj => ({
+//         itemImageSrc: `/storage/screenshot/${proj.img}`,
+//         alt: proj.img, // or any meaningful alt text, e.g., proj.name or proj.title if available
+//     }));
+// });
+const activeIndex = ref(0);
+
+const responsiveOptions = ref([
+    {
+        breakpoint: '1300px',
+        numVisible: 4
+    },
+    {
+        breakpoint: '575px',
+        numVisible: 1
+    }
+]);
+
+onMounted(() => {
+    images.value = props.screenshotimg.map(proj => ({
+        itemImageSrc: `/storage/screenshot/${proj.img}`,
+        thumbnailImageSrc: `/storage/screenshot/${proj.img}`, // Use same img if no separate thumbnail
+        alt: proj.img // Or proj.name/title if available
+    }));
+});
+
+
+      <section class="w-full bg-gray-800 pb-36 ">
+            <div class="max-w-7xl m-auto px-4">
+                <header class="mb-12">
+                    <h1 class="text-lg">HIGHLIGHTS</h1>
+                    <h1 class="text-4xl font-bold">Exclusive Project</h1>
+                </header>       
+                
+                <article class="grid  lg:grid-cols-2 grid-cols-1 gap-12  ">
+                    <div class="" v-for="proj in project" key="proj.id">
+
+                          <Galleria :value="images" :numVisible="5" containerStyle="max-width: 640px"
+                                :showThumbnails="false" :showIndicators="true" :changeItemOnIndicatorHover="true">
+                                <template #item="slotProps">
+                                    <Image :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" image-class="h-96 w-[100vw] object-cover rounded-md"  />
+                                </template>
+                            </Galleria>
+                        <!-- <Image   alt="Project Image"   loading="lazy" :src="`/storage/output/${proj.img}`"  preview  imageClass="w-[100vw] h-96 object-cover rounded-md"  /> -->
+                        <h1 class="text-2xl font-bold mt-4">{{ proj.proj_name }}</h1>     
+                        <p> {{ proj.proj_description }}</p>  
+                        <p class="text-md font-thin text-gray-500">Language: <span class="text-gray-800 text-md font-semibold">{{ proj.language.join(', ') }}</span> </p>                 
+                        <p class="text-md font-thin text-gray-500">Framework: <span class="text-gray-800 text-md font-semibold">{{ proj.framework.join(', ') }}</span> </p>                 
+                    </div>
+                </article>
+            </div>
+
+       
+     
+
+        </section>
+        
