@@ -11,10 +11,9 @@
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-6 ">
                  
-                  <Link href="Home"  v-if="page.url.includes('document')"  class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Home</Link>
+                  <Link href="Home"  v-if="(page.url.includes('document') || page.url.includes('projects'))" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Home</Link>
                   <Link href="document" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Codex</Link>
-                  <Link href="about" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Recent Notes</Link>
-                  <Link href="about" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Projects</Link>
+                  <Link href="projects" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Projects</Link>
                 </nav> 
              
 

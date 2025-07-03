@@ -1,4 +1,4 @@
-<template>
+<template >
     <MainLayout
         :data="data"
         :category="category"
@@ -146,7 +146,11 @@
                         <template #header>
                             <Image image-class="h-64" alt="project Image" loading="lazy" preview :src="`/storage/output/${proj.img}`"   />
                         </template>
-                        <template #title>{{ proj.proj_name }}</template>
+                        <template #title>
+                            <h1 class="font-bold truncate">
+                                {{ proj.proj_name }}
+                            </h1>
+                        </template>
                         <!-- <template #subtitle>Card subtitle</template> -->
                         <template #content>
                             <p class="m-0 h-24 w-full overflow-hidden text-ellipsis">
@@ -169,8 +173,10 @@
                                     <a :href="proj.github_url" target="_blank" rel="noopener noreferrer" v-tooltip.top="'Go to Github'"><i class="pi pi-github" style="font-size: 1.5rem"></i></a>
                                     <a :href="proj.live_url" target="_blank" rel="noopener noreferrer" v-tooltip.top="'Go to live server'"><i class="pi pi-globe" style="font-size: 1.5rem"></i></a>
                                 </div>
-
-                                <Badge value="" severity="success"></Badge>
+                                <div class="">
+                                    <!-- <Badge value="" severity="success"></Badge>                                     -->
+                                      <Badge :severity="getSeverity(proj.status)" ></Badge>
+                                </div>
                             </div>
                         </template>
                     </Card>
@@ -400,6 +406,17 @@ onMounted(() => {
     }));
 });
 
+
+
+
+const getSeverity = (status) => {
+  const statusSeverityMap = {
+    Ongoing: 'info',
+    Completed: 'success',
+    OnHold: 'warn',
+  }
+  return statusSeverityMap[status] || 'secondary'
+}
 
 //---------------------------- CODEX CARDS -------------------------
 const languageColors = {

@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\TestController;
 
 use App\Http\Controllers\User\MainPageController;
 use App\Http\Controllers\User\CodexDocuController;
+use App\Http\Controllers\User\ProjectControllerUser;
 
 // Route::get('/', function () {
 //     return Inertia::render('Home/MainPage', [
@@ -43,6 +44,8 @@ Route::middleware([
 Route::get('Home',[MainPageController::class, 'Home'])->name('Main.page');
 
 Route::get('document',[CodexDocuController::class, 'codexDocu'])->name('codex.page');
+
+Route::get('projects',[ProjectControllerUser::class, 'projectPage'])->name('project.page');
 
 //ADMIN SIDE
 Route::get('codex',[CodexController::class, 'index'])->name('new.codex');

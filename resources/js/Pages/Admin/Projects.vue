@@ -73,7 +73,7 @@
                             <Column field="content" header="Status" sortable>
                                 <template #body="slotProps">
                                     <button type="button"   @click="openContentModal(slotProps.data.status, 'Status')" v-tooltip.top="'Click to View'">
-                                        <div class="" v-if="slotProps.data.status == 'On Hold'">
+                                        <div class="" v-if="slotProps.data.status == 'OnHold'">
                                             <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px] w-36 bg-gray-400 rounded-lg">
                                                 {{ slotProps.data.status }}
                                             </div>
@@ -201,7 +201,7 @@
                                     <label for="ingredient2">Completed</label>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <RadioButton v-model="form.status" inputId="level3" name="level" value="On Hold"  />
+                                    <RadioButton v-model="form.status" inputId="level3" name="level" value="OnHold"  />
                                     <label for="ingredient3">On Hold</label>
                                 </div>
                                 

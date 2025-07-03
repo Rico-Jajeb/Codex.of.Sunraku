@@ -26,7 +26,7 @@
                                     <label for="ingredient2">Completed</label>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <RadioButton v-model="form.status" inputId="level3" name="level" value="On Hold"  />
+                                    <RadioButton v-model="form.status" inputId="level3" name="level" value="OnHold"  />
                                     <label for="ingredient3">On Hold</label>
                                 </div>
                                 
