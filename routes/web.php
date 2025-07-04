@@ -11,10 +11,17 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TechSkillController;
 use App\Http\Controllers\Admin\TestController;
 
+use App\Http\Controllers\Admin\GoogleUploadController;
+
 
 use App\Http\Controllers\User\MainPageController;
 use App\Http\Controllers\User\CodexDocuController;
 use App\Http\Controllers\User\ProjectControllerUser;
+
+use Google\Client as GoogleClient;
+use Google\Service\Drive as GoogleServiceDrive;
+
+
 
 // Route::get('/', function () {
 //     return Inertia::render('Home/MainPage', [
@@ -104,3 +111,40 @@ Route::delete('/deleteCodex/{id}', [CodexController::class, 'DeleteCodex'])->nam
 Route::delete('/deletProject/{id}', [ProjectController::class, 'destroyProject'])->name('project.destroy');
 
 Route::delete('/deletScreenshot/{id}', [ProjectController::class, 'destroyScreenshot'])->name('screenshot.destroy');
+
+
+
+
+
+Route::post('/upload-drive', [GoogleUploadController::class, 'uploadToDrive']);
+
+
+//----- api --------
+Route::get('/auth/google', function () {
+    $client = new GoogleClient();
+    $client->setClientId(env('GOOGLE_CLIENT_ID'));
+    $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+    $client->setRedirectUri('http://127.0.0.1:8000/callback/google');
+    $client->addScope(GoogleServiceDrive::DRIVE);
+    $client->setAccessType('offline');
+    $client->setApprovalPrompt('force');
+
+    $authUrl = $client->createAuthUrl();
+    return redirect($authUrl);
+});
+
+
+Route::get('/callback/google', function (\Illuminate\Http\Request $request) {
+    $client = new GoogleClient();
+    $client->setClientId(env('GOOGLE_CLIENT_ID'));
+    $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+    $client->setRedirectUri('http://127.0.0.1:8000/callback/google');
+
+    $code = $request->get('code');
+    $token = $client->fetchAccessTokenWithAuthCode($code);
+    $refreshToken = $client->getRefreshToken();
+
+    dd($token, $refreshToken);
+});
+
+

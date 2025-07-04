@@ -117,9 +117,9 @@
 
                 <div class="overflow-hidden    relative h-[150px] max-w-7xl m-auto">
 
-                    <div class="absolute -left-8 top-0 h-full w-32  bg-gray-300 blur-md z-50"></div>
+                    <div class="absolute -left-8 top-0 h-full w-32  bg-gray-300 blur-md z-20"></div>
                         <!-- Right Blur -->
-                <div class="absolute -right-8 top-0 h-full w-32 bg-gray-300 blur-md z-50"></div>
+                <div class="absolute -right-8 top-0 h-full w-32 bg-gray-300 blur-md z-20"></div>
                     <div
                     class="flex w-max animate-carousel"
                     ref="carouselRef"
@@ -151,7 +151,7 @@
                                 {{ proj.proj_name }}
                             </h1>
                         </template>
-                        <!-- <template #subtitle>Card subtitle</template> -->
+                     
                         <template #content>
                             <p class="m-0 h-24 w-full overflow-hidden text-ellipsis">
                                {{ proj.proj_description }}
@@ -174,7 +174,7 @@
                                     <a :href="proj.live_url" target="_blank" rel="noopener noreferrer" v-tooltip.top="'Go to live server'"><i class="pi pi-globe" style="font-size: 1.5rem"></i></a>
                                 </div>
                                 <div class="">
-                                    <!-- <Badge value="" severity="success"></Badge>                                     -->
+                                  
                                       <Badge :severity="getSeverity(proj.status)" ></Badge>
                                 </div>
                             </div>
@@ -210,6 +210,50 @@
             </div>
 
        
+                <!-- kann timeline -->
+<!-- <section class="card">
+        <Timeline :value="events" align="alternate" class="customized-timeline">
+            <template #marker="slotProps">
+                <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" :style="{ backgroundColor: slotProps.item.color }">
+                    <i :class="slotProps.item.icon"></i>
+                </span>
+            </template>
+            <template #content="slotProps">
+                <Card class="mt-4 !bg-gray-300 !shadow-none">
+                    <template #content>
+                     
+                        <Image v-if="slotProps.item.image" :src="`/storage/output/${slotProps.item.image}`" :alt="slotProps.item.name"  image-class="shadow-sm rounded-md" preview />
+                        <h1 class="text-lg font-bold">  {{ slotProps.item.proj_name }}</h1>
+                        <p>
+                            {{ slotProps.item.proj_description }}
+                        </p>              
+                    </template>
+                    <template #footer>
+                            <div class="flex gap-4" >
+                                <div
+                                    v-for="fw in slotProps.item.language"
+                                    :key="fw"
+                                    :class="['px-2 py-1 rounded truncate overflow-x-hidden text-xs font-bold', languageColors[fw]?.bg || 'bg-gray-200', languageColors[fw]?.text || 'text-black']"
+                                    >
+                                    {{ fw }}
+                                </div>
+                            </div>
+                            <div class="flex gap-4 mt-1">
+                                <div
+                                    v-for="fw in slotProps.item.framework"
+                                    :key="fw"
+                                    :class="['px-2 py-1 rounded truncate overflow-x-hidden text-xs font-bold', frameworkColors[fw]?.bg || 'bg-gray-200', frameworkColors[fw]?.text || 'text-black']"
+                                    >
+                                    {{ fw }}
+                                </div>
+                            </div>
+                    </template>
+
+                </Card>
+            </template>
+        </Timeline>
+</section> -->
+
         
 
         </section>
@@ -243,11 +287,15 @@
     import AccordionContent from 'primevue/accordioncontent';
 
     import Carousel from 'primevue/carousel';
-import { data } from 'autoprefixer';
+    import { data } from 'autoprefixer';
 
     import Galleria from 'primevue/galleria';
-import Badge from 'primevue/badge';
-import OverlayBadge from 'primevue/overlaybadge';
+    import Badge from 'primevue/badge';
+    import OverlayBadge from 'primevue/overlaybadge';
+
+    
+    import Timeline from 'primevue/timeline';
+
 
 
 
@@ -418,6 +466,39 @@ const getSeverity = (status) => {
   return statusSeverityMap[status] || 'secondary'
 }
 
+
+
+
+
+
+
+
+
+
+// const events = ref([
+//     { status: 'Ordered2', date: '15/10/2020 10:30', icon: 'pi pi-cog', color: '#9C27B0', image: 'game-controller.jpg' }, 
+// ]);
+
+// const events = computed(() => {
+//     return props.project.map((proj) => ({
+//         date: proj.date ?? 'N/A',
+//         status: proj.status ?? 'Unknown',
+//         proj_name: proj.proj_name ?? 'Unknown',
+//         proj_description: proj.proj_description ?? 'Unknown',
+//         language: proj.language ?? 'Unknown',
+//         framework: proj.framework ?? 'Unknown',
+//         icon: proj.icon ?? 'pi pi-cog', // You can customize default icon
+//         color: proj.color ?? '#9C27B0',
+//         image: proj.img ?? null,
+//         name: proj.name ?? ''
+//     }));
+// });
+
+
+
+
+
+
 //---------------------------- CODEX CARDS -------------------------
 const languageColors = {
   PHP:         { bg: 'bg-purple-300', text: 'text-purple-800' },
@@ -490,4 +571,23 @@ const frameworkColors = {
 .animate-carousel {
   animation: carousel 50s linear infinite;
 }
+
+
+
+@media screen and (max-width: 960px) {
+    ::v-deep(.customized-timeline) {
+        .p-timeline-event:nth-child(even) {
+            flex-direction: row;
+
+            .p-timeline-event-content {
+                text-align: left;
+            }
+        }
+
+        .p-timeline-event-opposite {
+            flex: 0;
+        }
+    }
+}
+
 </style>

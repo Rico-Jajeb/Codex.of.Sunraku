@@ -97,7 +97,7 @@
                 </Dialog>
             </section>
 
-
+<GoogleUpload/>
 
             <div>
                 <!-- amo ini an kanan pop up notif pag nag submit msg -->
@@ -111,6 +111,7 @@
     import AppLayout from '@/Layouts/AppLayout.vue';
     
     import TechSkillForm from './Forms/TechSkillForm.vue';
+    import GoogleUpload from './GoogleUpload.vue';
 
     import { computed, ref, watchEffect , watch, onMounted     } from 'vue';
     import 'primeicons/primeicons.css'
