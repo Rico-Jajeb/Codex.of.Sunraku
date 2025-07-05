@@ -141,8 +141,9 @@
                     <h1 class="text-4xl text-gray-800 font-bold">Exclusive Project</h1>
                 </header>       
                 
-                <article class="grid  lg:grid-cols-3 grid-cols-1 gap-12 px-3 md:px-0">
-                    <Card style="width: 25rem; overflow: hidden" v-for="proj in project.slice(0,3)" key="proj.id" class="!w-80 md:!w-full" >
+                <article class="grid  lg:grid-cols-3 grid-cols-1  gap-12 px-3 md:px-0">
+                   
+                    <Card style="width: 25rem; overflow: hidden" v-for="proj in  project.filter(p => p.highlight === 'Yes')" key="proj.id" class="!w-80 md:!w-full" >
                         <template #header>
                             <Image image-class="h-64" alt="project Image" loading="lazy" preview :src="`/storage/output/${proj.img}`"   />
                         </template>

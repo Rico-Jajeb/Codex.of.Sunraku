@@ -62,12 +62,31 @@
                             <Column class="!text-end" header="Actions">
                                 <template #body="{ data }">
                                     <nav class="flex gap-0 w-36">
-                                
+                                     
+                                         
                                         <button type="button" @click="openModal(data)" class=" py-2 px-4" v-tooltip.top="'Click to Edit'"><i class="pi pi-pencil" ></i></button>     
                                         <button type="button" @click="deleteModal(data)" class="py-2 px-4" v-tooltip.top="'Click to Delete'">
                                             <i class="pi pi-trash" style="font-size: 1rem"></i>
                                         </button>                                  
                                     </nav>
+                                </template>
+                            </Column>
+                            <Column field="content" header="Highlight" sortable>
+                                <template #body="slotProps">
+                                   
+                                        <div class="" v-if="slotProps.data.highlight == 'Yes'">
+                                            <div class="overflow-hidden text-ellipsis    rounded-lg">
+                                               
+                                                <Badge value="" severity="success" v-tooltip.top="'Project is highlighted'"></Badge>
+                                            </div>
+                                        </div>                                    
+                                        <div class="" v-if="slotProps.data.highlight !== 'Yes' ">
+                                            <div class="overflow-hidden text-ellipsis      rounded-lg">
+                                               <Badge value="" severity="danger" v-tooltip.top="'Project is NOT highlighted'"></Badge>
+                                            </div>
+                                        </div>                                    
+                                                                      
+                                   
                                 </template>
                             </Column>
                             <Column field="content" header="Status" sortable>
@@ -244,6 +263,24 @@
                                         </div> 
                             </div>                        
                         </section>
+                             <section class="mt-4">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Highlight</label>
+                            <div class="md:flex md:flex-wrap gap-4 mt-4">
+                                <div class="flex items-center gap-2">
+                                    <RadioButton v-model="form.highlight" inputId="level1" name="level" value="Yes"  />
+                                    <label for="ingredient1">Yes</label>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <RadioButton v-model="form.highlight" inputId="level2" name="level" value="No"  />
+                                    <label for="ingredient2">No</label>
+                                </div>
+                              
+                                
+                            </div>
+                            <div v-if="form.errors.highlight" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.highlight }}
+                            </div> 
+                        </section>
                         <div class="mt-4">
                             <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Github URL</label>
                             <InputText class="!w-full" type="text" v-model="form.github_url" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
@@ -342,6 +379,10 @@ import TechSkill from './TechSkill.vue';
     import MultiSelect from 'primevue/multiselect';
 
 
+    import ToggleSwitch from 'primevue/toggleswitch';
+
+
+
 
 
   
@@ -361,6 +402,7 @@ import TechSkill from './TechSkill.vue';
     function projModal (data){
         projDis.value = true;
     }
+
 
 //---------------------- CONTENT MODAL ----------------------
 
@@ -428,6 +470,7 @@ import TechSkill from './TechSkill.vue';
         img: null,
         github_url: null,
         live_url: null,
+        highlight: null,
     })
 
     function openModal(data) {
@@ -530,6 +573,7 @@ const submitForm = () => {
         { name: 'Perl', code: 'Perl' },
         { name: 'Elixir', code: 'Elixir' }
     ]);
+
 
 
 

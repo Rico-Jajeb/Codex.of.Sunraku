@@ -10,8 +10,9 @@ use App\Http\Controllers\Admin\SystemController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TechSkillController;
 use App\Http\Controllers\Admin\TestController;
+use App\Http\Controllers\Admin\DashboardController;
 
-use App\Http\Controllers\Admin\GoogleUploadController;
+use App\Http\Controllers\Admin\GoogleUploadController; //kanan google ini
 
 
 use App\Http\Controllers\User\MainPageController;
@@ -42,13 +43,13 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard',[DashboardController::class, 'dashboard'])->name('dashboard');   
 });
 
 //USER SIDE
 Route::get('Home',[MainPageController::class, 'Home'])->name('Main.page');
+
+
 
 Route::get('document',[CodexDocuController::class, 'codexDocu'])->name('codex.page');
 
@@ -120,18 +121,18 @@ Route::post('/upload-drive', [GoogleUploadController::class, 'uploadToDrive']);
 
 
 //----- api --------
-Route::get('/auth/google', function () {
-    $client = new GoogleClient();
-    $client->setClientId(env('GOOGLE_CLIENT_ID'));
-    $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
-    $client->setRedirectUri('http://127.0.0.1:8000/callback/google');
-    $client->addScope(GoogleServiceDrive::DRIVE);
-    $client->setAccessType('offline');
-    $client->setApprovalPrompt('force');
+// Route::get('/auth/google', function () {
+//     $client = new GoogleClient();
+//     $client->setClientId(env('GOOGLE_CLIENT_ID'));
+//     $client->setClientSecret(env('GOOGLE_CLIENT_SECRET'));
+//     $client->setRedirectUri('http://127.0.0.1:8000/callback/google');
+//     $client->addScope(GoogleServiceDrive::DRIVE);
+//     $client->setAccessType('offline');
+//     $client->setApprovalPrompt('force');
 
-    $authUrl = $client->createAuthUrl();
-    return redirect($authUrl);
-});
+//     $authUrl = $client->createAuthUrl();
+//     return redirect($authUrl);
+// });
 
 
 Route::get('/callback/google', function (\Illuminate\Http\Request $request) {

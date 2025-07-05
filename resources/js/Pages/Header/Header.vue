@@ -31,9 +31,9 @@
                 </section>
 
                 <nav class="flex flex-col space-y-4 p-4">
-                <Link href="about" >Categories</Link>
-                  <Link href="about" >Recent Notes</Link>
-                  <Link href="about" >Projects</Link>
+                  <Link href="Home"  v-if="(page.url.includes('document') || page.url.includes('projects'))" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Home</Link>
+                  <Link href="document" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Codex</Link>
+                  <Link href="projects" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Projects</Link>
                
               </nav>
             </div>

@@ -16,7 +16,7 @@ class ProjectModel extends Model
         'proj_name', 'proj_description', 
         'img', 'github_url',
         'live_url', 'status',
-        'language', 'framework' 
+        'language', 'framework', 'highlight', 
     ];
 
     protected $casts = [

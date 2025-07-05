@@ -38,6 +38,9 @@ class UpdateProjectService
         if (isset($data['live_url'])) {
             $category->live_url = $data['live_url'];
         }
+        if (isset($data['highlight'])) {
+            $category->highlight = $data['highlight'];
+        }
 
   
         if (!empty($data['img'])) {

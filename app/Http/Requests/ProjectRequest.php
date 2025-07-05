@@ -31,6 +31,7 @@ class ProjectRequest extends FormRequest
             'status' => 'required|string|max:355',
             'github_url' => 'nullable|string|max:6000',
             'live_url' => 'nullable|string|max:6000',
+            'highlight' => 'nullable|string|max:6000',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240', // Image validation
         ];
     }

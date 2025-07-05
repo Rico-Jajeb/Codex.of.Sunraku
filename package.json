@@ -24,6 +24,7 @@
     },
     "dependencies": {
         "@primeuix/themes": "^1.0.1",
+        "chart.js": "^4.5.0",
         "monaco-editor": "^0.52.2",
         "primeicons": "^7.0.0",
         "primevue": "^4.3.3",
