@@ -7,49 +7,9 @@
         </template>
 
         <main class="pt-10">
-            <!-- <section class="max-w-7xl  mx-auto  sm:px-6 lg:px-8 pb-8 bg-white overflow-hidden shadow-xl rounded-lg">
-                <div class="grid grid-cols-2 gap-4">
-                    <section class="">
-                        <div class="bg-red-300 flex justify-center">
-                            <Chart type="pie" :data="chartData" :options="chartOptions" class=" md:w-80" />
-                        </div>
-                        <div>
-                            <header class="bg-green-400 flex justify-center mt-2">
-                                <h1 class="text-lg font-bold">Codex</h1>
-                            </header>       
-                        </div>                                 
-                    </section>
-
-                    <section class="">
-                        <div class="bg-red-300 flex justify-center">
-                            <Chart type="pie" :data="chartData2" :options="chartOptions2" class=" md:w-80" />
-                        </div>
-                        <div>
-                            <header class="bg-green-400 flex justify-center mt-2">
-                                <h1 class="text-lg font-bold">Project</h1>
-                            </header>       
-                        </div>                                 
-                    </section>
-
-                               
-                </div>
-                    
-
-        <div class="card">
-            <Chart type="bar" :data="chartData3" :options="chartOptions3" class="h-[30rem]" />
-        </div>
-                        <div class="mb-4">
-                    <label class="mr-2 font-bold">Select Year:</label>
-                    <select v-model="selectedYear" class="border rounded p-1">
-                        <option v-for="year in availableYears" :key="year" :value="year">
-                            {{ year }}
-                        </option>
-                    </select>
-                </div>
-
-            </section> -->
+       
             <section class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12 mb-36 bg-white overflow-hidden shadow-xl rounded-lg">
-                <div class="mt-4">
+                <div class="mt-4 px-4 md:px-0">
                     <label class="mr-2 font-bold">Select Year:</label>
                     <select v-model="selectedYear" class="border rounded p-1">
                         <option v-for="year in availableYears" :key="year" :value="year">
@@ -58,15 +18,15 @@
                     </select>
                 </div>
 
-                <article class="flex flex-row gap-4">
+                <article class="grid grid-cols-1 md:grid-cols-4 gap-4">
 
-                    <section class="basis-5/6 ">
-                        <div class="card mt-8">
+                    <section class="md:col-span-3  ">
+                        <div class="card mt-8 px-4 md:px-0">
                             <Chart type="bar" :data="chartData3" :options="chartOptions3" class="h-[30rem]" />
                         </div>                        
                     </section>                    
 
-                    <section class="basis-1/6 flex items-center">
+                    <section class=" flex items-center justify-center ">
                         <div class="">
                             <div class="flex justify-center">
                                 <Chart type="pie" :data="chartData" :options="chartOptions" class="md:w-80" />
@@ -82,7 +42,7 @@
 
 
                 </article>
-                <article class="grid grid-cols-2 mt-20">
+                <article class="grid  grid-cols-1 md:grid-cols-2 mt-20">
                         <section class="">
                             <div class=" flex justify-center">
                                 <Chart type="pie" :data="chartData2" :options="chartOptions2" class="md:w-80" />
@@ -91,7 +51,7 @@
                                 <h1 class="text-lg font-bold">Project</h1>
                             </header>
                         </section>                   
-                        <section class="">
+                        <section class="mt-8 md:mt-0">
                             <div class=" flex justify-center">
                                 <Chart type="pie" :data="chartData4" :options="chartOptions4" class="md:w-80" />
                             </div>
@@ -108,449 +68,10 @@
     </AppLayout>
    
 </template>
-<!-- <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
-import Chart from 'primevue/chart';
-import { ref, onMounted, watch } from "vue";
-
-const props = defineProps({
-    data: Array,
-    codex: Array,
-    project: Array,
-});
-
-const chartData = ref();
-const chartOptions = ref();
-const chartData2 = ref();
-const chartOptions2 = ref();
-const chartData3 = ref();
-const chartOptions3 = ref();
-
-const setChartData = () => {
-    const labels = props.data.map(item => item.category_name);
-    const dataCounts = labels.map(labelName => {
-        return props.codex.filter(codexItem => codexItem.category_name === labelName).length;
-    });
-
-    const backgroundColors = labels.map(() => getRandomColor());
-    const hoverBackgroundColors = backgroundColors.map(() => getRandomColor());
-
-    return {
-        labels,
-        datasets: [
-            {
-                data: dataCounts,
-                backgroundColor: backgroundColors,
-                hoverBackgroundColor: hoverBackgroundColors
-            }
-        ]
-    };
-};
-
-const setChartOptions = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-
-    return {
-        plugins: {
-            legend: {
-                labels: {
-                    usePointStyle: true,
-                    color: textColor
-                }
-            }
-        }
-    };
-};
-
-const setChartData2 = () => {
-    const documentStyle = getComputedStyle(document.body);
-    const dataCounts2 = props.project ? props.project.filter(p => p.id).length : 0;
-
-    return {
-        labels: ['Project'],
-        datasets: [
-            {
-                data: [dataCounts2],
-                backgroundColor: [
-                    documentStyle.getPropertyValue('--p-cyan-500'),
-                    documentStyle.getPropertyValue('--p-orange-500'),
-                    documentStyle.getPropertyValue('--p-gray-500')
-                ],
-                hoverBackgroundColor: [
-                    documentStyle.getPropertyValue('--p-cyan-400'),
-                    documentStyle.getPropertyValue('--p-orange-400'),
-                    documentStyle.getPropertyValue('--p-gray-400')
-                ]
-            }
-        ]
-    };
-};
-
-const setChartOptions2 = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-
-    return {
-        plugins: {
-            legend: {
-                labels: {
-                    usePointStyle: true,
-                    color: textColor
-                }
-            }
-        }
-    };
-};
-
-const setChartData3 = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-
-    const months = [
-        'January', 'February', 'March', 'April',
-        'May', 'June', 'July', 'August',
-        'September', 'October', 'November', 'December'
-    ];
-
-    const countPerMonth = (array) => {
-        const counts = Array(12).fill(0);
-        array.forEach(item => {
-            if (item.created_at) {
-                const date = new Date(item.created_at);
-                const monthIndex = date.getMonth(); // 0-11
-                counts[monthIndex]++;
-            }
-        });
-        return counts;
-    };
-
-    const dataCounts = countPerMonth(props.data || []);
-    const codexCounts = countPerMonth(props.codex || []);
-
-    return {
-        labels: months,
-        datasets: [
-            {
-                type: 'bar',
-                label: 'Data',
-                backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                data: dataCounts
-            },
-            {
-                type: 'bar',
-                label: 'Codex',
-                backgroundColor: documentStyle.getPropertyValue('--p-orange-500'),
-                data: codexCounts
-            }
-        ]
-    };
-};
-
-const setChartOptions3 = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-    const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
-    return {
-        maintainAspectRatio: false,
-        aspectRatio: 0.8,
-        plugins: {
-            tooltips: {
-                mode: 'index',
-                intersect: false
-            },
-            legend: {
-                labels: {
-                    color: textColor
-                }
-            }
-        },
-        scales: {
-            x: {
-                stacked: true,
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder
-                }
-            },
-            y: {
-                stacked: true,
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder
-                }
-            }
-        }
-    };
-};
-
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-
-onMounted(() => {
-    chartData.value = setChartData();
-    chartOptions.value = setChartOptions();
-
-    chartData2.value = setChartData2();
-    chartOptions2.value = setChartOptions2();
-
-    chartData3.value = setChartData3();
-    chartOptions3.value = setChartOptions3();
-
-    watch(
-        () => [props.data, props.codex, props.project],
-        () => {
-            chartData.value = setChartData();
-            chartOptions.value = setChartOptions();
-
-            chartData2.value = setChartData2();
-            chartOptions2.value = setChartOptions2();
-
-            chartData3.value = setChartData3();
-            chartOptions3.value = setChartOptions3();
-        },
-        { immediate: true }
-    );
-});
-</script> -->
-
-
-
-<!-- <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
-import Chart from 'primevue/chart';
-import { ref, onMounted, watch } from "vue";
-
-const props = defineProps({
-    data: Array,
-    codex: Array,
-    project: Array,
-});
-
-const chartData = ref();
-const chartOptions = ref();
-const chartData2 = ref();
-const chartOptions2 = ref();
-const chartData3 = ref();
-const chartOptions3 = ref();
-
-//------------------------------ CODEX ----------------------------------
-const setChartData = () => {
-    const labels = props.data.map(item => item.category_name);
-    const dataCounts = labels.map(labelName => {
-        return props.codex.filter(codexItem => codexItem.category_name === labelName).length;
-    });
-
-    const backgroundColors = labels.map(() => getRandomColor());
-    const hoverBackgroundColors = backgroundColors.map(() => getRandomColor());
-
-    return {
-        labels,
-        datasets: [
-            {
-                data: dataCounts,
-                backgroundColor: backgroundColors,
-                hoverBackgroundColor: hoverBackgroundColors
-            }
-        ]
-    };
-};
-
-const setChartOptions = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-
-    return {
-        plugins: {
-            legend: {
-                labels: {
-                    usePointStyle: true,
-                    color: textColor
-                }
-            }
-        }
-    };
-};
-
-//----------------------------- PROJECT ---------------------------
-const setChartData2 = () => {
-    const documentStyle = getComputedStyle(document.body);
-    const dataCounts2 = props.project ? props.project.filter(p => p.id).length : 0;
-
-    return {
-        labels: ['Project'],
-        datasets: [
-            {
-                data: [dataCounts2],
-                backgroundColor: [
-                    documentStyle.getPropertyValue('--p-cyan-500'),
-                    documentStyle.getPropertyValue('--p-orange-500'),
-                    documentStyle.getPropertyValue('--p-gray-500')
-                ],
-                hoverBackgroundColor: [
-                    documentStyle.getPropertyValue('--p-cyan-400'),
-                    documentStyle.getPropertyValue('--p-orange-400'),
-                    documentStyle.getPropertyValue('--p-gray-400')
-                ]
-            }
-        ]
-    };
-};
-
-const setChartOptions2 = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-
-    return {
-        plugins: {
-            legend: {
-                labels: {
-                    usePointStyle: true,
-                    color: textColor
-                }
-            }
-        }
-    };
-};
-
-//----------------------------------- CATEGORY AND CODEX -------------------------------------
-const setChartData3 = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-
-    const months = [
-        'January', 'February', 'March', 'April',
-        'May', 'June', 'July', 'August',
-        'September', 'October', 'November', 'December'
-    ];
-
-    const countPerMonth = (array) => {
-        const counts = Array(12).fill(0);
-        array.forEach(item => {
-            if (item.created_at) {
-                const date = new Date(item.created_at);
-                const monthIndex = date.getMonth(); // 0-11
-                counts[monthIndex]++;
-            }
-        });
-        return counts;
-    };
-
-    const dataCounts = countPerMonth(props.data || []);
-    const codexCounts = countPerMonth(props.codex || []);
-
-    return {
-        labels: months,
-        datasets: [
-            {
-                type: 'bar',
-                label: 'Category',
-                backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                data: dataCounts
-            },
-            {
-                type: 'bar',
-                label: 'Codex',
-                backgroundColor: documentStyle.getPropertyValue('--p-orange-500'),
-                data: codexCounts
-            }
-        ]
-    };
-};
-
-const setChartOptions3 = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-    const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
-    return {
-        maintainAspectRatio: false,
-        aspectRatio: 0.8,
-        plugins: {
-            tooltips: {
-                mode: 'index',
-                intersect: false
-            },
-            legend: {
-                labels: {
-                    color: textColor
-                }
-            }
-        },
-        scales: {
-            x: {
-                stacked: true,
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder
-                }
-            },
-            y: {
-                stacked: true,
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder
-                }
-            }
-        }
-    };
-};
-
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-
-onMounted(() => {
-    chartData.value = setChartData();
-    chartOptions.value = setChartOptions();
-
-    chartData2.value = setChartData2();
-    chartOptions2.value = setChartOptions2();
-
-    chartData3.value = setChartData3();
-    chartOptions3.value = setChartOptions3();
-
-    watch(
-        () => [props.data, props.codex, props.project],
-        () => {
-            chartData.value = setChartData();
-            chartOptions.value = setChartOptions();
-
-            chartData2.value = setChartData2();
-            chartOptions2.value = setChartOptions2();
-
-            chartData3.value = setChartData3();
-            chartOptions3.value = setChartOptions3();
-        },
-        { immediate: true }
-    );
-});
-</script> -->
-
-
 
 
 <script setup>
+
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Chart from 'primevue/chart';
 import { ref, onMounted, watch, computed } from "vue";
@@ -575,274 +96,274 @@ const availableYears = computed(() => {
         }
     });
 
-    // If no years found, fallback to current year
-    if (years.size === 0) {
-        years.add(new Date().getFullYear());
-    }
+        // If no years found, fallback to current year
+        if (years.size === 0) {
+            years.add(new Date().getFullYear());
+        }
 
-    return Array.from(years).sort((a, b) => b - a);
-});
-
-const chartData = ref();
-const chartOptions = ref();
-const chartData2 = ref();
-const chartOptions2 = ref();
-const chartData3 = ref();
-const chartOptions3 = ref();
-const chartData4 = ref();
-const chartOptions4 = ref();
-
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-
-//--------------------------- CODEX -------------------------
-
-const setChartData = () => {
-    const labels = props.data.map(item => item.category_name);
-    const dataCounts = labels.map(labelName => {
-        return props.codex.filter(codexItem => codexItem.category_name === labelName).length;
+        return Array.from(years).sort((a, b) => b - a);
     });
 
-    const backgroundColors = labels.map(() => getRandomColor());
-    const hoverBackgroundColors = backgroundColors.map(() => getRandomColor());
+    const chartData = ref();
+    const chartOptions = ref();
+    const chartData2 = ref();
+    const chartOptions2 = ref();
+    const chartData3 = ref();
+    const chartOptions3 = ref();
+    const chartData4 = ref();
+    const chartOptions4 = ref();
 
-    return {
-        labels,
-        datasets: [
-            {
-                data: dataCounts,
-                backgroundColor: backgroundColors,
-                hoverBackgroundColor: hoverBackgroundColors
-            }
-        ]
-    };
-};
-
-const setChartOptions = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-
-    return {
-        plugins: {
-            legend: {
-                labels: {
-                    usePointStyle: true,
-                    color: textColor
-                }
-            }
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
         }
-    };
-};
+        return color;
+    }
 
-//---------------------------- PROJECT ---------------------
+    //--------------------------- CODEX -------------------------
 
-const setChartData2 = () => {
-    const documentStyle = getComputedStyle(document.body);
-    const dataCounts2 = props.project ? props.project.filter(p => p.id).length : 0;
-
-    return {
-        labels: ['Project'],
-        datasets: [
-            {
-                data: [dataCounts2],
-                backgroundColor: [
-                    documentStyle.getPropertyValue('--p-cyan-500'),
-                    documentStyle.getPropertyValue('--p-orange-500'),
-                    documentStyle.getPropertyValue('--p-gray-500')
-                ],
-                hoverBackgroundColor: [
-                    documentStyle.getPropertyValue('--p-cyan-400'),
-                    documentStyle.getPropertyValue('--p-orange-400'),
-                    documentStyle.getPropertyValue('--p-gray-400')
-                ]
-            }
-        ]
-    };
-};
-
-const setChartOptions2 = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-
-    return {
-        plugins: {
-            legend: {
-                labels: {
-                    usePointStyle: true,
-                    color: textColor
-                }
-            }
-        }
-    };
-};
-//----------------------- SKILL --------------------
-
-const setChartData4 = () => {
-    const documentStyle = getComputedStyle(document.body);
-    const dataCounts2 = props.skill ? props.skill.filter(p => p.id).length : 0;
-
-    return {
-        labels: ['Skill'],
-        datasets: [
-            {
-                data: [dataCounts2],
-                backgroundColor: [
-                   
-                    documentStyle.getPropertyValue('--p-orange-500'),
-                    documentStyle.getPropertyValue('--p-gray-500')
-                ],
-                hoverBackgroundColor: [
-                    
-                    documentStyle.getPropertyValue('--p-orange-400'),
-                    documentStyle.getPropertyValue('--p-gray-400')
-                ]
-            }
-        ]
-    };
-};
-
-const setChartOptions4 = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-
-    return {
-        plugins: {
-            legend: {
-                labels: {
-                    usePointStyle: true,
-                    color: textColor
-                }
-            }
-        }
-    };
-};
-
-//-------------------------- CATEGORY AND CODEX -------------------------------
-const setChartData3 = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-
-    const months = [
-        'January', 'February', 'March', 'April',
-        'May', 'June', 'July', 'August',
-        'September', 'October', 'November', 'December'
-    ];
-
-    const countPerMonth = (array, year) => {
-        const counts = Array(12).fill(0);
-        array.forEach(item => {
-            if (item.created_at) {
-                const date = new Date(item.created_at);
-                if (date.getFullYear() === year) {
-                    const monthIndex = date.getMonth();
-                    counts[monthIndex]++;
-                }
-            }
+    const setChartData = () => {
+        const labels = props.data.map(item => item.category_name);
+        const dataCounts = labels.map(labelName => {
+            return props.codex.filter(codexItem => codexItem.category_name === labelName).length;
         });
-        return counts;
+
+        const backgroundColors = labels.map(() => getRandomColor());
+        const hoverBackgroundColors = backgroundColors.map(() => getRandomColor());
+
+        return {
+            labels,
+            datasets: [
+                {
+                    data: dataCounts,
+                    backgroundColor: backgroundColors,
+                    hoverBackgroundColor: hoverBackgroundColors
+                }
+            ]
+        };
     };
 
-    const dataCounts = countPerMonth(props.data || [], selectedYear.value);
-    const codexCounts = countPerMonth(props.codex || [], selectedYear.value);
+    const setChartOptions = () => {
+        const documentStyle = getComputedStyle(document.documentElement);
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
 
-    return {
-        labels: months,
-        datasets: [
-            {
-                type: 'bar',
-                label: 'Category',
-                backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
-                data: dataCounts
-            },
-            {
-                type: 'bar',
-                label: 'Codex',
-                backgroundColor: documentStyle.getPropertyValue('--p-orange-500'),
-                data: codexCounts
-            }
-        ]
-    };
-};
-
-const setChartOptions3 = () => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--p-text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
-    const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
-
-    return {
-        maintainAspectRatio: false,
-        aspectRatio: 0.8,
-        plugins: {
-            tooltips: {
-                mode: 'index',
-                intersect: false
-            },
-            legend: {
-                labels: {
-                    color: textColor
+        return {
+            plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        color: textColor
+                    }
                 }
             }
-        },
-        scales: {
-            x: {
-                stacked: true,
-                ticks: {
-                    color: textColorSecondary
+        };
+    };
+
+    //---------------------------- PROJECT ---------------------
+
+    const setChartData2 = () => {
+        const documentStyle = getComputedStyle(document.body);
+        const dataCounts2 = props.project ? props.project.filter(p => p.id).length : 0;
+
+        return {
+            labels: ['Project'],
+            datasets: [
+                {
+                    data: [dataCounts2],
+                    backgroundColor: [
+                        documentStyle.getPropertyValue('--p-cyan-500'),
+                        documentStyle.getPropertyValue('--p-orange-500'),
+                        documentStyle.getPropertyValue('--p-gray-500')
+                    ],
+                    hoverBackgroundColor: [
+                        documentStyle.getPropertyValue('--p-cyan-400'),
+                        documentStyle.getPropertyValue('--p-orange-400'),
+                        documentStyle.getPropertyValue('--p-gray-400')
+                    ]
+                }
+            ]
+        };
+    };
+
+    const setChartOptions2 = () => {
+        const documentStyle = getComputedStyle(document.documentElement);
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+
+        return {
+            plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        color: textColor
+                    }
+                }
+            }
+        };
+    };
+    //----------------------- SKILL --------------------
+
+    const setChartData4 = () => {
+        const documentStyle = getComputedStyle(document.body);
+        const dataCounts2 = props.skill ? props.skill.filter(p => p.id).length : 0;
+
+        return {
+            labels: ['Skill'],
+            datasets: [
+                {
+                    data: [dataCounts2],
+                    backgroundColor: [
+                    
+                        documentStyle.getPropertyValue('--p-orange-500'),
+                        documentStyle.getPropertyValue('--p-gray-500')
+                    ],
+                    hoverBackgroundColor: [
+                        
+                        documentStyle.getPropertyValue('--p-orange-400'),
+                        documentStyle.getPropertyValue('--p-gray-400')
+                    ]
+                }
+            ]
+        };
+    };
+
+    const setChartOptions4 = () => {
+        const documentStyle = getComputedStyle(document.documentElement);
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+
+        return {
+            plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        color: textColor
+                    }
+                }
+            }
+        };
+    };
+
+    //-------------------------- CATEGORY AND CODEX -------------------------------
+    const setChartData3 = () => {
+        const documentStyle = getComputedStyle(document.documentElement);
+
+        const months = [
+            'January', 'February', 'March', 'April',
+            'May', 'June', 'July', 'August',
+            'September', 'October', 'November', 'December'
+        ];
+
+        const countPerMonth = (array, year) => {
+            const counts = Array(12).fill(0);
+            array.forEach(item => {
+                if (item.created_at) {
+                    const date = new Date(item.created_at);
+                    if (date.getFullYear() === year) {
+                        const monthIndex = date.getMonth();
+                        counts[monthIndex]++;
+                    }
+                }
+            });
+            return counts;
+        };
+
+        const dataCounts = countPerMonth(props.data || [], selectedYear.value);
+        const codexCounts = countPerMonth(props.codex || [], selectedYear.value);
+
+        return {
+            labels: months,
+            datasets: [
+                {
+                    type: 'bar',
+                    label: 'Category',
+                    backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                    data: dataCounts
                 },
-                grid: {
-                    color: surfaceBorder
+                {
+                    type: 'bar',
+                    label: 'Codex',
+                    backgroundColor: documentStyle.getPropertyValue('--p-orange-500'),
+                    data: codexCounts
+                }
+            ]
+        };
+    };
+
+    const setChartOptions3 = () => {
+        const documentStyle = getComputedStyle(document.documentElement);
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+        const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+        const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+        return {
+            maintainAspectRatio: false,
+            aspectRatio: 0.8,
+            plugins: {
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                legend: {
+                    labels: {
+                        color: textColor
+                    }
                 }
             },
-            y: {
-                stacked: true,
-                ticks: {
-                    color: textColorSecondary
+            scales: {
+                x: {
+                    stacked: true,
+                    ticks: {
+                        color: textColorSecondary
+                    },
+                    grid: {
+                        color: surfaceBorder
+                    }
                 },
-                grid: {
-                    color: surfaceBorder
+                y: {
+                    stacked: true,
+                    ticks: {
+                        color: textColorSecondary
+                    },
+                    grid: {
+                        color: surfaceBorder
+                    }
                 }
             }
-        }
+        };
     };
-};
 
-onMounted(() => {
-    chartData.value = setChartData();
-    chartOptions.value = setChartOptions();
+    onMounted(() => {
+        chartData.value = setChartData();
+        chartOptions.value = setChartOptions();
 
-    chartData2.value = setChartData2();
-    chartOptions2.value = setChartOptions2();
+        chartData2.value = setChartData2();
+        chartOptions2.value = setChartOptions2();
 
-    chartData3.value = setChartData3();
-    chartOptions3.value = setChartOptions3();
+        chartData3.value = setChartData3();
+        chartOptions3.value = setChartOptions3();
 
-    chartData4.value = setChartData4();
-    chartOptions4.value = setChartOptions4();
+        chartData4.value = setChartData4();
+        chartOptions4.value = setChartOptions4();
 
-    watch(
-        () => [props.data, props.codex, props.project, selectedYear.value],
-        () => {
-            chartData.value = setChartData();
-            chartOptions.value = setChartOptions();
+        watch(
+            () => [props.data, props.codex, props.project, selectedYear.value],
+            () => {
+                chartData.value = setChartData();
+                chartOptions.value = setChartOptions();
 
-            chartData2.value = setChartData2();
-            chartOptions2.value = setChartOptions2();
+                chartData2.value = setChartData2();
+                chartOptions2.value = setChartOptions2();
 
-            chartData3.value = setChartData3();
-            chartOptions3.value = setChartOptions3();
+                chartData3.value = setChartData3();
+                chartOptions3.value = setChartOptions3();
 
-            chartData4.value = setChartData4();
-            chartOptions4.value = setChartOptions4();
-        },
-        { immediate: true }
-    );
-});
+                chartData4.value = setChartData4();
+                chartOptions4.value = setChartOptions4();
+            },
+            { immediate: true }
+        );
+    });
 </script>
 
 
