@@ -13,6 +13,7 @@ use App\Http\Requests\AwardRequest;
 //SERVICE
 use App\Services\AddAwardService;
 use App\Services\CodexImageService;
+use App\Services\DisplayAwardService;
 
 //MODEL
 use App\Models\AwardsModel;
@@ -23,11 +24,14 @@ class AwardsController extends Controller
 
     protected $AddAwardService;
     protected $CodexImageService;
+    protected $DisplayAwardService;
 
     public function __construct(AddAwardService $AddAwardService, CodexImageService $CodexImageService,
+    DisplayAwardService $DisplayAwardService,
     ) {
         $this->AddAwardService = $AddAwardService;
         $this->CodexImageService = $CodexImageService;
+        $this->DisplayAwardService = $DisplayAwardService;
      
     }
 
@@ -36,7 +40,11 @@ class AwardsController extends Controller
 
 
     public function awards(){
-        return Inertia::render('Admin/Awards');
+
+        $data = $this->DisplayAwardService->getData();
+        return Inertia::render('Admin/Awards',[
+            'data' => $data,
+        ]);
     }
 
 
