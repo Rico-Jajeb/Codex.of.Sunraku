@@ -15,6 +15,7 @@ use App\Services\AddAwardService;
 use App\Services\CodexImageService;
 use App\Services\DisplayAwardService;
 use App\Services\UpdateAwardService;
+use App\Services\DeleteAwardService;
 
 //MODEL
 use App\Models\AwardsModel;
@@ -27,14 +28,17 @@ class AwardsController extends Controller
     protected $CodexImageService;
     protected $DisplayAwardService;
     protected $UpdateAwardService;
+    protected $DeleteAwardService;
 
     public function __construct(AddAwardService $AddAwardService, CodexImageService $CodexImageService,
     DisplayAwardService $DisplayAwardService, UpdateAwardService $UpdateAwardService,
+    DeleteAwardService $DeleteAwardService
     ) {
         $this->AddAwardService = $AddAwardService;
         $this->CodexImageService = $CodexImageService;
         $this->DisplayAwardService = $DisplayAwardService;
         $this->UpdateAwardService = $UpdateAwardService;
+        $this->DeleteAwardService = $DeleteAwardService;
      
     }
 
@@ -82,5 +86,14 @@ class AwardsController extends Controller
         return redirect()->route('system.achievement')->with('success', "Category Updated Successfully!");
 
     }
+
+    
+    public function destroyAward($id, DeleteAwardService $deleteService)
+    {
+        $success = $deleteService->deleteAward($id);
+
+        return redirect()->route('system.achievement')->with('success', "Deleted  Successfully!");
+    }
+
 
 }

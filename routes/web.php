@@ -119,6 +119,8 @@ Route::delete('/deletProject/{id}', [ProjectController::class, 'destroyProject']
 
 Route::delete('/deletScreenshot/{id}', [ProjectController::class, 'destroyScreenshot'])->name('screenshot.destroy');
 
+Route::delete('/deletAward/{id}', [AwardsController::class, 'destroyAward'])->name('award.destroy');
+
 
 
 

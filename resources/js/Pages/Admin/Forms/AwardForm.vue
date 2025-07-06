@@ -16,21 +16,22 @@
             </div>
             <div class="">
                 <label for="Web Name" class="block mt-4 mb-2 text-md font-bold text-gray-700 dark:text-white">Issuer</label>
-                <InputText class="!w-full" type="text" v-model="form.issuer" placeholder="Insert description...." />
+                <InputText class="!w-full" type="text" v-model="form.issuer" placeholder="Insert Issuer...." />
                 <div v-if="form.errors.issuer" class="text-red-500 text-sm mt-2">
                     {{ form.errors.issuer }}
                 </div>                 
             </div>
             <div class="">
                 <label for="Web Name" class="block mt-4 mb-2 text-md font-bold text-gray-700 dark:text-white">Date</label>
-                <InputText class="!w-full" type="text" v-model="form.Date" placeholder="Insert description...." />
+              
+                <DatePicker v-model="form.Date" showIcon fluid :showOnFocus="false" inputId="buttondisplay" />
                 <div v-if="form.errors.Date" class="text-red-500 text-sm mt-2">
                     {{ form.errors.Date }}
                 </div>                 
             </div>
             <div class="">
                 <label for="Web Name" class="block mt-4 mb-2 text-md font-bold text-gray-700 dark:text-white">Award Links</label>
-                <InputText class="!w-full" type="text" v-model="form.award_url" placeholder="Insert description...." />
+                <InputText class="!w-full" type="text" v-model="form.award_url" placeholder="Insert Achievement Link...." />
                 <div v-if="form.errors.award_url" class="text-red-500 text-sm mt-2">
                     {{ form.errors.award_url }}
                 </div>                 
@@ -77,6 +78,8 @@
     import { computed, watch } from 'vue'
     import { usePage } from '@inertiajs/vue3'
     import { useToast } from 'primevue/usetoast'
+
+import DatePicker from 'primevue/datepicker';
 
     const page = usePage()
     const toast = useToast()

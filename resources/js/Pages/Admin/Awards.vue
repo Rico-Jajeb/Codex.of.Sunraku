@@ -17,7 +17,17 @@
 
                 <DataTable v-model:selection="TechSkill" dataKey="id" :value="data"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">  
                     <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-                    <Column field="award_title" header="Title" sortable />
+                    <Column field="content" header="Title" sortable>
+                        <template #body="slotProps">
+                            <button type="button"   @click="openContentModal(slotProps.data.award_title, 'Title')" v-tooltip.top="'Click to View'">
+                                <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px] w-36">
+                                {{ slotProps.data.award_title }}
+                                </div>                                    
+                            </button>
+                        </template>
+                    </Column>
+
+
                     <Column field="content" header="Description" sortable>
                         <template #body="slotProps">
                             <button type="button"   @click="openContentModal(slotProps.data.award_description, 'Description')" v-tooltip.top="'Click to View'">
@@ -93,7 +103,7 @@
             <Dialog 
                 v-model:visible="categoryInfoDisp"
                 maximizable
-                :header="` Skill:'${selectedCategory?.tech_name ?? ''}'`" style="width: 450px;"
+                :header="` Achievement:'${selectedCategory?.award_title ?? ''}'`" style="width: 450px;"
                 >
                     <form @submit.prevent="submitForm" enctype="multipart/form-data">
                         <div class="">
@@ -119,7 +129,8 @@
                         </div>
                         <div class="mt-4">
                                 <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Update Date</label>
-                                <InputText class="!w-full" type="text" v-model="form.Date" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                <!-- <InputText class="!w-full" type="text" v-model="form.Date" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" /> -->
+                                   <DatePicker v-model="form.Date" showIcon fluid :showOnFocus="false" inputId="buttondisplay" />
                                 <div v-if="form.errors.Date" class="text-red-500 text-sm mt-2">
                                     {{ form.errors.Date }}
                                 </div> 
@@ -149,7 +160,7 @@
                             <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
                         </div>
                         <nav class="">   
-                            <button type="submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3">Update Skill</button>
+                            <button type="submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3">Update Achievement</button>
                         </nav>
                     </form>
                         
@@ -171,6 +182,23 @@
             <Dialog  v-model:visible="sc"  maximizable :header="`Achievement `" :style="{ width: '500px' }" >
                     <AwardForm/>
             </Dialog>
+
+
+      <!--DELETE amo ini an delete modal kanan category -->
+            <section>
+                <Dialog v-model:visible="visible3" :header="`Delete '${selectedCategory.award_title}' Category`" :style="{ width: '25rem' }">
+                    <nav class="flex justify-center gap-6">
+                        <button @click="deletePost(item.id)" class=" bg-red-600 text-white px-3 py-1 rounded">
+                            <i class="pi pi-trash mr-2"></i> Delete
+                        </button>
+                        <button @click="closeDelete()" class=" bg-green-600 text-white px-3 py-1 rounded">
+                            <i class="pi pi-times mr-2"></i> Cancel
+                        </button>                        
+                    </nav>
+
+                </Dialog>
+            </section>
+
 
             <div>
                 <!-- amo ini an kanan pop up notif pag nag submit msg -->
@@ -207,7 +235,7 @@
 
     import Dialog from 'primevue/dialog';
      import Card from 'primevue/card';
-
+import DatePicker from 'primevue/datepicker';
 
 
     const prop = defineProps({
@@ -303,5 +331,40 @@
         contentMod.value = true
     }
 
+
+
+    
+//----------------------- delete -------------------------
+
+ const visible3 = ref(false);
+const item = ref({ id: null })
+    function deleteModal(data) {
+        selectedCategory.value = data
+        item.value.id = data.id
+        visible3.value = true
+    }
+
+ function closeDelete(){
+        visible3.value = false
+    }
+
+
+     const deletePost = (id) => {
+        //amo ini an kanna delete
+        // bali amo ini an nkadto han button knan delete
+        router.delete(`/deletAward/${id}`, {
+        onSuccess: () => {
+              toast.add({
+                severity: 'success',
+                summary: 'Delete message',
+                detail: 'Deleted Successfully!', // Can hardcode or pull from props if needed
+                life: 10000,
+            });
+
+        }
+        })
+        // tapos ini liwat an code para pag na delete na matik ma close an modal
+        visible3.value = false
+    }
 
 </script>
