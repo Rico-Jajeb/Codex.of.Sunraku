@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TechSkillController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\AwardsController;
 
 use App\Http\Controllers\Admin\GoogleUploadController; //kanan google ini
 
@@ -61,6 +62,7 @@ Route::get('category',[CategoryCodexController::class, 'index'])->name('codex.ca
 Route::get('settings',[SystemController::class, 'systemSetting'])->name('system.settings');
 Route::get('systemProjects',[ProjectController::class, 'projects'])->name('system.projects');
 Route::get('techSkill',[TechSkillController::class, 'techPage'])->name('system.skills');
+Route::get('achievement',[AwardsController::class, 'awards'])->name('system.achievement');
 
 
 //kanan create form
@@ -77,6 +79,8 @@ Route::post('add.Projects', [ProjectController::class, 'AddProject'])->name('add
 Route::post('add.ScreenShot', [ProjectController::class, 'AddScreenShot'])->name('add.ScreenShot');
 
 Route::post('add.Test', [TestController::class, 'addTest'])->name('add.Test');
+
+Route::post('add.Award', [AwardsController::class, 'addAwards'])->name('add.Award');
 
 //kanan update form
 //Route::post('/categories/update/{id}', [CategoryCodexController::class, 'update'])->name('categories.update');

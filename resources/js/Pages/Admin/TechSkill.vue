@@ -1,50 +1,61 @@
 <template>
       <AppLayout title="Tech Skills">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <!-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Tech Skills
-            </h2>
+            </h2> -->
+        
+            <section class="flex justify-between">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    Tech Skills
+                </h2>
+                <div class="">
+                    <button type="button" @click="TechModal()" class="md:mr-8 mr-0"  v-tooltip.top="'Add New Skill'"><i class="pi pi-plus" ></i></button> 
+                                       
+
+                        
+                </div>
+
+            </section>
         </template>
 
         <main class="pt-10">
             <section class="max-w-7xl  mx-auto  sm:px-6 lg:px-8 pb-8 bg-white overflow-hidden shadow-xl rounded-lg">
                 
-                <nav class=" mt-8  flex justify-between ">
+                <nav class=" mt-8 mb-4 flex justify-center ">
                     <div class=""></div>
                     <header>
                         <h1 class="text-lg font-medium">List of Skills</h1>
                     </header>
-                    <button type="button" @click="TechModal()" class="md:mr-8 mr-0"  v-tooltip.top="'Add New Skill'"><i class="pi pi-plus" style="font-size: 1.1rem"></i></button>                   
+                                      
                 </nav>
 
                
-               
               
-                      <DataTable v-model:selection="TechSkill" dataKey="id" :value="data"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">
-                      
-                        <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-                        <Column field="tech_name" header="Skill" sortable />
-                        <Column field="img" header="Image" sortable>
-                            <template #body="{ data }">
-                            <Image 
-                                alt="user header"
-                                loading="lazy"
-                                
-                                :src="`/storage/output/${data.img}`"
-                            preview  imageClass="h-16 object-cover rounded-md"  />
-                            </template>
-                        </Column>
-                        <Column class="!text-end" header="Actions">
-                            <template #body="{ data }">
-                                <nav class="flex gap-1">
-                                    <button type="button" @click="openModal(data)" class=" py-2 px-4" v-tooltip.top="'Click to Edit'"><i class="pi pi-pencil" ></i></button>     
-                                    <button type="button" @click="deleteModal(data)" class="mx-4" v-tooltip.top="'Click to Delete'">
-                                        <i class="pi pi-trash" style="font-size: 1rem"></i>
-                                    </button>                                  
-                                </nav>
-                            </template>
-                        </Column>
-                    </DataTable>
+                <DataTable v-model:selection="TechSkill" dataKey="id" :value="data"  ref="dt" scrollable scrollHeight="600px"  paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" removableSort tableStyle="min-width: 50rem">  
+                    <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
+                    <Column field="tech_name" header="Skill" sortable />
+                    <Column field="img" header="Image" sortable>
+                        <template #body="{ data }">
+                        <Image 
+                            alt="user header"
+                            loading="lazy"
+                            
+                            :src="`/storage/output/${data.img}`"
+                        preview  imageClass="h-16 object-cover rounded-md"  />
+                        </template>
+                    </Column>
+                    <Column class="!text-end" header="Actions">
+                        <template #body="{ data }">
+                            <nav class="flex gap-1">
+                                <button type="button" @click="openModal(data)" class=" py-2 px-4" v-tooltip.top="'Click to Edit'"><i class="pi pi-pencil" ></i></button>     
+                                <button type="button" @click="deleteModal(data)" class="mx-4" v-tooltip.top="'Click to Delete'">
+                                    <i class="pi pi-trash" style="font-size: 1rem"></i>
+                                </button>                                  
+                            </nav>
+                        </template>
+                    </Column>
+                </DataTable>
             </section>
 
 
