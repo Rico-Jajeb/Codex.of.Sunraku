@@ -52,12 +52,12 @@
                                 <div class=" flex justify-center" v-if="slotProps.data.highlight == 'Yes'">
                                     <div class="overflow-hidden text-ellipsis    rounded-lg">
                                         
-                                        <Badge value="" severity="success" v-tooltip.top="'Project is highlighted'"></Badge>
+                                        <Badge value="" severity="success" v-tooltip.top="'Award is highlighted'"></Badge>
                                     </div>
                                 </div>                                    
                                 <div class="flex justify-center" v-if="slotProps.data.highlight !== 'Yes' ">
                                     <div class="overflow-hidden text-ellipsis      rounded-lg">
-                                        <Badge value="" severity="danger" v-tooltip.top="'Project is NOT highlighted'"></Badge>
+                                        <Badge value="" severity="danger" v-tooltip.top="'Award is NOT highlighted'"></Badge>
                                     </div>
                                 </div>                                    
                                                                 
@@ -90,6 +90,70 @@
 
 
 
+            <Dialog 
+                v-model:visible="categoryInfoDisp"
+                maximizable
+                :header="` Skill:'${selectedCategory?.tech_name ?? ''}'`" style="width: 450px;"
+                >
+                    <form @submit.prevent="submitForm" enctype="multipart/form-data">
+                        <div class="">
+                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Update Title</label>
+                                <InputText class="!w-full" type="text" v-model="form.award_title" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                <div v-if="form.errors.award_title" class="text-red-500 text-sm mt-2">
+                                    {{ form.errors.award_title }}
+                                </div> 
+                        </div>
+                        <div class="mt-4">
+                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Update Description</label>
+                                <InputText class="!w-full" type="text" v-model="form.award_description" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                <div v-if="form.errors.award_description" class="text-red-500 text-sm mt-2">
+                                    {{ form.errors.award_description }}
+                                </div> 
+                        </div>
+                        <div class="mt-4">
+                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Update Issuer</label>
+                                <InputText class="!w-full" type="text" v-model="form.issuer" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                <div v-if="form.errors.issuer" class="text-red-500 text-sm mt-2">
+                                    {{ form.errors.issuer }}
+                                </div> 
+                        </div>
+                        <div class="mt-4">
+                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Update Date</label>
+                                <InputText class="!w-full" type="text" v-model="form.Date" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                <div v-if="form.errors.Date" class="text-red-500 text-sm mt-2">
+                                    {{ form.errors.Date }}
+                                </div> 
+                        </div>
+                        <div class="mt-4">
+                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Update Award Link</label>
+                                <InputText class="!w-full" type="text" v-model="form.award_url" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                <div v-if="form.errors.award_url" class="text-red-500 text-sm mt-2">
+                                    {{ form.errors.award_url }}
+                                </div> 
+                        </div>
+                           <div class="md:flex md:flex-wrap gap-4 mt-4">
+                                <div class="flex items-center gap-2">
+                                    <RadioButton v-model="form.highlight" inputId="level1" name="level" value="Yes"  />
+                                    <label for="ingredient1">Yes</label>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <RadioButton v-model="form.highlight" inputId="level2" name="level" value="No"  />
+                                    <label for="ingredient2">No</label>
+                                </div>
+                              
+                                
+                            </div>
+                        <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Skill Logo</label>
+                        <div class="card flex flex-col items-center gap-6 mt-4">                
+                            <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
+                            <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
+                        </div>
+                        <nav class="">   
+                            <button type="submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3">Update Skill</button>
+                        </nav>
+                    </form>
+                        
+           </Dialog>
 
 
 
@@ -154,12 +218,77 @@
     const page = usePage()
     const toast = useToast()
 
-
+  const src = ref(null);
     const sc = ref(false);
 
     function TechModal(){
         sc.value = true;
     }
+
+
+    function onFileSelect(event) {
+        const file = event.files[0];
+        const reader = new FileReader();
+
+        reader.onload = async (e) => {
+            src.value = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+
+    const categoryInfoDisp = ref(false);
+    const selectedCategory = ref(false);
+
+    const form = useForm({
+        award_title: null,
+        award_description: null,
+        issuer: null,
+        Date: null,
+        award_url: null,
+        highlight: null,
+        img: null,
+    })
+
+    function openModal(data) {
+         selectedCategory.value = data;
+         form.award_title = data.award_title;
+         form.award_description = data.award_description;
+         form.issuer = data.issuer;
+         form.Date = data.Date;
+         form.award_url = data.award_url;
+         form.highlight = data.highlight;
+         form.img = null; // reset image, or preload if needed
+        categoryInfoDisp.value = true;
+    }
+
+    const submitForm = () => {
+ 
+    form.transform(data => ({
+        ...data,
+        _method: 'PUT',
+    }));
+
+    form.post(route('award.update', selectedCategory.value.id), {
+        preserveScroll: true,
+        forceFormData: true,
+        onSuccess: () => {
+            toast.add({
+                severity: 'success',
+                summary: 'Update message',
+                detail: 'Achievement Updated Successfully!', // Can hardcode or pull from props if needed
+                life: 10000,
+            });
+            src.value = null;
+            form.reset();
+            categoryInfoDisp.value = false;
+        },
+        onError: (errors) => {
+            console.error("Form submission failed.", errors);
+        },
+    });
+};
 
 
 //---------------- content ---------

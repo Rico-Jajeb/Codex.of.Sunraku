@@ -14,6 +14,7 @@ use App\Http\Requests\AwardRequest;
 use App\Services\AddAwardService;
 use App\Services\CodexImageService;
 use App\Services\DisplayAwardService;
+use App\Services\UpdateAwardService;
 
 //MODEL
 use App\Models\AwardsModel;
@@ -25,13 +26,15 @@ class AwardsController extends Controller
     protected $AddAwardService;
     protected $CodexImageService;
     protected $DisplayAwardService;
+    protected $UpdateAwardService;
 
     public function __construct(AddAwardService $AddAwardService, CodexImageService $CodexImageService,
-    DisplayAwardService $DisplayAwardService,
+    DisplayAwardService $DisplayAwardService, UpdateAwardService $UpdateAwardService,
     ) {
         $this->AddAwardService = $AddAwardService;
         $this->CodexImageService = $CodexImageService;
         $this->DisplayAwardService = $DisplayAwardService;
+        $this->UpdateAwardService = $UpdateAwardService;
      
     }
 
@@ -63,5 +66,21 @@ class AwardsController extends Controller
         return redirect()->route('system.achievement')->with('success', "Category Added Successfully!");
     }
 
+
+    
+    public function updateAwards(AwardRequest $request, $id){
+        // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
+        $imageName = $this->CodexImageService->handleImageUpload($request); 
+
+        $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
+    
+        $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
+    
+        $this->UpdateAwardService->upAward($id, $validated); //adi an code para han up services
+
+        // return redirect()->route('codex.category')->with('success', "Category Added Successfully!");return back();
+        return redirect()->route('system.achievement')->with('success', "Category Updated Successfully!");
+
+    }
 
 }

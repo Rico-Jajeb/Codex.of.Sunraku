@@ -98,6 +98,8 @@ Route::put('/skillup/{id}', [TechSkillController::class, 'updateTechSkill'])->na
 
 Route::put('/projectup/{id}', [ProjectController::class, 'updateProject'])->name('project.update');
 
+Route::put('/awardup/{id}', [AwardsController::class, 'updateAwards'])->name('award.update');
+
 
 
 

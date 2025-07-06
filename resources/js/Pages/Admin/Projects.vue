@@ -154,6 +154,32 @@
 
 
 
+            <!-- Kanan Update -->
+            <Dialog 
+                v-model:visible="categoryInfoDisp"
+                maximizable
+                :header="` Skill:'${selectedCategory?.tech_name ?? ''}'`"
+                >
+                    <form @submit.prevent="submitForm" enctype="multipart/form-data">
+                        <div class="">
+                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Update Skill</label>
+                                <InputText class="!w-full" type="text" v-model="form.tech_name" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" />
+                                <div v-if="form.errors.tech_name" class="text-red-500 text-sm mt-2">
+                                    {{ form.errors.tech_name }}
+                                </div> 
+                        </div>
+                        <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload Skill Logo</label>
+                        <div class="card flex flex-col items-center gap-6 mt-4">                
+                            <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
+                            <FileUpload mode="basic" @input="form.img = $event.target.files[0]" @select="onFileSelect" customUpload auto severity="secondary" class="p-button-outlined" />
+                        </div>
+                        <nav class="">   
+                            <button type="submit" class="text-md font-bold text-black mt-6  bg-green-500 rounded-md px-5 py-3">Update Skill</button>
+                        </nav>
+                    </form>
+                        
+            </Dialog>
+
 
 
        <Dialog v-model:visible="SCModal" header="Screen Shot"  maximizable>
