@@ -110,7 +110,7 @@
 
 
         <!-- kanan carousel in an mga skill -->
-        <section class="bg-gray-300 py-32  rounded-b-lg relative ">
+        <section class="bg-gray-300  md:pt-32 md:pb-32 pt-16 pb-4 rounded-b-lg relative ">
            <header class=" flex justify-center items-center">
                 <h1 class="text-3xl font-bold font-mono"> <i class="pi pi-slack mr-2" style="font-size: 1.5rem"></i>Technology Stack</h1>
            </header>
@@ -213,13 +213,14 @@
        
                 <!-- kann timeline -->
 <section class="card max-w-7xl m-auto px-4">
-    <header class="mt-32 mb-10 flex justify-center">
+    <header class="mt-24 md:mt-32 mb-10 flex justify-center">
           <h1 class="text-3xl font-bold font-mono"><i class="pi pi-trophy mr-2" style="font-size: 1.5rem"></i>Achievements</h1>  
     </header>
 
-        <Timeline :value="events" align="alternate" class="customized-timeline">
+        <!-- <Timeline :value="events" align="alternate" class="customized-timeline"> -->
+        <Timeline :value="events" :align="timelineAlign" class="customized-timeline">
             <template #marker="slotProps">
-                <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" :style="{ backgroundColor: slotProps.item.color }">
+                <span class="flex w-6 h-6 items-center justify-center text-white rounded-full z-10 shadow-sm" :style="{ backgroundColor: slotProps.item.color }">
                     <i :class="slotProps.item.icon"></i>
                 </span>
             </template>
@@ -242,9 +243,11 @@
         </Timeline>
 </section>
 
-        
+ 
 
         </section>
+
+       
         
 
     </MainLayout>
@@ -254,7 +257,7 @@
 
 <script setup>
     import MainLayout from '@/Layouts/MainLayout.vue';
-    import { ref, computed, watch, onMounted, onBeforeUnmount  } from 'vue'
+    import { ref, computed, watch, onMounted, onBeforeUnmount, onUnmounted  } from 'vue'
   
     import IconField from 'primevue/iconfield';
     import InputIcon from 'primevue/inputicon';
@@ -483,6 +486,26 @@ const events = computed(() => {
 });
 
 
+const screenWidth = ref(window.innerWidth)
+
+const updateWidth = () => {
+  screenWidth.value = window.innerWidth
+}
+
+onMounted(() => {
+  window.addEventListener('resize', updateWidth)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateWidth)
+})
+
+const timelineAlign = computed(() => {
+  if (screenWidth.value >= 768) {
+    return 'alternate' // For md and up
+  }
+  return 'center' // Default or mobile
+})
 
 
 
@@ -546,7 +569,7 @@ const frameworkColors = {
 </script>
 
 
-<style  scoped>
+<style lang="scss" scoped>
 @keyframes carousel {
   0% {
     transform: translateX(0);
@@ -577,5 +600,6 @@ const frameworkColors = {
         }
     }
 }
+
 
 </style>
