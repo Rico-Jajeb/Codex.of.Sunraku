@@ -7,53 +7,81 @@
         :can-register="canRegister"
         :laravel-version="laravelVersion"
         :php-version="phpVersion"  >
-        
-        <main class="pt-24 max-w-7xl m-auto">
-            <section class="flex justify-center mt-8">
+
+        <section class="bg-gray-800 rounded-b-lg">
+
+       
+        <main class="pt-24 max-w-7xl m-auto ">
+            <section class="flex justify-center mt-8 md:mt-32 ">
                 <header class="text-center">
-                    <h1 class="text-4xl font-bold">My Projects</h1>
-                    <h1 class="text-lg font-bold text-gray-500">A collection of my recent work and personal projects.</h1>
+                    <h1 class="text-4xl text-white font-bold">My Projects</h1>
+                    <h1 class="text-lg font-bold text-gray-300">A collection of my recent work and personal projects.</h1>
                 </header>                
             </section>
          
 
                
-                <article class="grid lg:grid-cols-2 grid-cols-1 gap-12 px-4 md:px-0 mt-8 mb-24">
-                    <div v-for="proj in project" :key="proj.id">
+                <article class="grid lg:grid-cols-2 grid-cols-1 gap-12 px-4 md:px-0 mt-14 pb-24">
+                    <div class="mb-8" v-for="proj in project" :key="proj.id">
                         <Galleria :value="getImages(proj)" :numVisible="5"  containerStyle="max-width: 640px" :showThumbnails="false" :showIndicators="true" :changeItemOnIndicatorHover="true" >
                             <template #item="slotProps">
                             <Image
                                 :src="slotProps.item.itemImageSrc"
                                 :alt="slotProps.item.alt"
-                                image-class="h-80 w-[100vw] object-cover rounded-md"
+                                image-class="h-96 w-[100vw] object-cover "
                                 preview
                             />
                             </template>
                         </Galleria>
 
-                    <h1 class="text-2xl font-bold mt-4">{{ proj.proj_name }}</h1>
-                    <p class="h-32 text-gray-600 text-md font-medium">{{ proj.proj_description }}</p>
+                        <header class="md:mb-0 mb-12">
+                            <h1 class="text-2xl font-bold text-white mt-4">{{ proj.proj_name }}</h1>
+                            <p class="h-32 text-gray-400 text-lg font-medium">{{ proj.proj_description }}</p>  
+                            <p class=" text-gray-200 text-lg font-medium">features</p>  
+                            <div class="" v-for="SC in screenshotimg" key="SC.id">
+                                <div v-if="proj.id == SC.project_id" class=" ">
+                                      <div class="flex flex-wrap" v-if="SC.features && SC.features !== 'NULL'">
+                                              <li class="text-white">{{ SC.features }}</li>  
+                                      </div>
+                                </div>
+                            </div>
+                        </header>
+
                 
-                    <div class="flex gap-4 mt-1">
-                                    <div v-for="lang in proj.language.slice(0,4)" :key="lang.id" :class="['px-2 py-1 rounded truncate overflow-x-hidden text-xs font-bold', languageColors[lang]?.bg || 'bg-gray-200', languageColors[lang]?.text || 'text-black']" >
-                                        {{ lang }}
-                                    </div> 
-                            </div>
-                            <div class="flex gap-4 mt-1">
-                                    <div v-for="fw in proj.framework" :key="fw.id" :class="['px-2 py-1 rounded truncate overflow-x-hidden text-xs font-bold', frameworkColors[fw]?.bg || 'bg-gray-200', frameworkColors[fw]?.text || 'text-black']" >
-                                        {{ fw }}
-                                    </div> 
-                            </div>
-                            <div class="mt-2 flex justify-between">
-                                <div class="flex gap-2">
-                                    <a :href="proj.github_url" target="_blank" rel="noopener noreferrer" v-tooltip.top="'Go to Github'"><i class="pi pi-github" style="font-size: 1.5rem"></i></a>
-                                    <a :href="proj.live_url" target="_blank" rel="noopener noreferrer" v-tooltip.top="'Go to live server'"><i class="pi pi-globe" style="font-size: 1.5rem"></i></a>
-                                </div>
-                                <div class="">
-                                 
-                                    <Badge :severity="getSeverity(proj.status)" ></Badge>
+                        <section class="mt-4 flex items-start gap-2 flex-wrap">
+                            <div class="flex gap-2">
+                                <div
+                                v-for="lang in proj.language.slice(0,4)"
+                                :key="lang.id"
+                                :class="['px-2 py-1 rounded truncate overflow-x-hidden text-xs font-bold', languageColors[lang]?.bg || 'bg-gray-200', languageColors[lang]?.text || 'text-black']"
+                                >
+                                {{ lang }}
                                 </div>
                             </div>
+
+                            <div class="flex gap-2 ">
+                                <div
+                                v-for="fw in proj.framework"
+                                :key="fw.id"
+                                :class="['px-2 py-1 rounded truncate overflow-x-hidden text-xs font-bold', frameworkColors[fw]?.bg || 'bg-gray-200', frameworkColors[fw]?.text || 'text-black']"
+                                >
+                                {{ fw }}
+                                </div>
+                            </div>
+                        </section>
+
+
+
+                        <div class="mt-2 flex justify-between">
+                            <div class="flex gap-2">
+                                <a :href="proj.github_url" target="_blank" rel="noopener noreferrer" v-tooltip.top="'Go to Github'"><i class="text-blue-400 pi pi-github" style="font-size: 1.5rem"></i></a>
+                                <a :href="proj.live_url" target="_blank" rel="noopener noreferrer" v-tooltip.top="'Go to live server'"><i class="text-blue-400  pi pi-globe" style="font-size: 1.5rem"></i></a>
+                            </div>
+                            <div class="">
+                                
+                                <Badge :severity="getSeverity(proj.status)" ></Badge>
+                            </div>
+                        </div>
                     </div>
 
                 </article>
@@ -61,7 +89,7 @@
 
         </main>
 
-
+        </section>
     </MainLayout>
 </template>
 <script setup>

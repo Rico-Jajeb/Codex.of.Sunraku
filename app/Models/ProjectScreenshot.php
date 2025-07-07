@@ -15,6 +15,7 @@ class ProjectScreenshot extends Model
     protected $fillable = [
         'project_id',
         'img',
+        'features',
     ];
 
     /**

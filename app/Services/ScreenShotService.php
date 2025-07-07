@@ -25,6 +25,7 @@ class ScreenShotService
 
         return $project->screenshots()->create([
             'img' => $data['img'],
+            'features' => $data['features'],
         ]);
     }
 

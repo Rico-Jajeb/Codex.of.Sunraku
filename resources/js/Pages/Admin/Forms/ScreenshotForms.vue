@@ -1,6 +1,7 @@
 <template>
     <form @submit.prevent="submitForm" enctype="multipart/form-data">
             <InputText class="!w-full" type="hidden" v-model="form.project_id" :value="projectId" placeholder="Insert Skill name......" />
+            <InputText class="!w-full" type="text" v-model="form.features"  placeholder="Insert project feature......" />
             <label for="Web Name" class="block mt-4 text-sm font-bold text-gray-700 dark:text-white">Upload project Screenshot </label>
             <div class="card flex flex-col items-center gap-6 mt-4">                
                     <img v-if="src" :src="src" alt="Image" class="shadow-md rounded-xl w-full sm:w-64" style="filter: grayscale(0%)" />
@@ -60,6 +61,7 @@
 
     const form = useForm({
         project_id: null,
+        features: null,
         img: null,  
     })
 

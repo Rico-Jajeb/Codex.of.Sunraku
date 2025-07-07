@@ -59,6 +59,18 @@
                                     </nav>
                                 </template>
                             </Column>
+                            <Column field="content" header="features" sortable>
+                                <template #body="slotProps">
+                                    <nav class="flex gap-0 w-36">
+                                        <button type="button"   @click="openFeatureModal(slotProps.data.id, 'Features')" v-tooltip.top="'Click to View'">
+                                            <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px] ">
+                                            <i class="pi pi-eye" ></i>
+                                            </div>                                    
+                                        </button>
+                                     
+                                    </nav>
+                                </template>
+                            </Column>
                             <Column class="!text-end" header="Actions">
                                 <template #body="{ data }">
                                     <nav class="flex gap-0 w-36">
@@ -201,16 +213,40 @@
         <Dialog v-model:visible="galleryMod" maximizable  modal  :header="selectedGalleryType" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
             <section class=" grid md:grid-cols-4 grid-cols-1 gap-4 flex-wrap ">
                 <section class="" v-for="SC in props.ScreenShots" key="SC.id" >
-                    <div v-if="selectedGallery == SC.project_id" class=" flex  justify-center">       
-                        <Image  alt="user header" loading="lazy" :src="`/storage/screenshot/${SC.img}`" preview  imageClass="h-36 w-full  object-cover rounded-md"  />
-                        <button type="button" @click="deleteModalScreenshot(SC)" class="py-2 px-4" v-tooltip.top="'Click to Delete'">
-                            <i class="pi pi-trash" style="font-size: 1rem"></i>
-                        </button>   
+                    <div v-if="selectedGallery == SC.project_id" class=" flex  justify-center">
+                        <div class="" v-if="SC.img && SC.img !== 'NULL'">
+
+                       
+                             <Image  alt="user header" loading="lazy" :src="`/storage/screenshot/${SC.img}`" preview  imageClass="h-36 w-full  object-cover rounded-md"  />
+                            <button type="button" @click="deleteModalScreenshot(SC)" class="py-2 px-4" v-tooltip.top="'Click to Delete'">
+                                <i class="pi pi-trash" style="font-size: 1rem"></i>
+                            </button>                           
+                        </div>
+
                     </div>
                 </section>                
             </section>
+        </Dialog>
 
-        </Dialog>  
+        <!-- bali kanan Feature han screenshot liwat ini -->
+        <Dialog v-model:visible="FeatureMod" maximizable  modal  :header="selectedGalleryType" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+            <section class="  ">
+                <section class="" v-for="SC in props.ScreenShots" key="SC.id" >
+                    <div v-if="selectedGallery == SC.project_id" class=" ">
+                        <div class="flex flex-wrap" v-if="SC.features && SC.features !== 'NULL'">
+                            <button type="button" @click="deleteModalScreenshot(SC)" class="py-2 px-4" v-tooltip.top="'Click to Delete'">
+                                <i class="pi pi-trash" style="font-size: 1rem"></i>
+                            </button>  
+                             <p>{{ SC.features }}</p>
+                                         
+                        </div>
+
+                    </div>
+                </section>                
+            </section>
+        </Dialog>
+
+
 
         <!-- Kanan update ini -->
         <Dialog 
@@ -465,6 +501,17 @@ import TechSkill from './TechSkill.vue';
         selectedGallery.value = content
         selectedGalleryType.value = type
         galleryMod.value = true
+    }
+
+
+      
+
+    const FeatureMod = ref(false);
+    // amo ini an kanan modal han features
+    function openFeatureModal(content, type) {
+        selectedGallery.value = content
+        selectedGalleryType.value = type
+        FeatureMod.value = true
     }
 
 

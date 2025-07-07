@@ -8,15 +8,32 @@
         :laravel-version="laravelVersion"
         :php-version="phpVersion"  title="Main Page" >
       
-        <main class="relative  p-3 rounded-xl h-[97vh] m-3 pt-20 overflow-hidden ">
+        <main class="relative  p-3 rounded-xl h-[60vh] md:h-[97vh] m-3 pt-20 overflow-hidden ">
             <!-- Background Image -->
             <img alt="System Background" loading="lazy" :src="`/storage/output/${setting.system_favicon}`" class="absolute inset-0 w-full h-full object-cover -z-10" />
-                <section class=" max-w-7xl m-auto">
+                <section class=" max-w-7xl m-auto flex justify-center items-center">
                     <header class="text-center pt-10 pb-4">
-                        <h1 class="text-5xl font-extrabold mt-0 md:mt-40">{{ setting.system_slogan }}</h1>
-                        <p class="mt-4 text-xl font-bold md:mt-6">{{ setting.system_name }} personal Knowledge base for ideas, notes, and projects.</p>
+                        <h1 class="text-4xl md:text-7xl font-extrabold mt-0 md:mt-40 cursor-pointer" style="-webkit-text-stroke: 0.5px black;">
+                            <span
+                            v-for="(char, index) in setting.system_slogan.split('')"
+                            :key="index"
+                            class="hover:text-white transition-colors duration-300"
+                            >
+                            {{ char }}
+                            </span>
+                        </h1>
+            
+                        <p class="mt-4 text-xl md:text-2xl font-bold md:mt-6 cursor-pointer" style="-webkit-text-stroke: 0.5px black;" >
+                                <span
+                                v-for="(char, index) in (setting.system_name + ' personal Knowledge base for ideas, notes, and projects.').split('')"
+                                :key="index"
+                                class="hover:text-white transition-colors duration-300">
+                                {{ char }}
+                                </span>
+                        </p>
+
                     </header>
-                    <div class=" ">
+                    <!-- <div class=" ">
                         <IconField class="mx-auto md:!w-[640px] !w-80"  >
                             <InputIcon class="pi pi-search" />
                             <InputText v-model="value1" placeholder="Search codex by title, content, or tags..." class="!w-full" />
@@ -24,7 +41,7 @@
                     </div>       
                     <div class="">
                      
-                    </div> 
+                    </div>  -->
                 </section>
         </main>
        
@@ -33,8 +50,9 @@
 
                 <header class=" flex justify-between px-4 py-8 max-w-7xl m-auto">
                     <div class="">
-                        <h1 class="text-3xl font-bold">Recent Codex</h1>
-                        <p class="text-lg font-medium text-gray-800 mt-1">Latest documentation and code snippets from my knowledge base.</p>                        
+                        <h1 class="text-3xl font-bold cursor-pointer">Recent Codex</h1>
+                        <p class="text-lg font-medium text-gray-800 mt-1 cursor-pointer">Latest documentation and code snippets from my knowledge base.</p>                        
+    
                     </div>
                 </header>
                 <!-- amo ini an kanan card -->
@@ -112,8 +130,18 @@
         <!-- kanan carousel in an mga skill -->
         <section class="bg-gray-300  md:pt-32 md:pb-32 pt-16 pb-4 rounded-b-lg relative ">
            <header class=" flex justify-center items-center">
-                <h1 class="text-3xl font-bold font-mono"> <i class="pi pi-slack mr-2" style="font-size: 1.5rem"></i>Technology Stack</h1>
-           </header>
+                <!-- <h1 class="text-3xl font-bold font-mono"> <i class="pi pi-slack mr-2" style="font-size: 1.5rem"></i>Technology Stack</h1> -->
+   <h1 class="text-3xl font-bold font-mono flex items-center cursor-pointer ">
+    <i class="pi pi-slack mr-2" style="font-size: 1.5rem"></i>
+    <span
+      v-for="(char, index) in techText.split('')"
+      :key="index"
+      :class="['text-gray-800', charHoverClasses[index], 'transition-colors duration-300']"
+    >
+     {{ char === ' ' ? '\u00A0' : char }}
+    </span>
+  </h1>
+            </header>
 
                 <div class="overflow-hidden    relative h-[150px] max-w-7xl m-auto">
 
@@ -182,66 +210,38 @@
                         </template>
                     </Card>
                 </article>
-
-
-
-
-
-
-
-
-
-
-
-                <!-- <article class="grid  lg:grid-cols-2 grid-cols-1 gap-12  ">
-                    <div class="" v-for="proj in project" key="proj.id">
-                            <Galleria :value="images" :numVisible="5" containerStyle="max-width: 640px"
-                                :showThumbnails="false" :showIndicators="true" :changeItemOnIndicatorHover="true">
-                                <template #item="slotProps">
-                                    <Image :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" image-class="h-96 w-[100vw] object-cover rounded-md" preview  />
-                                </template>
-                            </Galleria>
-                   
-                        <h1 class="text-2xl font-bold mt-4">{{ proj.proj_name }}</h1>     
-                        <p> {{ proj.proj_description }}</p>  
-                        <p class="text-md font-thin text-gray-500">Language: <span class="text-gray-800 text-md font-semibold">{{ proj.language.join(', ') }}</span> </p>                 
-                        <p class="text-md font-thin text-gray-500">Framework: <span class="text-gray-800 text-md font-semibold">{{ proj.framework.join(', ') }}</span> </p>                 
-                    </div>
-                </article> -->
             </div>
 
        
-                <!-- kann timeline -->
-<section class="card max-w-7xl m-auto px-4">
-    <header class="mt-24 md:mt-32 mb-10 flex justify-center">
-          <h1 class="text-3xl font-bold font-mono"><i class="pi pi-trophy mr-2" style="font-size: 1.5rem"></i>Achievements</h1>  
-    </header>
+            <!-- kann timeline -->
+            <section class="card max-w-7xl m-auto px-4">
+                <header class="mt-24 md:mt-32 mb-10 flex justify-center">
+                    <h1 class="text-3xl font-bold font-mono"><i class="pi pi-trophy mr-2" style="font-size: 1.5rem"></i>Achievements</h1>  
+                </header>
+                    <Timeline :value="events" :align="timelineAlign" class="customized-timeline">
+                        <template #marker="slotProps">
+                            <span class="flex w-6 h-6 items-center justify-center text-white rounded-full z-10 shadow-sm" :style="{ backgroundColor: slotProps.item.color }">
+                                <i :class="slotProps.item.icon"></i>
+                            </span>
+                        </template>
+                        <template #content="slotProps">
+                            <Card class="mt-4 !bg-gray-300 !shadow-none">
+                                <template #content>
+                                
+                                    <Image v-if="slotProps.item.image" :src="`/storage/output/${slotProps.item.image}`" :alt="slotProps.item.name"  image-class="w-96 shadow-sm rounded-md" preview />
+                                    <h1 class="text-lg font-bold">  {{ slotProps.item.proj_name }}</h1>
+                                    <p>
+                                        {{ slotProps.item.proj_description }}
+                                    </p>              
+                                </template>
+                                <template #footer>
+                                {{ slotProps.item.date }}
+                                </template>
 
-        <!-- <Timeline :value="events" align="alternate" class="customized-timeline"> -->
-        <Timeline :value="events" :align="timelineAlign" class="customized-timeline">
-            <template #marker="slotProps">
-                <span class="flex w-6 h-6 items-center justify-center text-white rounded-full z-10 shadow-sm" :style="{ backgroundColor: slotProps.item.color }">
-                    <i :class="slotProps.item.icon"></i>
-                </span>
-            </template>
-            <template #content="slotProps">
-                <Card class="mt-4 !bg-gray-300 !shadow-none">
-                    <template #content>
-                     
-                        <Image v-if="slotProps.item.image" :src="`/storage/output/${slotProps.item.image}`" :alt="slotProps.item.name"  image-class="w-96 shadow-sm rounded-md" preview />
-                        <h1 class="text-lg font-bold">  {{ slotProps.item.proj_name }}</h1>
-                        <p>
-                            {{ slotProps.item.proj_description }}
-                        </p>              
-                    </template>
-                    <template #footer>
-                       {{ slotProps.item.date }}
-                    </template>
-
-                </Card>
-            </template>
-        </Timeline>
-</section>
+                            </Card>
+                        </template>
+                    </Timeline>
+            </section>
 
  
 
@@ -258,33 +258,15 @@
 <script setup>
     import MainLayout from '@/Layouts/MainLayout.vue';
     import { ref, computed, watch, onMounted, onBeforeUnmount, onUnmounted  } from 'vue'
-  
     import IconField from 'primevue/iconfield';
     import InputIcon from 'primevue/inputicon';
-    import Divider from 'primevue/divider';
-
     import Card from 'primevue/card';
-
     import Dialog from 'primevue/dialog';
     import Image from 'primevue/image';
     //amo ini an knan monaco editor
     import MonacoEditor from '@/Pages/Admin/MonacoEditor/MonacoEditor.vue';
- 
-
-
-    import Accordion from 'primevue/accordion';
-    import AccordionPanel from 'primevue/accordionpanel';
-    import AccordionHeader from 'primevue/accordionheader';
-    import AccordionContent from 'primevue/accordioncontent';
-
-    import Carousel from 'primevue/carousel';
     import { data } from 'autoprefixer';
-
-    import Galleria from 'primevue/galleria';
     import Badge from 'primevue/badge';
-    import OverlayBadge from 'primevue/overlaybadge';
-
-    
     import Timeline from 'primevue/timeline';
 
 
@@ -315,28 +297,12 @@
     // ini na code is para han button categories ha main page na ma display an codex based ha category na gin click
     const currentFilter = ref('all')
 
-    // const currentCodex = ref('')
+
 
     const filteredItems = computed(() => {
         if (currentFilter.value === 'all') return props.data
         return props.data.filter(item => item.category_name === currentFilter.value)
     })
-
-    // const filteredCodex = computed(() => {
-    //     if (currentCodex.value === '') return props.data
-    //     return props.data.filter(item => item.codex_name === currentCodex.value)
-    // })
-
-
- 
- 
-
-
-
-
-
-
-
 
 
 
@@ -358,50 +324,13 @@
         categoryInfoDisp.value = true;
     }
 
- 
-
-
-
-
-// onMounted(() => {
-//     data.getProductsSmall().then((data) => (products.value = data.slice(0, 9)));
-// })
-
-
-// const products = computed(() => props.data);
-
-// const responsiveOptions = ref([
-//     {
-//         breakpoint: '1400px',
-//         numVisible: 2,
-//         numScroll: 1
-//     },
-//     {
-//         breakpoint: '1199px',
-//         numVisible: 3,
-//         numScroll: 1
-//     },
-//     {
-//         breakpoint: '767px',
-//         numVisible: 2,
-//         numScroll: 1
-//     },
-//     {
-//         breakpoint: '575px',
-//         numVisible: 1,
-//         numScroll: 1
-//     }
-// ]);
-
-
-const cardWidth = 200 + 16 // card width + margin (adjust if needed)
 const carouselRef = ref(null)
 const currentIndex = ref(0)
 let interval = null
 
 
 onMounted(() => {
-  console.log("Data received:", props.skill); // 🔍 see if array is filled
+ 
   interval = setInterval(() => {
     if (props.skill.length > 0) {
       currentIndex.value = (currentIndex.value + 1) % props.data.length;
@@ -418,8 +347,33 @@ const loopedData = computed(() => [...props.skill, ...props.skill])
 
 
 
+//---------------kanan hover colorful ----------------
+const techText = ref('Technology Stack')
 
+// List of Tailwind color classes for hover — choose your favorite!
+const hoverColorClasses = [
+  'hover:text-red-500',
+  'hover:text-orange-500',
+  'hover:text-amber-500',
+  'hover:text-yellow-500',
+  'hover:text-lime-500',
+  'hover:text-green-500',
+  'hover:text-emerald-500',
+  'hover:text-cyan-500',
+  'hover:text-sky-500',
+  'hover:text-blue-500',
+  'hover:text-indigo-500',
+  'hover:text-violet-500',
+  'hover:text-purple-500',
+  'hover:text-fuchsia-500',
+  'hover:text-pink-500',
+  'hover:text-rose-500'
+]
 
+// Function to assign a random hover color to each character
+const charHoverClasses = techText.value.split('').map(() => {
+  return hoverColorClasses[Math.floor(Math.random() * hoverColorClasses.length)]
+})
 
 
 //--------------------------- PROJECT -----------------------------
@@ -458,18 +412,6 @@ const getSeverity = (status) => {
   return statusSeverityMap[status] || 'secondary'
 }
 
-
-
-
-
-
-
-
-
-
-// const events = ref([
-//     { status: 'Ordered2', date: '15/10/2020 10:30', icon: 'pi pi-cog', color: '#9C27B0', image: 'game-controller.jpg' }, 
-// ]);
 
 //------------------------ kanan timeline -------------------
 const events = computed(() => {

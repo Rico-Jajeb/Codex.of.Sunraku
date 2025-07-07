@@ -23,6 +23,7 @@ class ScreenShotRequest extends FormRequest
     {
         return [
             'project_id' => 'nullable|string|max:255',
+            'features' => 'nullable|string|max:255',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:10240', // Image validation
         ];
     }
