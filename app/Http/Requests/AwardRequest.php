@@ -24,7 +24,7 @@ class AwardRequest extends FormRequest
         return [
            
             'award_title' => 'required|string|max:255',
-            'award_description' => 'required|string|max:255',
+            'award_description' => 'required|string|max:355',
             'issuer' => 'required|string|max:255',
             'Date' => 'required|string|max:255',
             'award_url' => 'nullable|string|max:255',

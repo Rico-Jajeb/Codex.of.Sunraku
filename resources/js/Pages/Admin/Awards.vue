@@ -128,10 +128,9 @@
                                 </div> 
                         </div>
                         <div class="mt-4">
-                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Update Date</label>
-                                <!-- <InputText class="!w-full" type="text" v-model="form.Date" name="category_name" placeholder="Insert Category Name, e.g (laravel, django, codeigniter..)" /> -->
-                                   <DatePicker v-model="form.Date" showIcon fluid :showOnFocus="false" inputId="buttondisplay" />
-                                <div v-if="form.errors.Date" class="text-red-500 text-sm mt-2">
+                                <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Update Date</label>   
+                                   <input type="date" v-model="form.Date">
+                                   <div v-if="form.errors.Date" class="text-red-500 text-sm mt-2">
                                     {{ form.errors.Date }}
                                 </div> 
                         </div>
@@ -317,6 +316,11 @@ import DatePicker from 'primevue/datepicker';
         },
     });
 };
+
+
+
+
+
 
 
 //---------------- content ---------

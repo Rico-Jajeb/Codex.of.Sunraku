@@ -15,6 +15,7 @@ use App\Services\DisplaySettingService;
 use App\Services\DisplayTechSkillService;
 use App\Services\DisplayProjectService;
 use App\Services\DisplayScreenShotService;
+use App\Services\DisplayAwardService;
 
 class MainPageController extends Controller
 {
@@ -25,10 +26,12 @@ class MainPageController extends Controller
     protected $DisplayTechSkillService;
     protected $DisplayProjectService;
     protected $DisplayScreenShotService;
+    protected $DisplayAwardService;
 
     public function __construct(CodexDisplayService $CodexDisplayService, DisplayCategoryCodexService $DisplayCategoryCodexService,
             DisplaySettingService $DisplaySettingService, DisplayTechSkillService $DisplayTechSkillService, 
-            DisplayProjectService $DisplayProjectService, DisplayScreenShotService $DisplayScreenShotService )
+            DisplayProjectService $DisplayProjectService, DisplayScreenShotService $DisplayScreenShotService,
+            DisplayAwardService $DisplayAwardService )
     {
         $this->CodexDisplayService = $CodexDisplayService;
         $this->DisplayCategoryCodexService = $DisplayCategoryCodexService;
@@ -36,6 +39,7 @@ class MainPageController extends Controller
         $this->DisplayTechSkillService = $DisplayTechSkillService;
         $this->DisplayProjectService = $DisplayProjectService;
         $this->DisplayScreenShotService = $DisplayScreenShotService;
+        $this->DisplayAwardService = $DisplayAwardService;
     }
 
 
@@ -47,6 +51,7 @@ class MainPageController extends Controller
         $skill = $this->DisplayTechSkillService->displayTech();
         $project = $this->DisplayProjectService->displayProject();
         $screenshotimg = $this->DisplayScreenShotService->getAllData();
+        $award = $this->DisplayAwardService->getData();
         
         return Inertia::render('Home/MainPage', [
             'canLogin' => Route::has('login'),
@@ -63,6 +68,7 @@ class MainPageController extends Controller
             'skill' => $skill,
             'project' => $project,
             'screenshotimg' => $screenshotimg,
+            'award' => $award,
         ]);
 
     }

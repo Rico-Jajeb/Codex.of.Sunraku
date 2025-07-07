@@ -23,8 +23,7 @@
             </div>
             <div class="">
                 <label for="Web Name" class="block mt-4 mb-2 text-md font-bold text-gray-700 dark:text-white">Date</label>
-              
-                <DatePicker v-model="form.Date" showIcon fluid :showOnFocus="false" inputId="buttondisplay" />
+                <input type="date" v-model="form.Date">
                 <div v-if="form.errors.Date" class="text-red-500 text-sm mt-2">
                     {{ form.errors.Date }}
                 </div>                 

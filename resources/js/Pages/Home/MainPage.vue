@@ -112,7 +112,7 @@
         <!-- kanan carousel in an mga skill -->
         <section class="bg-gray-300 py-32  rounded-b-lg relative ">
            <header class=" flex justify-center items-center">
-                <h1 class="text-3xl font-bold font-mono">Technology Stack</h1>
+                <h1 class="text-3xl font-bold font-mono"> <i class="pi pi-slack mr-2" style="font-size: 1.5rem"></i>Technology Stack</h1>
            </header>
 
                 <div class="overflow-hidden    relative h-[150px] max-w-7xl m-auto">
@@ -212,7 +212,11 @@
 
        
                 <!-- kann timeline -->
-<!-- <section class="card">
+<section class="card max-w-7xl m-auto px-4">
+    <header class="mt-32 mb-10 flex justify-center">
+          <h1 class="text-3xl font-bold font-mono"><i class="pi pi-trophy mr-2" style="font-size: 1.5rem"></i>Achievements</h1>  
+    </header>
+
         <Timeline :value="events" align="alternate" class="customized-timeline">
             <template #marker="slotProps">
                 <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" :style="{ backgroundColor: slotProps.item.color }">
@@ -223,37 +227,20 @@
                 <Card class="mt-4 !bg-gray-300 !shadow-none">
                     <template #content>
                      
-                        <Image v-if="slotProps.item.image" :src="`/storage/output/${slotProps.item.image}`" :alt="slotProps.item.name"  image-class="shadow-sm rounded-md" preview />
+                        <Image v-if="slotProps.item.image" :src="`/storage/output/${slotProps.item.image}`" :alt="slotProps.item.name"  image-class="w-96 shadow-sm rounded-md" preview />
                         <h1 class="text-lg font-bold">  {{ slotProps.item.proj_name }}</h1>
                         <p>
                             {{ slotProps.item.proj_description }}
                         </p>              
                     </template>
                     <template #footer>
-                            <div class="flex gap-4" >
-                                <div
-                                    v-for="fw in slotProps.item.language"
-                                    :key="fw"
-                                    :class="['px-2 py-1 rounded truncate overflow-x-hidden text-xs font-bold', languageColors[fw]?.bg || 'bg-gray-200', languageColors[fw]?.text || 'text-black']"
-                                    >
-                                    {{ fw }}
-                                </div>
-                            </div>
-                            <div class="flex gap-4 mt-1">
-                                <div
-                                    v-for="fw in slotProps.item.framework"
-                                    :key="fw"
-                                    :class="['px-2 py-1 rounded truncate overflow-x-hidden text-xs font-bold', frameworkColors[fw]?.bg || 'bg-gray-200', frameworkColors[fw]?.text || 'text-black']"
-                                    >
-                                    {{ fw }}
-                                </div>
-                            </div>
+                       {{ slotProps.item.date }}
                     </template>
 
                 </Card>
             </template>
         </Timeline>
-</section> -->
+</section>
 
         
 
@@ -311,6 +298,7 @@
         skill: Array,
         project: Array,
         screenshotimg: Array,
+        award: Array,
 
         setting: Object,
         canLogin: Boolean,
@@ -480,20 +468,19 @@ const getSeverity = (status) => {
 //     { status: 'Ordered2', date: '15/10/2020 10:30', icon: 'pi pi-cog', color: '#9C27B0', image: 'game-controller.jpg' }, 
 // ]);
 
-// const events = computed(() => {
-//     return props.project.map((proj) => ({
-//         date: proj.date ?? 'N/A',
-//         status: proj.status ?? 'Unknown',
-//         proj_name: proj.proj_name ?? 'Unknown',
-//         proj_description: proj.proj_description ?? 'Unknown',
-//         language: proj.language ?? 'Unknown',
-//         framework: proj.framework ?? 'Unknown',
-//         icon: proj.icon ?? 'pi pi-cog', // You can customize default icon
-//         color: proj.color ?? '#9C27B0',
-//         image: proj.img ?? null,
-//         name: proj.name ?? ''
-//     }));
-// });
+//------------------------ kanan timeline -------------------
+const events = computed(() => {
+    return props.award.map((proj) => ({
+        date: proj.Date ?? 'N/A',
+        proj_name: proj.award_title ?? 'Unknown',
+        proj_description: proj.award_description ?? 'Unknown',
+      
+        icon: proj.icon ?? 'pi pi-check-circle', // You can customize default icon
+        color: proj.color ?? '#000000',
+        image: proj.img ?? null,
+       
+    }));
+});
 
 
 
@@ -559,7 +546,7 @@ const frameworkColors = {
 </script>
 
 
-<style scoped>
+<style  scoped>
 @keyframes carousel {
   0% {
     transform: translateX(0);
