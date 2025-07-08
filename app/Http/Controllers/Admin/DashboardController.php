@@ -12,6 +12,7 @@ use App\Services\DisplayCategoryCodexService;
 use App\Services\CodexDisplayService;
 use App\Services\DisplayProjectService;
 use App\Services\DisplayTechSkillService;
+use App\Services\DisplayAwardService;
 
 
 
@@ -23,15 +24,18 @@ class DashboardController extends Controller
     protected $DisplayCategoryCodexService;
     protected $DisplayProjectService;
     protected $DisplayTechSkillService;
+    protected $DisplayAwardService;
 
     
     public function __construct( CodexDisplayService $CodexDisplayService, DisplayCategoryCodexService $DisplayCategoryCodexService,
-    DisplayProjectService $DisplayProjectService, DisplayTechSkillService $DisplayTechSkillService)
+    DisplayProjectService $DisplayProjectService, DisplayTechSkillService $DisplayTechSkillService,
+    DisplayAwardService $DisplayAwardService)
     {
         $this->DisplayCategoryCodexService = $DisplayCategoryCodexService;
         $this->CodexDisplayService = $CodexDisplayService;
         $this->DisplayProjectService = $DisplayProjectService;
         $this->DisplayTechSkillService = $DisplayTechSkillService;
+        $this->DisplayAwardService = $DisplayAwardService;
     }
     
 
@@ -44,12 +48,15 @@ class DashboardController extends Controller
         $codex = $this->CodexDisplayService->getAllData();
         $project = $this->DisplayProjectService->displayProject();
         $skill = $this->DisplayTechSkillService->displayTech();
+        $award = $this->DisplayAwardService->getData();
 
         return Inertia::render('Admin/Dashboard',[
             'data' => $data,
             'codex' => $codex,
             'project' => $project,
             'skill' => $skill,
+            'award' => $award,
+
         ]);
     }
 

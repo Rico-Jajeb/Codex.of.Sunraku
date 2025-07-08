@@ -25,6 +25,12 @@
                     <div class="mb-8" v-for="proj in project" :key="proj.id">
                         <Galleria :value="getImages(proj)" :numVisible="5"  containerStyle="max-width: 640px" :showThumbnails="false" :showIndicators="true" :changeItemOnIndicatorHover="true" >
                             <template #item="slotProps">
+                            <!-- <Image
+                                :src="slotProps.item.itemImageSrc"
+                                :alt="slotProps.item.alt"
+                                image-class="h-96 w-[100vw] object-cover "
+                                preview
+                            /> -->
                             <Image
                                 :src="slotProps.item.itemImageSrc"
                                 :alt="slotProps.item.alt"
@@ -37,11 +43,11 @@
                         <header class="md:mb-0 mb-12">
                             <h1 class="text-2xl font-bold text-white mt-4">{{ proj.proj_name }}</h1>
                             <p class="h-32 text-gray-400 text-lg font-medium">{{ proj.proj_description }}</p>  
-                            <p class=" text-gray-200 text-lg font-medium">features</p>  
+                            <p class="mt-10 md:mt-0 text-gray-200 text-lg font-medium">Key Features</p>  
                             <div class="" v-for="SC in screenshotimg" key="SC.id">
                                 <div v-if="proj.id == SC.project_id" class=" ">
                                       <div class="flex flex-wrap" v-if="SC.features && SC.features !== 'NULL'">
-                                              <li class="text-white">{{ SC.features }}</li>  
+                                              <li class="ml-4 text-white">{{ SC.features }}</li>  
                                       </div>
                                 </div>
                             </div>
@@ -151,7 +157,9 @@ function getImages(proj) {
     alt: proj.img || 'Main image'
   };
 
-  const screenshots = (props.screenshotimg ?? []).filter(ss => ss.project_id === proj.id);
+  const screenshots = (props.screenshotimg ?? [])
+    .filter(ss => ss.project_id === proj.id)
+    .filter(ss => ss.img && ss.img !== 'NULL'); // ✅ filter only screenshots with valid images
 
   const screenshotImages = screenshots.map(ss => ({
     itemImageSrc: `/storage/screenshot/${ss.img}`,

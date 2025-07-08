@@ -9,6 +9,36 @@
         <main class="pt-10">
        
             <section class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12 mb-36 bg-white overflow-hidden shadow-xl rounded-lg">
+
+                <nav class="grid  grid-cols-1 px-4 md:grid-cols-3 gap-4 pt-8 mb-8">
+
+                    <Link href="/systemProjects">
+                        <div class="bg-blue-200  shadow-lg  h-36  rounded-lg flex justify-center items-center">
+                            <h1 class="text-lg font-mono font-bold">
+                                {{ ProjectCounts2 }} Projects 
+                            </h1>
+                            <Chart type="pie" :data="chartData2" :options="chartOptions2" class="md:w-28" />
+                        </div>
+                    </Link>
+                    <Link href="/techSkill">
+                        <div class="bg-orange-200  shadow-lg  h-36  rounded-lg flex justify-center items-center">
+                            <h1 class="text-lg font-bold font-mono">
+                                {{ SkillCounts2 }} Skills 
+                            </h1>
+                            <Chart type="pie" :data="chartData4" :options="chartOptions4" class="md:w-28" />
+                        </div>
+                    </Link>  
+                    <Link href="/achievement">
+                        <div class="bg-gray-200  shadow-lg  h-36  rounded-lg flex justify-center items-center">
+                        <h1 class="text-lg font-bold font-mono">
+                                {{ AwardCounts2 }} Awards
+                        </h1>    
+                            <Chart type="pie" :data="chartData5" :options="chartOptions5" class="md:w-28" />
+                        </div>
+                    </Link>
+                  
+                </nav>
+
                 <div class="mt-4 px-4 md:px-0">
                     <label class="mr-2 font-bold">Select Year:</label>
                     <select v-model="selectedYear" class="border rounded p-1">
@@ -42,7 +72,7 @@
 
 
                 </article>
-                <article class="grid  grid-cols-1 md:grid-cols-2 mt-20">
+                <!-- <article class="grid  grid-cols-1 md:grid-cols-3 mt-20">
                         <section class="">
                             <div class=" flex justify-center">
                                 <Chart type="pie" :data="chartData2" :options="chartOptions2" class="md:w-80" />
@@ -59,7 +89,15 @@
                                 <h1 class="text-lg font-bold">Skill</h1>
                             </header>
                         </section>                   
-                </article>
+                        <section class="mt-8 md:mt-0">
+                            <div class=" flex justify-center">
+                                <Chart type="pie" :data="chartData5" :options="chartOptions5" class="md:w-80" />
+                            </div>
+                            <header class=" flex justify-center mt-2">
+                                <h1 class="text-lg font-bold">Skill</h1>
+                            </header>
+                        </section>                   
+                </article> -->
  
 
 
@@ -76,12 +114,21 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import Chart from 'primevue/chart';
 import { ref, onMounted, watch, computed } from "vue";
 
+import { Link } from '@inertiajs/vue3'
+
 const props = defineProps({
     data: Array,
     codex: Array,
     project: Array,
     skill: Array,
+    award: Array,
 });
+
+const ProjectCounts2 = props.project ? props.project.filter(p => p.id).length : 0;
+const SkillCounts2 = props.skill ? props.skill.filter(p => p.id).length : 0;
+const AwardCounts2 = props.award ? props.award.filter(p => p.id).length : 0;
+
+
 
 // Year filter
 const selectedYear = ref(new Date().getFullYear());
@@ -112,6 +159,8 @@ const availableYears = computed(() => {
     const chartOptions3 = ref();
     const chartData4 = ref();
     const chartOptions4 = ref();
+    const chartData5 = ref();
+    const chartOptions5 = ref();
 
     function getRandomColor() {
         const letters = '0123456789ABCDEF';
@@ -243,6 +292,47 @@ const availableYears = computed(() => {
             }
         };
     };
+    //----------------------- award --------------------
+
+    const setChartData5 = () => {
+        const documentStyle = getComputedStyle(document.body);
+        const dataCounts2 = props.award ? props.award.filter(p => p.id).length : 0;
+
+        return {
+            labels: ['Award'],
+            datasets: [
+                {
+                    data: [dataCounts2],
+                    backgroundColor: [
+                    
+                        
+                        documentStyle.getPropertyValue('--p-gray-500')
+                    ],
+                    hoverBackgroundColor: [
+                        
+                      
+                        documentStyle.getPropertyValue('--p-gray-400')
+                    ]
+                }
+            ]
+        };
+    };
+
+    const setChartOptions5 = () => {
+        const documentStyle = getComputedStyle(document.documentElement);
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+
+        return {
+            plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        color: textColor
+                    }
+                }
+            }
+        };
+    };
 
     //-------------------------- CATEGORY AND CODEX -------------------------------
     const setChartData3 = () => {
@@ -346,6 +436,9 @@ const availableYears = computed(() => {
         chartData4.value = setChartData4();
         chartOptions4.value = setChartOptions4();
 
+        chartData5.value = setChartData5();
+        chartOptions5.value = setChartOptions5();
+
         watch(
             () => [props.data, props.codex, props.project, selectedYear.value],
             () => {
@@ -360,6 +453,9 @@ const availableYears = computed(() => {
 
                 chartData4.value = setChartData4();
                 chartOptions4.value = setChartOptions4();
+
+                chartData5.value = setChartData5();
+                chartOptions5.value = setChartOptions5();
             },
             { immediate: true }
         );
