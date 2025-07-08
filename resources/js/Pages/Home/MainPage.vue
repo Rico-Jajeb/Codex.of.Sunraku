@@ -33,15 +33,7 @@
                         </p>
 
                     </header>
-                    <!-- <div class=" ">
-                        <IconField class="mx-auto md:!w-[640px] !w-80"  >
-                            <InputIcon class="pi pi-search" />
-                            <InputText v-model="value1" placeholder="Search codex by title, content, or tags..." class="!w-full" />
-                        </IconField>
-                    </div>       
-                    <div class="">
-                     
-                    </div>  -->
+                  
                 </section>
         </main>
        
@@ -155,7 +147,7 @@
                 
                     <div v-for="(item, index) in loopedData" :key="index" class="min-w-[200px] max-w-[200px] mx-2 h-32 mt-4   p-4">
                         <h3 class="font-bold text-lg text-gray-800">
-                            <Image  alt="user header" loading="lazy"   imageClass=" grayscale hover:grayscale-0 transition w-20 h-20 "  :src="`/storage/output/${item.img}`" />
+                            <Image  alt="user header" loading="lazy"   imageClass=" grayscale hover:grayscale-0 transition w-20 h-20 transition transform hover:-translate-y-2"  :src="`/storage/output/${item.img}`" />
                         </h3>
                     </div>
                     </div>
@@ -171,7 +163,7 @@
                 
                 <article class="grid  lg:grid-cols-3 grid-cols-1  gap-12 px-3 md:px-0">
                    
-                    <Card style="width: 25rem; overflow: hidden" v-for="proj in  project.filter(p => p.highlight === 'Yes')" key="proj.id" class="!w-80 md:!w-full" >
+                    <Card style="width: 25rem; overflow: hidden" v-for="proj in  project.filter(p => p.highlight === 'Yes')" key="proj.id" class="!w-80 md:!w-full transition transform hover:-translate-y-2" >
                         <template #header>
                             <Image image-class="h-64" alt="project Image" loading="lazy" preview :src="`/storage/output/${proj.img}`"   />
                         </template>
@@ -225,10 +217,10 @@
                             </span>
                         </template>
                         <template #content="slotProps">
-                            <Card class="mt-4 !bg-gray-300 !shadow-none">
+                            <Card class="mt-4 !bg-gray-300 !shadow-none transition transform hover:-translate-y-2">
                                 <template #content>
                                 
-                                    <Image v-if="slotProps.item.image" :src="`/storage/output/${slotProps.item.image}`" :alt="slotProps.item.name"  image-class="w-96 shadow-sm rounded-md" preview />
+                                    <Image v-if="slotProps.item.image" :src="`/storage/output/${slotProps.item.image}`" :alt="slotProps.item.name"  image-class="w-96 shadow-sm rounded-md " preview />
                                     <h1 class="text-lg font-bold">  {{ slotProps.item.proj_name }}</h1>
                                     <p>
                                         {{ slotProps.item.proj_description }}

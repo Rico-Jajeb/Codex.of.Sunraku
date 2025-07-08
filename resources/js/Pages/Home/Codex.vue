@@ -11,19 +11,22 @@
    
         <main class=" pt-24 max-w-7xl m-auto">
 
-            <section class=" flex items-center mb-4">
-                <button type="button" label="Show" @click="visible = true" class="z-50 mx-auto text-gray-500 border-gray-400 border-2 rounded-md px-4 py-1"><i class="pi pi-search mr-4" style="font-size: 1rem"></i> Search codex by title, content, or tags...</button>
+            <section class=" flex items-center mb-4 px-4 md:px-0">
+                <button class="ml-4 md:hidden" @click="visible2 = true"> <i class="pi pi-bars" style="font-size: 1.1rem"></i></button>
+                <button type="button" label="Show" @click="visible = true" class="z-10 mx-auto text-gray-500 border-gray-400 border-2 rounded-md px-4 py-1"><i class="pi pi-search mr-4" style="font-size: 1rem"></i> Search codex by title...</button>
             </section> 
+
 
             <section class="flex">
                 <!-- Sticky Sidebar -->
-                <aside class=" sticky top-24 h-screen overflow-y-auto overflow-x-hidden  w-1/6 border-r-2 border-gray-700">
+
+                <aside class="hidden md:block sticky top-24 h-screen overflow-y-auto overflow-x-hidden   md:w-1/6 border-r-2 border-gray-700">
                     <header class="mb-4">
-                        <h1 class="text-lg font-bold text-gray-500">Codex Category</h1>
+                        <h1 class=" md:text-lg font-bold text-gray-500">Codex Category</h1>                    
                     </header>
                     <nav class=" overflow-y-auto  hover:text-gray-400" v-for="cat in category" :key="cat.id">
                     
-                        <button type="button"  @click="codeee(cat.category_name)" class=" font-medium w-full text-left">
+                        <button type="button"  @click="codeee(cat.category_name)" class=" font-medium w-full md:text-left">
                             {{ cat.category_name }} 
                         </button>
 
@@ -36,19 +39,24 @@
                     </nav>
     
                 </aside>
-                <!-- Scrollable Content -->
-                <section class=" w-5/6 overflow-y-auto">
-                    <!-- Simulated long content -->
-                    <div class="h-[2000px] pl-32 mt-8" >
-                        <div  class=" " v-for="codex in data" :key="codex.id">
-                            <div v-if="selectCodex === codex.id" class=" pl-8 ">
+            
+
+                <section class="w-6/6 md:w-5/6 overflow-y-auto">
+                    <div class="md:h-[2000px] pl-0 pr-2 md:pl-32 mt-8">
+                        <div v-if="selectCodex">
+                        <div v-for="codex in data" :key="codex.id">
+                            <div v-if="selectCodex === codex.id" class="pl-8">
                                 <header>
                                     <h1 class="text-lg font-bold"> <span class="text-gray-500">Codex:</span> {{ codex.codex_name }}</h1>
                                 </header>
                                 <section class="mt-8">
                                     <p class="text-gray-900 ">Category:  <span class="text-gray-500">{{ codex.category_name }}</span> </p>
                                     <p class="text-gray-900 mt-2">Language:  <span class="text-gray-500">{{ codex.language.join(', ')  }}</span> </p>
-                                    <p class="text-gray-900 mt-2">Frameworks:  <span class="text-gray-500">{{ codex.framework.join(', ')  }}</span> </p>
+                                    <p class="text-gray-900 mt-2">Frameworks: 
+                                         <span class="text-gray-500">{{ codex.framework.join(', ')  }}</span> 
+                                    </p>
+                                 
+                                    
                                     <p class="text-gray-900 mt-2">Tags:  <span class="text-gray-500">{{ codex.tags  }}</span> </p>
                                     <p class="text-gray-900 mt-2">Level:  <span class="text-gray-500">{{ codex.diffuclt_level  }}</span> </p>
 
@@ -70,11 +78,18 @@
                                         <Image  alt="user header" loading="lazy"  preview imageClass="shadow-md rounded-xl w-full md:h-40 h-64 "  :src="`/storage/output/${codex.img}`" />
                                     </div>
                                 </section>
-                            </div>    
-                        </div>   
+                            </div>
+                        </div>
                     </div>
+                            <div v-else class="pl-8 text-gray-600">
+                                    <h1 class="text-2xl font-bold mb-4">Welcome to {{setting.system_name }} Codex Documentation 🎉</h1>
+                                    <p class="mb-2">Select a codex on the left to explore detailed information including code snippets, frameworks, and outputs.</p>
+                                    <p class="mb-2">This codex system is designed to help you document, manage, and quickly reference your important code and technical notes.</p>
+                                    <p>Use the sidebar to browse categories or try the search feature to jump right in.</p>
+                                    </div>
+                            </div>
+                    </section>
                 </section>
-            </section>
         </main>
 
         <!-- kanan search modal ini -->
@@ -91,6 +106,21 @@
             </section>
         </Dialog>
 
+        <Drawer v-model:visible="visible2" header="Codex Category">
+            <nav class=" overflow-y-auto  hover:text-gray-400" v-for="cat in category" :key="cat.id">
+            
+                <button type="button"  @click="codeee(cat.category_name)" class="text-gray-900 font-medium w-full text-left ">
+                    {{ cat.category_name }} 
+                </button>
+
+                <div   v-if="selected === cat.category_name"  class="mt-1 space-y-2 transition-all duration-300 bg-yellow-300 overflow-y-auto  " v-for="codex in data" :key="codex.id">
+                    <div v-if="selected === codex.category_name" class="bg-white h-20 overflow-hidden hover:text-gray-400  p-3 ">
+                        <button type="button"  @click="dispCodex(codex.id)" class=" w-full text-start text-gray-700 hover:text-gray-400">{{ codex.codex_name }}</button>
+                    </div>    
+                </div>                   
+
+            </nav>
+        </Drawer>
     </MainLayout>
 </template>
 
@@ -104,6 +134,9 @@
     import 'primeicons/primeicons.css'
     //amo ini an knan monaco editor
     import MonacoEditor from '@/Pages/Admin/MonacoEditor/MonacoEditor.vue';
+    
+    import Drawer from 'primevue/drawer';
+   
  
     const props = defineProps({
         data: Array,
@@ -115,6 +148,9 @@
         phpVersion: String,
     });
  
+
+
+    const visible2 = ref(false);
 
     const show = ref(false)
     const selected = ref(null)
@@ -140,6 +176,7 @@
         selectCodex.value = item
         
         visible.value = false;
+        visible2.value = false;
     }
 
 

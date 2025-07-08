@@ -13,7 +13,7 @@
                 <nav class="grid  grid-cols-1 px-4 md:grid-cols-3 gap-4 pt-8 mb-8">
 
                     <Link href="/systemProjects">
-                        <div class="bg-blue-200  shadow-lg  h-36  rounded-lg flex justify-center items-center">
+                        <div class="bg-blue-200  shadow-lg  h-36  rounded-lg flex justify-center items-center transition transform hover:-translate-y-2">
                             <h1 class="text-lg font-mono font-bold">
                                 {{ ProjectCounts2 }} Projects 
                             </h1>
@@ -21,7 +21,7 @@
                         </div>
                     </Link>
                     <Link href="/techSkill">
-                        <div class="bg-orange-200  shadow-lg  h-36  rounded-lg flex justify-center items-center">
+                        <div class="bg-orange-200  shadow-lg  h-36  rounded-lg flex justify-center items-center transition transform hover:-translate-y-2">
                             <h1 class="text-lg font-bold font-mono">
                                 {{ SkillCounts2 }} Skills 
                             </h1>
@@ -29,7 +29,7 @@
                         </div>
                     </Link>  
                     <Link href="/achievement">
-                        <div class="bg-gray-200  shadow-lg  h-36  rounded-lg flex justify-center items-center">
+                        <div class="bg-gray-200  shadow-lg  h-36  rounded-lg flex justify-center items-center transition transform hover:-translate-y-2">
                         <h1 class="text-lg font-bold font-mono">
                                 {{ AwardCounts2 }} Awards
                         </h1>    
