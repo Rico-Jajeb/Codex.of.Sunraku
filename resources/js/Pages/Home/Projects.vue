@@ -11,7 +11,7 @@
         <section class="bg-gray-800 rounded-b-lg">
 
        
-        <main class="pt-24 max-w-7xl m-auto ">
+        <main class="pt-24 max-w-7xl m-auto px-0 md:px-8">
             <section class="flex justify-center mt-8 md:mt-32 ">
                 <header class="text-center">
                     <h1 class="text-4xl text-white font-bold">My Projects</h1>
@@ -94,7 +94,10 @@
 
 
         </main>
-
+     <div>
+                <!-- amo ini an kanan pop up notif pag nag submit msg -->
+                <Toast />
+            </div>
         </section>
     </MainLayout>
 </template>
@@ -109,6 +112,11 @@
     import Badge from 'primevue/badge';
     import Card from 'primevue/card';
   import Galleria from 'primevue/galleria';
+    import { usePage } from '@inertiajs/vue3'
+    import { useToast } from 'primevue/usetoast'
+
+    const page = usePage()
+    const toast = useToast()
 
     const props = defineProps({
         data: Array,

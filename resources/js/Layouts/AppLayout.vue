@@ -28,8 +28,9 @@ const logout = () => {
 </script>
 
 <template>
+     <Head :title="title" />
     <div>
-        <Head :title="title" />
+       
 
         <Banner />
 

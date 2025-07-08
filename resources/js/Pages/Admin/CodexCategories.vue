@@ -254,7 +254,7 @@
                         <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
 
                         <!-- <Column field="codex_name" header="codex_name" sortable /> -->
-                        <Column field="content" header="content" sortable>
+                        <Column field="content" header="Codex" sortable>
                             <template #body="slotProps">
                                 <button type="button"   @click="openContentModal(slotProps.data.codex_name, 'Codex name')" v-tooltip.top="'Click to View Codex'">
                                     <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px]">
@@ -264,8 +264,19 @@
                             </template>
                         </Column>
                         <Column field="category_name" header="category_name" sortable />
+                        <Column class="!text-end" header="Action">
+                            <template #body="{ data }">
+                                <nav class="flex gap-1">
+                                    <button @click="editCodexModal(data)" class=" py-2 px-4" v-tooltip.top="'Click to Edit'"><i class="pi pi-pencil" ></i></button>     
+                                    <button type="button" @click="deleteModalCodex(data)" class="mx-4" v-tooltip.top="'Click to Delete'">
+                                        <i class="pi pi-trash" style="font-size: 1rem"></i>
+                                    </button>                                  
+                                </nav>
+
+                            </template>
+                        </Column>
                         <!-- <Column field="language" header="language" sortable /> -->
-                        <Column field="content" header="content" sortable>
+                        <Column field="content" header="Language" sortable>
                             <template #body="slotProps">
                                 <button type="button"   @click="openContentModal(slotProps.data.language, 'Language')" v-tooltip.top="'Click to View Language'">
                                     <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px]">
@@ -275,7 +286,7 @@
                             </template>
                         </Column>
                         <!-- <Column field="framework" header="framework" sortable /> -->
-                        <Column field="content" header="content" sortable>
+                        <Column field="content" header="Framework" sortable>
                             <template #body="slotProps">
                                 <button type="button"   @click="openContentModal(slotProps.data.framework, 'Framewrok')" v-tooltip.top="'Click to View Framework'">
                                     <div class="overflow-hidden text-ellipsis  whitespace-nowrap max-w-[200px]">
@@ -336,17 +347,7 @@
                                 </template>
                             </Column>
 
-                        <Column class="!text-end">
-                            <template #body="{ data }">
-                                <nav class="flex gap-1">
-                                    <button @click="editCodexModal(data)" class=" py-2 px-4" v-tooltip.top="'Click to Edit'"><i class="pi pi-pencil" ></i></button>     
-                                    <button type="button" @click="deleteModalCodex(data)" class="mx-4" v-tooltip.top="'Click to Delete'">
-                                        <i class="pi pi-trash" style="font-size: 1rem"></i>
-                                    </button>                                  
-                                </nav>
-
-                            </template>
-                        </Column>
+                
                     </DataTable>
        
 
@@ -480,7 +481,7 @@
 
                         <nav class="">
                             <!-- <button type="submit" :disabled="codexform.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Codex</button>                     -->
-                                  <button type="submit">Update Category</button>
+                                  <button type="submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3">Update Codex</button>
                         </nav>
 
                     </form>      

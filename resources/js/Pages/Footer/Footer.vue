@@ -14,7 +14,10 @@
                         <a :href="setting.linked" target="_blank" rel="noopener noreferrer" ><i class="pi pi-linkedin" style="font-size: 1.5rem"></i></a>
                         <a :href="setting.github" target="_blank" rel="noopener noreferrer" ><i class="pi pi-github" style="font-size: 1.5rem"></i></a>
                    </nav> 
-                    <button><i class="pi pi-envelope" style="font-size: 1.3rem">: <span class="text-sm md:text-lg">{{ setting.email }}</span> </i></button>
+                   <div class="">
+                    <button @click="categoryInfoDisp = true"><i class="pi pi-envelope" style="font-size: 1.3rem">:  </i></button>            <span class="text-sm md:text-lg">{{ setting.email }}</span>        
+                   </div>
+
                    
 
                 </section>
@@ -27,7 +30,9 @@
                 <h1 class="text-sm md:text-md">© 2025 {{ setting.system_name }}. <br> Built with Laravel & Vue.js. <br> All rights reserved.</h1>
                 <h1 class="text-sm md:text-md">Design and developed by: RJC </h1>
             </section>
-        
+          <Dialog  v-model:visible="categoryInfoDisp" maximizable   :header="`Contact  `" :style="{ width: '600px' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"  >
+        <EmailForm/>
+    </Dialog>
     </footer> 
 </template>
 
@@ -35,7 +40,9 @@
 import { ref } from 'vue';
  import Divider from 'primevue/divider';
 import { Head, Link, router } from '@inertiajs/vue3';
+   import Dialog from 'primevue/dialog';
 
+    import EmailForm from '../Admin/Forms/EmailForm.vue';
 
     const props = defineProps({
         data: Array,
@@ -47,5 +54,5 @@ import { Head, Link, router } from '@inertiajs/vue3';
         phpVersion: String,
     });
  
-
+const categoryInfoDisp = ref(false);
 </script>

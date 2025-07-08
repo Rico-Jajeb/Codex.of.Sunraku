@@ -13,7 +13,7 @@
             <img alt="System Background" loading="lazy" :src="`/storage/output/${setting.system_favicon}`" class="absolute inset-0 w-full h-full object-cover -z-10" />
                 <section class=" max-w-7xl m-auto flex justify-center items-center">
                     <header class="text-center pt-10 pb-4">
-                        <h1 class="text-4xl md:text-7xl font-extrabold mt-0 md:mt-40 cursor-pointer" style="-webkit-text-stroke: 0.5px black;">
+                        <h1 class="text-4xl md:text-7xl font-extrabold mt-0  xl:mt-10 2xl:mt-40 cursor-pointer" style="-webkit-text-stroke: 0.5px black;">
                             <span
                             v-for="(char, index) in setting.system_slogan.split('')"
                             :key="index"
@@ -40,7 +40,7 @@
         <article class=" flex flex-row  " >
             <section class="bg-gray-300 w-full  pb-4  rounded-t-lg  relative">
 
-                <header class=" flex justify-between px-4 py-8 max-w-7xl m-auto">
+                <header class=" flex justify-between  py-8 max-w-7xl m-auto px-4 md:px-8">
                     <div class="">
                         <h1 class="text-3xl font-bold cursor-pointer">Recent Codex</h1>
                         <p class="text-lg font-medium text-gray-800 mt-1 cursor-pointer">Latest documentation and code snippets from my knowledge base.</p>                        
@@ -48,7 +48,7 @@
                     </div>
                 </header>
                 <!-- amo ini an kanan card -->
-                <section class="grid md:grid-cols-4 grid-cols-1    flex-wrap justify-center gap-4 w-full mt-4  max-w-7xl m-auto px-8 md:px-0">
+                <section class="grid md:grid-cols-4 grid-cols-1    flex-wrap justify-center gap-4 w-full mt-4  max-w-7xl m-auto px-8  md:px-8 ">
                     <Card   class=" !w-sm !md:w-sm !h-md !shadow-lg transition transform hover:-translate-y-2" v-for="item in filteredItems.slice().reverse().slice(0, 4)" :key="item.id" >
                         <template #title>
                             <header class="">
@@ -155,7 +155,7 @@
         </section>    
 
         <section class="w-full bg-gray-300 pb-36 pt-8">
-            <div class="max-w-7xl m-auto px-4">
+            <div class="max-w-7xl m-auto px-4  md:px-8">
                 <header class="mb-12 ">
                     <h1 class="text-lg text-gray-800">HIGHLIGHTS</h1>
                     <h1 class="text-4xl text-gray-800 font-bold">Exclusive Project</h1>

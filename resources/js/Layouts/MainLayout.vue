@@ -1,4 +1,23 @@
+<script setup>
+
+    import Header from '@/Pages/Header/Header.vue';
+    import Footer from '@/Pages/Footer/Footer.vue';
+import { Head, Link, router } from '@inertiajs/vue3';
+const props = defineProps({
+    data: Array,
+    category: Array,
+    setting: Object,
+    canLogin: Boolean,
+    canRegister: Boolean,
+    laravelVersion: String,
+    phpVersion: String,
+});
+
+</script>
+
 <template >
+      <Head :title="title" />
+
     <Header
         :data="data"
         :category="category"
@@ -23,19 +42,3 @@
     />
 </template>
 
-<script setup>
-
-    import Header from '@/Pages/Header/Header.vue';
-    import Footer from '@/Pages/Footer/Footer.vue';
-
-const props = defineProps({
-    data: Array,
-    category: Array,
-    setting: Object,
-    canLogin: Boolean,
-    canRegister: Boolean,
-    laravelVersion: String,
-    phpVersion: String,
-});
-
-</script>

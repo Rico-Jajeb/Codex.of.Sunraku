@@ -6,10 +6,10 @@
         :can-login="canLogin"
         :can-register="canRegister"
         :laravel-version="laravelVersion"
-        :php-version="phpVersion"  >
+        :php-version="phpVersion" title="Codex" >
         
    
-        <main class=" pt-24 max-w-7xl m-auto">
+        <main class=" pt-24 max-w-7xl m-auto px-0 md:px-8">
 
             <section class=" flex items-center mb-4 px-4 md:px-0">
                 <button class="ml-4 md:hidden" @click="visible2 = true"> <i class="pi pi-bars" style="font-size: 1.1rem"></i></button>
@@ -24,17 +24,34 @@
                     <header class="mb-4">
                         <h1 class=" md:text-lg font-bold text-gray-500">Codex Category</h1>                    
                     </header>
-                    <nav class=" overflow-y-auto  hover:text-gray-400" v-for="cat in category" :key="cat.id">
+                    <nav class="  overflow-x-hidden overflow-y-auto  hover:text-gray-400" v-for="cat in category" :key="cat.id">
                     
                         <button type="button"  @click="codeee(cat.category_name)" class=" font-medium w-full md:text-left">
                             {{ cat.category_name }} 
-                        </button>
+                        </button>     
+                       <!-- Outer scrollable container -->
+                        <div
+                        v-if="selected === cat.category_name"
+                        class="overflow-x-hidden overflow-y-auto mt-1 space-y-2 transition-all duration-300"
+                        style="max-height: 300px;"  
+                        >
+                        <!-- Only show codex items matching selected category -->
+                        <div
+                            v-for="codex in data.filter(c => c.category_name === selected)"
+                            :key="codex.id"
+                            class="bg-white h-20 overflow-hidden hover:text-gray-400 p-3"
+                        >
+                            <button
+                            type="button"
+                            @click="dispCodex(codex.id)"
+                            class="w-full text-start text-gray-700 hover:text-gray-400"
+                            >
+                            {{ codex.codex_name }}
+                            </button>
+                        </div>
+                        </div>
 
-                        <div   v-if="selected === cat.category_name"  class="mt-1 space-y-2 transition-all duration-300 bg-yellow-300 overflow-y-auto  " v-for="codex in data" :key="codex.id">
-                            <div v-if="selected === codex.category_name" class="bg-white h-20 overflow-hidden hover:text-gray-400  p-3 ">
-                                <button type="button"  @click="dispCodex(codex.id)" class=" w-full text-start text-gray-700 hover:text-gray-400">{{ codex.codex_name }}</button>
-                            </div>    
-                        </div>                   
+                  
 
                     </nav>
     
@@ -121,6 +138,12 @@
 
             </nav>
         </Drawer>
+
+             <div>
+                <!-- amo ini an kanan pop up notif pag nag submit msg -->
+                <Toast />
+            </div>
+        
     </MainLayout>
 </template>
 
@@ -136,7 +159,14 @@
     import MonacoEditor from '@/Pages/Admin/MonacoEditor/MonacoEditor.vue';
     
     import Drawer from 'primevue/drawer';
-   
+       import { usePage } from '@inertiajs/vue3'
+    import { useToast } from 'primevue/usetoast'
+
+import VirtualScroller from 'primevue/virtualscroller';
+
+    const page = usePage()
+    const toast = useToast()
+
  
     const props = defineProps({
         data: Array,
@@ -155,6 +185,9 @@
     const show = ref(false)
     const selected = ref(null)
 
+
+   
+
     function codeee(item){
         //ini na code is an knn category button ini, bali pag gin click an category button ha documentation page, 
         // ma display an codex based ha category na gin click
@@ -164,6 +197,9 @@
         } else {
             selected.value = item
         }
+
+
+
     }
 
 
@@ -191,6 +227,7 @@
         p.codex_name.toLowerCase().includes(search.value.toLowerCase())
     )
     )
+
 
 
 

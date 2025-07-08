@@ -1,5 +1,6 @@
 <template>
-       <header class="h-20 flex gap-4 justify-between  max-w-7xl m-auto fixed top-0 right-0 left-0 mt-0 md:mt-3  z-50">
+ 
+       <header class="h-20 flex gap-4 xl:px-8 2xl:px-0 justify-between  max-w-7xl m-auto fixed top-0 right-0 left-0 mt-0 md:mt-3  z-50">
         <!-- Logo or Site Name -->
         <div class=" flex items-center gap-4 pl-4 pt-1 md:pt-0 md:pl-0">
                 <Image alt="Logo" loading="lazy" :src="`/storage/output/${setting.system_logo}`" imageClass="h-14 w-14 rounded-full " preview />  
@@ -35,6 +36,10 @@
                   <Link href="Home"  v-if="(page.url.includes('document') || page.url.includes('projects'))" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Home</Link>
                   <Link href="document" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Codex</Link>
                   <Link href="projects" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Projects</Link>
+                  <div class="">
+                     <button @click="categoryInfoDisp = true" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]"  >Contact</button>                  
+                  </div>
+
                
               </nav>
             </div>
