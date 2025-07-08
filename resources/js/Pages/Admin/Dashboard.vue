@@ -72,32 +72,7 @@
 
 
                 </article>
-                <!-- <article class="grid  grid-cols-1 md:grid-cols-3 mt-20">
-                        <section class="">
-                            <div class=" flex justify-center">
-                                <Chart type="pie" :data="chartData2" :options="chartOptions2" class="md:w-80" />
-                            </div>
-                            <header class=" flex justify-center mt-2">
-                                <h1 class="text-lg font-bold">Project</h1>
-                            </header>
-                        </section>                   
-                        <section class="mt-8 md:mt-0">
-                            <div class=" flex justify-center">
-                                <Chart type="pie" :data="chartData4" :options="chartOptions4" class="md:w-80" />
-                            </div>
-                            <header class=" flex justify-center mt-2">
-                                <h1 class="text-lg font-bold">Skill</h1>
-                            </header>
-                        </section>                   
-                        <section class="mt-8 md:mt-0">
-                            <div class=" flex justify-center">
-                                <Chart type="pie" :data="chartData5" :options="chartOptions5" class="md:w-80" />
-                            </div>
-                            <header class=" flex justify-center mt-2">
-                                <h1 class="text-lg font-bold">Skill</h1>
-                            </header>
-                        </section>                   
-                </article> -->
+           
  
 
 

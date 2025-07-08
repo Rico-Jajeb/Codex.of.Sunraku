@@ -8,12 +8,16 @@
         :laravel-version="laravelVersion"
         :php-version="phpVersion" title="Codex" >
         
-   
-        <main class=" pt-24 max-w-7xl m-auto px-0 md:px-8">
+   <section class="" :class="testClass">   
+        <main class=" pt-24 max-w-7xl m-auto px-0 md:px-8 ">
 
             <section class=" flex items-center mb-4 px-4 md:px-0">
+    
                 <button class="ml-4 md:hidden" @click="visible2 = true"> <i class="pi pi-bars" style="font-size: 1.1rem"></i></button>
                 <button type="button" label="Show" @click="visible = true" class="z-10 mx-auto text-gray-500 border-gray-400 border-2 rounded-md px-4 py-1"><i class="pi pi-search mr-4" style="font-size: 1rem"></i> Search codex by title...</button>
+                <button @click="toggleA"  class=" mt-2 px-4 py-2 text-white rounded flex items-center space-x-2">
+                    <i :class="isAActive ? 'pi pi-moon' : 'pi pi-sun text-gray-600'"></i>
+                </button>
             </section> 
 
 
@@ -39,7 +43,7 @@
                         <div
                             v-for="codex in data.filter(c => c.category_name === selected)"
                             :key="codex.id"
-                            class="bg-white h-20 overflow-hidden hover:text-gray-400 p-3"
+                            class="h-20 overflow-hidden hover:text-gray-400 p-3"
                         >
                             <button
                             type="button"
@@ -67,28 +71,28 @@
                                     <h1 class="text-lg font-bold"> <span class="text-gray-500">Codex:</span> {{ codex.codex_name }}</h1>
                                 </header>
                                 <section class="mt-8">
-                                    <p class="text-gray-900 ">Category:  <span class="text-gray-500">{{ codex.category_name }}</span> </p>
-                                    <p class="text-gray-900 mt-2">Language:  <span class="text-gray-500">{{ codex.language.join(', ')  }}</span> </p>
-                                    <p class="text-gray-900 mt-2">Frameworks: 
+                                    <p :class="testClass" class="text-gray-900 ">Category:  <span class="text-gray-500">{{ codex.category_name }}</span> </p>
+                                    <p :class="testClass" class="text-gray-900 mt-2">Language:  <span class="text-gray-500">{{ codex.language.join(', ')  }}</span> </p>
+                                    <p :class="testClass" class="text-gray-900 mt-2">Frameworks: 
                                          <span class="text-gray-500">{{ codex.framework.join(', ')  }}</span> 
                                     </p>
                                  
                                     
-                                    <p class="text-gray-900 mt-2">Tags:  <span class="text-gray-500">{{ codex.tags  }}</span> </p>
-                                    <p class="text-gray-900 mt-2">Level:  <span class="text-gray-500">{{ codex.diffuclt_level  }}</span> </p>
+                                    <p :class="testClass" class="text-gray-900 mt-2">Tags:  <span class="text-gray-500">{{ codex.tags  }}</span> </p>
+                                    <p :class="testClass" class="text-gray-900 mt-2">Level:  <span class="text-gray-500">{{ codex.diffuclt_level  }}</span> </p>
 
-                                    <p class="text-gray-900 mt-6">Content</p>
+                                    <p :class="testClass" class="text-gray-900 mt-6">Content</p>
                                     <p class="text-gray-500 mt-4 whitespace-pre-line break-words overflow-hidden">{{ codex.content  }}</p>
 
-                                    <p class="text-gray-900 mt-6">Instructions</p>
+                                    <p :class="testClass" class="text-gray-900 mt-6">Instructions</p>
                                     <p class="text-gray-500 mt-4  break-words overflow-hidden whitespace-pre-line">{{ codex.instructions  }}</p>
 
                                     <div class="my-4">
-                                        <label for="" class="text-md text-gray-900 font-bold ">Code: </label>
+                                        <label for="" :class="testClass" class="text-md text-gray-900 font-bold ">Code: </label>
                                         <MonacoEditor language="javascript" class="h-86"  v-model="codex.code_snippet"  />                                
                                     </div>
                             
-                                    <p class="text-gray-900 mt-6">Output</p>
+                                    <p :class="testClass" class="text-gray-900 mt-6">Output</p>
                                     <p class="text-gray-500 mt-4 whitespace-pre-line break-words overflow-hidden">{{ codex.output  }}</p>
 
                                     <div class="mt-6">
@@ -108,9 +112,9 @@
                     </section>
                 </section>
         </main>
-
+ </section>
         <!-- kanan search modal ini -->
-        <Dialog v-model:visible="visible" maximizable  modal header="Search Codex" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+        <Dialog  v-model:visible="visible" maximizable  modal header="Search Codex" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
             <IconField class="mx-auto md:!w-[640px] !w-80"  >
                 <InputIcon class="pi pi-search" />
                 <InputText v-model="search" placeholder="Search codex by title..." class="!w-[280px] md:!w-[640px]" />
@@ -130,7 +134,7 @@
                     {{ cat.category_name }} 
                 </button>
 
-                <div   v-if="selected === cat.category_name"  class="mt-1 space-y-2 transition-all duration-300 bg-yellow-300 overflow-y-auto  " v-for="codex in data" :key="codex.id">
+                <div   v-if="selected === cat.category_name"  class="mt-1 space-y-2 transition-all duration-300  overflow-y-auto  " v-for="codex in data" :key="codex.id">
                     <div v-if="selected === codex.category_name" class="bg-white h-20 overflow-hidden hover:text-gray-400  p-3 ">
                         <button type="button"  @click="dispCodex(codex.id)" class=" w-full text-start text-gray-700 hover:text-gray-400">{{ codex.codex_name }}</button>
                     </div>    
@@ -145,6 +149,7 @@
             </div>
         
     </MainLayout>
+    
 </template>
 
 <script setup>
@@ -161,6 +166,8 @@
     import Drawer from 'primevue/drawer';
        import { usePage } from '@inertiajs/vue3'
     import { useToast } from 'primevue/usetoast'
+
+import ToggleSwitch from 'primevue/toggleswitch';
 
 import VirtualScroller from 'primevue/virtualscroller';
 
@@ -229,6 +236,27 @@ import VirtualScroller from 'primevue/virtualscroller';
     )
 
 
+
+
+//----------- dark mode -----------
+
+const testClass = ref('') // Start with no additional class
+
+function a() {
+  // Return the class string
+  return 'bg-gray-900 text-white'
+}
+
+const isAActive = ref(false)
+function toggleA() {
+  if (testClass.value === '') {
+    testClass.value = a()
+  } else {
+    testClass.value = ''
+  }
+
+    isAActive.value = !isAActive.value
+}
 
 
 </script>

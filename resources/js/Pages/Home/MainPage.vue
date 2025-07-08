@@ -38,12 +38,12 @@
         </main>
        
         <article class=" flex flex-row  " >
-            <section class="bg-gray-300 w-full  pb-4  rounded-t-lg  relative">
+            <section class="bg-gray-200 w-full  pb-4  rounded-t-lg  relative">
 
                 <header class=" flex justify-between  py-8 max-w-7xl m-auto px-4 md:px-8">
                     <div class="">
                         <h1 class="text-3xl font-bold cursor-pointer">Recent Codex</h1>
-                        <p class="text-lg font-medium text-gray-800 mt-1 cursor-pointer">Latest documentation and code snippets from my knowledge base.</p>                        
+                        <p class="text-lg font-medium text-gray-800 mt-1 cursor-pointer">Latest   <Link href="/document" class="text-green-800  font-extrabold">documentation</Link>  and code snippets from my knowledge base.</p>                        
     
                     </div>
                 </header>
@@ -120,7 +120,7 @@
 
 
         <!-- kanan carousel in an mga skill -->
-        <section class="bg-gray-300  md:pt-32 md:pb-32 pt-16 pb-4 rounded-b-lg relative ">
+        <section class="bg-gray-200  md:pt-32 md:pb-32 pt-16 pb-4 rounded-b-lg relative ">
            <header class=" flex justify-center items-center">
                 <!-- <h1 class="text-3xl font-bold font-mono"> <i class="pi pi-slack mr-2" style="font-size: 1.5rem"></i>Technology Stack</h1> -->
    <h1 class="text-3xl font-bold font-mono flex items-center cursor-pointer ">
@@ -137,9 +137,9 @@
 
                 <div class="overflow-hidden    relative h-[150px] max-w-7xl m-auto">
 
-                    <div class="absolute -left-8 top-0 h-full w-32  bg-gray-300 blur-md z-20"></div>
+                    <div class="absolute -left-8 top-0 h-full w-32  bg-gray-200 blur-md z-20"></div>
                         <!-- Right Blur -->
-                <div class="absolute -right-8 top-0 h-full w-32 bg-gray-300 blur-md z-20"></div>
+                <div class="absolute -right-8 top-0 h-full w-32 bg-gray-200 blur-md z-20"></div>
                     <div
                     class="flex w-max animate-carousel"
                     ref="carouselRef"
@@ -154,11 +154,11 @@
                 </div>                
         </section>    
 
-        <section class="w-full bg-gray-300 pb-36 pt-8">
+        <section class="w-full bg-gray-200 pb-36 pt-8">
             <div class="max-w-7xl m-auto px-4  md:px-8">
                 <header class="mb-12 ">
                     <h1 class="text-lg text-gray-800">HIGHLIGHTS</h1>
-                    <h1 class="text-4xl text-gray-800 font-bold">Exclusive Project</h1>
+                    <h1 class="text-4xl text-gray-800 font-bold">Exclusive  <Link href="/projects" class="text-black  font-extrabold">Project</Link>  </h1>
                 </header>       
                 
                 <article class="grid  lg:grid-cols-3 grid-cols-1  gap-12 px-3 md:px-0">
@@ -217,7 +217,7 @@
                             </span>
                         </template>
                         <template #content="slotProps">
-                            <Card class="mt-4 !bg-gray-300 !shadow-none transition transform hover:-translate-y-2">
+                            <Card class="mt-4 !bg-gray-200 !shadow-none transition transform hover:-translate-y-2">
                                 <template #content>
                                 
                                     <Image v-if="slotProps.item.image" :src="`/storage/output/${slotProps.item.image}`" :alt="slotProps.item.name"  image-class="w-96 shadow-sm rounded-md " preview />
@@ -263,6 +263,7 @@
     import { data } from 'autoprefixer';
     import Badge from 'primevue/badge';
     import Timeline from 'primevue/timeline';
+import { Link } from '@inertiajs/vue3'
 
     import { usePage } from '@inertiajs/vue3'
     import { useToast } from 'primevue/usetoast'
