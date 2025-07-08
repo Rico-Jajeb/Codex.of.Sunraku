@@ -239,7 +239,10 @@
 
         </section>
 
-       
+           <div>
+                <!-- amo ini an kanan pop up notif pag nag submit msg -->
+                <Toast />
+            </div>
         
 
     </MainLayout>
@@ -261,7 +264,11 @@
     import Badge from 'primevue/badge';
     import Timeline from 'primevue/timeline';
 
+    import { usePage } from '@inertiajs/vue3'
+    import { useToast } from 'primevue/usetoast'
 
+    const page = usePage()
+    const toast = useToast()
 
 
 

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\TechSkillController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AwardsController;
+use App\Http\Controllers\Admin\ContactController;
 
 use App\Http\Controllers\Admin\GoogleUploadController; //kanan google ini
 
@@ -65,6 +66,8 @@ Route::get('techSkill',[TechSkillController::class, 'techPage'])->name('system.s
 Route::get('achievement',[AwardsController::class, 'awards'])->name('system.achievement');
 
 
+
+
 //kanan create form
 Route::post('add.Codex', [CodexController::class, 'AddCodex'])->name('addProject');
 
@@ -81,6 +84,10 @@ Route::post('add.ScreenShot', [ProjectController::class, 'AddScreenShot'])->name
 Route::post('add.Test', [TestController::class, 'addTest'])->name('add.Test');
 
 Route::post('add.Award', [AwardsController::class, 'addAwards'])->name('add.Award');
+
+
+// Route::post('send-mail',[ContactController::class, 'email'])->name('send-mail');
+Route::post('/send-mail', [ContactController::class, 'email'])->name('send-mail')->middleware('throttle:3,1'); // Allow 3 requests per minute 
 
 //kanan update form
 //Route::post('/categories/update/{id}', [CategoryCodexController::class, 'update'])->name('categories.update');

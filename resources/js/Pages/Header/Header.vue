@@ -14,6 +14,7 @@
                   <Link href="Home"  v-if="(page.url.includes('document') || page.url.includes('projects'))" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Home</Link>
                   <Link href="document" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Codex</Link>
                   <Link href="projects" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]" >Projects</Link>
+                  <button @click="categoryInfoDisp = true" class="text-white text-lg font-bold drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]"  >Contact</button>
                 </nav> 
              
 
@@ -40,7 +41,10 @@
 
         </nav>
     </header>
-  
+
+    <Dialog  v-model:visible="categoryInfoDisp" maximizable   :header="`Contact  `" :style="{ width: '600px' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"  >
+        <EmailForm/>
+    </Dialog>
 </template>
 
 <script setup>
@@ -48,14 +52,13 @@
     
     // This is for the hamburger nav
     import { ref } from 'vue';
- 
-
-
-
     import { Head, Link, router } from '@inertiajs/vue3';
     import Image from 'primevue/image';
-
     import { usePage } from '@inertiajs/vue3'
+    import Dialog from 'primevue/dialog';
+
+    import EmailForm from '../Admin/Forms/EmailForm.vue';
+
 
 const isMenuOpen = ref(false);
 const page = usePage()
@@ -89,4 +92,10 @@ function handleImageError() {
     document.getElementById('docs-card-content')?.classList.add('!flex-row');
     document.getElementById('background')?.classList.add('!hidden');
 }
+
+
+
+const categoryInfoDisp = ref(false);
+
+
 </script>
