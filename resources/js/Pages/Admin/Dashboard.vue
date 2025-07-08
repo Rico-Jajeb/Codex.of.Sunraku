@@ -17,7 +17,7 @@
                             <h1 class="text-lg font-mono font-bold">
                                 {{ ProjectCounts2 }} Projects 
                             </h1>
-                            <Chart type="pie" :data="chartData2" :options="chartOptions2" class="md:w-28" />
+                            <Chart type="pie" :data="chartData2" :options="chartOptions2" class="w-28" />
                         </div>
                     </Link>
                     <Link href="/techSkill">
@@ -25,7 +25,7 @@
                             <h1 class="text-lg font-bold font-mono">
                                 {{ SkillCounts2 }} Skills 
                             </h1>
-                            <Chart type="pie" :data="chartData4" :options="chartOptions4" class="md:w-28" />
+                            <Chart type="pie" :data="chartData4" :options="chartOptions4" class="w-28" />
                         </div>
                     </Link>  
                     <Link href="/achievement">
@@ -33,7 +33,7 @@
                         <h1 class="text-lg font-bold font-mono">
                                 {{ AwardCounts2 }} Awards
                         </h1>    
-                            <Chart type="pie" :data="chartData5" :options="chartOptions5" class="md:w-28" />
+                            <Chart type="pie" :data="chartData5" :options="chartOptions5" class="w-28" />
                         </div>
                     </Link>
                   

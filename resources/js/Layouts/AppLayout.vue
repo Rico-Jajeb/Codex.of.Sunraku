@@ -169,6 +169,7 @@ const logout = () => {
                                                 Log Out
                                             </DropdownLink>
                                         </form>
+                                       
                                     </template>
                                 </Dropdown>
                             </div>
@@ -206,9 +207,9 @@ const logout = () => {
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                        <!-- <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
-                        </ResponsiveNavLink>
+                        </ResponsiveNavLink> -->
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -232,6 +233,7 @@ const logout = () => {
                             <ResponsiveNavLink :href="route('profile.show')" :active="route().current('profile.show')">
                                 Profile
                             </ResponsiveNavLink>
+                        
 
                             <ResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')" :active="route().current('api-tokens.index')">
                                 API Tokens
@@ -243,6 +245,24 @@ const logout = () => {
                                     Log Out
                                 </ResponsiveNavLink>
                             </form>
+                            <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                    Dashboard
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('codex.category')" :active="route().current('codex.category')">
+                                    Codex Category
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('system.projects')" :active="route().current('system.projects')">
+                                    Projects
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('system.achievement')" :active="route().current('system.achievement')">
+                                    Achievement
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('system.skills')" :active="route().current('system.skills')">
+                                    Tech Skills
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('system.settings')" :active="route().current('system.settings')">
+                                    Settings
+                            </ResponsiveNavLink>
 
                             <!-- Team Management -->
                             <template v-if="$page.props.jetstream.hasTeamFeatures">
