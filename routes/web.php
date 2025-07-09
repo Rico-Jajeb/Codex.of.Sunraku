@@ -65,6 +65,8 @@ Route::get('systemProjects',[ProjectController::class, 'projects'])->name('syste
 Route::get('techSkill',[TechSkillController::class, 'techPage'])->name('system.skills');
 Route::get('achievement',[AwardsController::class, 'awards'])->name('system.achievement');
 
+Route::get('SystemUsers',[DashboardController::class, 'SystemUsers'])->name('system.user');
+
 
 
 

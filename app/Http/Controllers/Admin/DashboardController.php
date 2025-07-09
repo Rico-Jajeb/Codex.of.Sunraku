@@ -13,6 +13,7 @@ use App\Services\CodexDisplayService;
 use App\Services\DisplayProjectService;
 use App\Services\DisplayTechSkillService;
 use App\Services\DisplayAwardService;
+use App\Services\DisplayUserService;
 
 
 
@@ -25,17 +26,19 @@ class DashboardController extends Controller
     protected $DisplayProjectService;
     protected $DisplayTechSkillService;
     protected $DisplayAwardService;
+    protected $DisplayUserService;
 
     
     public function __construct( CodexDisplayService $CodexDisplayService, DisplayCategoryCodexService $DisplayCategoryCodexService,
     DisplayProjectService $DisplayProjectService, DisplayTechSkillService $DisplayTechSkillService,
-    DisplayAwardService $DisplayAwardService)
+    DisplayAwardService $DisplayAwardService, DisplayUserService $DisplayUserService)
     {
         $this->DisplayCategoryCodexService = $DisplayCategoryCodexService;
         $this->CodexDisplayService = $CodexDisplayService;
         $this->DisplayProjectService = $DisplayProjectService;
         $this->DisplayTechSkillService = $DisplayTechSkillService;
         $this->DisplayAwardService = $DisplayAwardService;
+        $this->DisplayUserService = $DisplayUserService;
     }
     
 
@@ -49,6 +52,7 @@ class DashboardController extends Controller
         $project = $this->DisplayProjectService->displayProject();
         $skill = $this->DisplayTechSkillService->displayTech();
         $award = $this->DisplayAwardService->getData();
+        $user = $this->DisplayUserService->getUsers();
 
         return Inertia::render('Admin/Dashboard',[
             'data' => $data,
@@ -56,7 +60,16 @@ class DashboardController extends Controller
             'project' => $project,
             'skill' => $skill,
             'award' => $award,
+            'user' => $user,
 
+        ]);
+    }
+
+    public function SystemUsers(){
+      
+        $data = $this->DisplayUserService->getUsers();
+        return Inertia::render('Admin/SystemUsers',[
+            'data' => $data,
         ]);
     }
 

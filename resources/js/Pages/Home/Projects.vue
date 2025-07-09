@@ -6,7 +6,7 @@
         :can-login="canLogin"
         :can-register="canRegister"
         :laravel-version="laravelVersion"
-        :php-version="phpVersion"  >
+        :php-version="phpVersion"  title="Projects">
 
         <section class="bg-gray-800 rounded-b-lg">
 

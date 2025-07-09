@@ -6,7 +6,7 @@
         :can-login="canLogin"
         :can-register="canRegister"
         :laravel-version="laravelVersion"
-        :php-version="phpVersion"  title="Main Page" >
+        :php-version="phpVersion"  title="Home" >
       
         <main class="relative  p-3 rounded-xl h-[60vh] md:h-[97vh] m-3 pt-20 overflow-hidden ">
             <!-- Background Image -->

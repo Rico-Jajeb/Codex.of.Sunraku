@@ -10,7 +10,7 @@
        
             <section class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-12 mb-36 bg-white overflow-hidden shadow-xl rounded-lg">
 
-                <nav class="grid  grid-cols-1 px-4 md:grid-cols-3 gap-4 pt-8 mb-8">
+                <nav class="grid  grid-cols-1 px-4 md:grid-cols-4 gap-4 pt-8 mb-8">
 
                     <Link href="/systemProjects">
                         <div class="bg-blue-200  shadow-lg  h-36  rounded-lg flex justify-center items-center transition transform hover:-translate-y-2">
@@ -29,11 +29,19 @@
                         </div>
                     </Link>  
                     <Link href="/achievement">
-                        <div class="bg-gray-200  shadow-lg  h-36  rounded-lg flex justify-center items-center transition transform hover:-translate-y-2">
+                        <div class="bg-green-200  shadow-lg  h-36  rounded-lg flex justify-center items-center transition transform hover:-translate-y-2">
                         <h1 class="text-lg font-bold font-mono">
                                 {{ AwardCounts2 }} Awards
                         </h1>    
                             <Chart type="pie" :data="chartData5" :options="chartOptions5" class="w-28" />
+                        </div>
+                    </Link>
+                    <Link href="/SystemUsers">
+                        <div class="bg-gray-200  shadow-lg  h-36  rounded-lg flex justify-center items-center transition transform hover:-translate-y-2">
+                        <h1 class="text-lg font-bold font-mono">
+                                {{ UserCounts2 }} Users
+                        </h1>    
+                            <Chart type="pie" :data="chartData6" :options="chartOptions6" class="w-28" />
                         </div>
                     </Link>
                   
@@ -62,7 +70,7 @@
                                 <Chart type="pie" :data="chartData" :options="chartOptions" class="md:w-80" />
                             </div>
                             <header class=" flex justify-center mt-2">
-                                <h1 class="text-lg font-bold">Codex</h1>
+                                <h1 class="text-lg font-bold">{{ CodexCounts2 }} Codex</h1>
                             </header>                            
                         </div>
 
@@ -97,11 +105,14 @@ const props = defineProps({
     project: Array,
     skill: Array,
     award: Array,
+    user: Array,
 });
 
 const ProjectCounts2 = props.project ? props.project.filter(p => p.id).length : 0;
 const SkillCounts2 = props.skill ? props.skill.filter(p => p.id).length : 0;
 const AwardCounts2 = props.award ? props.award.filter(p => p.id).length : 0;
+const UserCounts2 = props.user ? props.user.filter(p => p.id).length : 0;
+const CodexCounts2 = props.codex ? props.codex.filter(p => p.id).length : 0;
 
 
 
@@ -136,6 +147,8 @@ const availableYears = computed(() => {
     const chartOptions4 = ref();
     const chartData5 = ref();
     const chartOptions5 = ref();
+    const chartData6 = ref();
+    const chartOptions6 = ref();
 
     function getRandomColor() {
         const letters = '0123456789ABCDEF';
@@ -281,6 +294,47 @@ const availableYears = computed(() => {
                     backgroundColor: [
                     
                         
+                        documentStyle.getPropertyValue('--p-green-500')
+                    ],
+                    hoverBackgroundColor: [
+                        
+                      
+                        documentStyle.getPropertyValue('--p-green-400')
+                    ]
+                }
+            ]
+        };
+    };
+
+    const setChartOptions5 = () => {
+        const documentStyle = getComputedStyle(document.documentElement);
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+
+        return {
+            plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        color: textColor
+                    }
+                }
+            }
+        };
+    };
+    //----------------------- Users --------------------
+
+    const setChartData6  = () => {
+        const documentStyle = getComputedStyle(document.body);
+        const dataCounts2 = props.user ? props.user.filter(p => p.id).length : 0;
+
+        return {
+            labels: ['User'],
+            datasets: [
+                {
+                    data: [dataCounts2],
+                    backgroundColor: [
+                    
+                        
                         documentStyle.getPropertyValue('--p-gray-500')
                     ],
                     hoverBackgroundColor: [
@@ -293,7 +347,7 @@ const availableYears = computed(() => {
         };
     };
 
-    const setChartOptions5 = () => {
+    const setChartOptions6 = () => {
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--p-text-color');
 
@@ -414,6 +468,9 @@ const availableYears = computed(() => {
         chartData5.value = setChartData5();
         chartOptions5.value = setChartOptions5();
 
+        chartData6.value = setChartData6();
+        chartOptions6.value = setChartOptions6();
+
         watch(
             () => [props.data, props.codex, props.project, selectedYear.value],
             () => {
@@ -431,6 +488,9 @@ const availableYears = computed(() => {
 
                 chartData5.value = setChartData5();
                 chartOptions5.value = setChartOptions5();
+
+                chartData6.value = setChartData6();
+                chartOptions6.value = setChartOptions6();
             },
             { immediate: true }
         );

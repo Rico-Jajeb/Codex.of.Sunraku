@@ -11,12 +11,20 @@ const props = defineProps({
     canRegister: Boolean,
     laravelVersion: String,
     phpVersion: String,
+    title: String,
 });
+
+
+
+
 
 </script>
 
 <template >
-      <Head :title="title" />
+      <Head :title="title" > 
+            <link rel="apple-touch-icon" :href="`/storage/output/${setting.system_logo}`" />
+
+      </Head>
 
     <Header
         :data="data"
