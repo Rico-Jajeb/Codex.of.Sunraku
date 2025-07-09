@@ -447,17 +447,18 @@ const getSeverity = (status) => {
 
 
 //------------------------ kanan timeline -------------------
+
 const events = computed(() => {
-    return props.award.map((proj) => ({
-        date: proj.Date ?? 'N/A',
-        proj_name: proj.award_title ?? 'Unknown',
-        proj_description: proj.award_description ?? 'Unknown',
-      
-        icon: proj.icon ?? 'pi pi-check-circle', // You can customize default icon
-        color: proj.color ?? '#000000',
-        image: proj.img ?? null,
-       
-    }));
+    return props.award
+        .filter((proj) => proj.highlight === 'Yes')
+        .map((proj) => ({
+            date: proj.Date ?? 'N/A',
+            proj_name: proj.award_title ?? 'Unknown',
+            proj_description: proj.award_description ?? 'Unknown',
+            icon: proj.icon ?? 'pi pi-check-circle',
+            color: proj.color ?? '#000000',
+            image: proj.img ?? null,
+        }));
 });
 
 
