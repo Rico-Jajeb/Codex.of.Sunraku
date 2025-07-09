@@ -25,10 +25,14 @@
                 <!-- Sticky Sidebar -->
 
                 <aside class="hidden md:block sticky top-24 h-screen overflow-y-auto overflow-x-hidden   md:w-1/6 border-r-2 border-gray-700">
-                    <header class="mb-4">
+                    <header data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom"  data-aos-offset="500"
+     data-aos-duration="3000" data-aos-delay="1000"  class="mb-4">
                         <h1 class=" md:text-lg font-bold text-gray-500">Codex Category</h1>                    
                     </header>
-                    <nav class="  overflow-x-hidden overflow-y-auto  hover:text-gray-400" v-for="cat in category" :key="cat.id">
+                    <nav data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom"  data-aos-offset="500"
+     data-aos-duration="3000" data-aos-delay="1000"  class="  overflow-x-hidden overflow-y-auto  hover:text-gray-400" v-for="cat in category" :key="cat.id">
                     
                         <button type="button"  @click="codeee(cat.category_name)" class=" font-medium w-full md:text-left">
                             {{ cat.category_name }} 
@@ -102,7 +106,9 @@
                             </div>
                         </div>
                     </div>
-                            <div v-else class="pl-8 text-gray-600">
+                            <div v-else class="pl-8 text-gray-600" data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom"  data-aos-offset="500"
+     data-aos-duration="3000" data-aos-delay="300" >
                                     <h1 class="text-2xl font-bold mb-4">Welcome to {{setting.system_name }} Codex Documentation 🎉</h1>
                                     <p class="mb-2">Select a codex on the left to explore detailed information including code snippets, frameworks, and outputs.</p>
                                     <p class="mb-2">This codex system is designed to help you document, manage, and quickly reference your important code and technical notes.</p>

@@ -25,6 +25,10 @@ import InputText from 'primevue/inputtext';
 import AnimateOnScroll from 'primevue/animateonscroll';
 import Tooltip from 'primevue/tooltip';
 
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
@@ -52,6 +56,20 @@ createInertiaApp({
         //adi kanan tool tip
         app.directive('tooltip', Tooltip);
 
+
+               // ✅ Mixin to handle AOS initialization and refresh
+        app.mixin({
+            mounted() {
+                AOS.init({
+                    // Optional: customize global settings
+                    once: true,
+                    duration: 800,
+                });
+            },
+            updated() {
+                AOS.refresh();
+            },
+        });
 
         app.mount(el);
     

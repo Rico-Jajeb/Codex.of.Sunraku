@@ -12,7 +12,9 @@
             <!-- Background Image -->
             <img alt="System Background" loading="lazy" :src="`/storage/output/${setting.system_favicon}`" class="absolute inset-0 w-full h-full object-cover -z-10" />
                 <section class=" max-w-7xl m-auto flex justify-center items-center">
-                    <header class="text-center pt-10 pb-4">
+                    <header data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom"  data-aos-offset="500"
+     data-aos-duration="3000" data-aos-delay="300"  class="text-center pt-10 pb-4">
                         <h1 class="text-4xl md:text-7xl font-extrabold mt-0  xl:mt-10 2xl:mt-40 cursor-pointer" style="-webkit-text-stroke: 0.5px black;">
                             <span
                             v-for="(char, index) in setting.system_slogan.split('')"
@@ -40,7 +42,7 @@
         <article class=" flex flex-row  " >
             <section class="bg-gray-200 w-full  pb-4  rounded-t-lg  relative">
 
-                <header class=" flex justify-between  py-8 max-w-7xl m-auto px-4 md:px-8">
+                <header data-aos="fade-right"  data-aos-duration="3000" class=" flex justify-between  py-8 max-w-7xl m-auto px-4 md:px-8">
                     <div class="">
                         <h1 class="text-3xl font-bold cursor-pointer">Recent Codex</h1>
                         <p class="text-lg font-medium text-gray-800 mt-1 cursor-pointer">Latest   <Link href="/document" class="text-green-800  font-extrabold">documentation</Link>  and code snippets from my knowledge base.</p>                        
@@ -49,48 +51,74 @@
                 </header>
                 <!-- amo ini an kanan card -->
                 <section class="grid md:grid-cols-4 grid-cols-1    flex-wrap justify-center gap-4 w-full mt-4  max-w-7xl m-auto px-8  md:px-8 ">
-                    <Card   class=" !w-sm !md:w-sm !h-md !shadow-lg transition transform hover:-translate-y-2" v-for="item in filteredItems.slice().reverse().slice(0, 4)" :key="item.id" >
+               
+
+
+
+                    <div
+                    data-aos="zoom-in-up"
+                    data-aos-duration="3000"
+                    data-aos-delay="1000"
+                    v-for="item in filteredItems.slice().reverse().slice(0, 4)"
+                    :key="item.id"
+                    >
+                    
+                    <div class="transition-transform duration-300 ease-in-out hover:-translate-y-2">
+                        <Card class="!w-sm !md:w-sm !h-md !shadow-lg">
                         <template #title>
-                            <header class="">
-                                <h1 class="truncate text-xl text-gray-950 font-bold">{{ item.codex_name }}</h1>
+                            <header>
+                            <h1 class="truncate text-xl text-gray-950 font-bold">{{ item.codex_name }}</h1>
                             </header>
                         </template>
+
                         <template #content>
-                            <section class="">
-                                <label for=""></label>
-                                <p class="m-0 text-gray-500 text-md font-medium h-20 w-full overflow-hidden text-ellipsis ">{{ item.content }}</p>
-                            
-                                <nav class=" gap-2 mt-4">
-                                    <div class="flex flex-wrap gap-2 truncate ">
-                                        <p
-                                        v-for="lang in item.language.slice(0,4)"
-                                        :key="lang.id"
-                                        :class="['px-2 py-1 rounded truncate text-xs font-bold', languageColors[lang]?.bg || 'bg-gray-200', languageColors[lang]?.text || 'text-black'] "
-                                        >
-                                        {{ lang }}
-                                        </p>
-                                    </div>
-                                                                    
-                                    <div class="flex flex-wrap gap-2 truncate mt-3">
-                                        <div
-                                        v-for="fw in item.framework.slice(0,4)"
-                                        :key="fw.id"
-                                        :class="['px-2 py-1 rounded truncate overflow-x-hidden text-xs font-bold', frameworkColors[fw]?.bg || 'bg-gray-200', frameworkColors[fw]?.text || 'text-black']"
-                                        >
-                                        {{ fw }}
-                                        </div>
-                                    </div>
-                                </nav>
-                                <div class="flex justify-between mt-4">
-                                    <p class=" text-sm text-gray-500">{{ new Date(item.created_at).toISOString().split('T')[0] }}  </p>
-                                       <!-- Eye BUTTON -->
-                                    <button type="button" @click="openCategoryInfoModal(item)" class="mr-4" v-tooltip.top="'Click To View'">
-                                        <i class="pi pi-eye" style="font-size: 1rem"></i>
-                                    </button>
+                            <section>
+                            <p class="m-0 text-gray-500 text-md font-medium h-20 w-full overflow-hidden text-ellipsis">
+                                {{ item.content }}
+                            </p>
+
+                            <nav class="gap-2 mt-4">
+                                <div class="flex flex-wrap gap-2 truncate">
+                                <p
+                                    v-for="lang in item.language.slice(0, 4)"
+                                    :key="lang.id"
+                                    :class="['px-2 py-1 rounded truncate text-xs font-bold', languageColors[lang]?.bg || 'bg-gray-200', languageColors[lang]?.text || 'text-black']"
+                                >
+                                    {{ lang }}
+                                </p>
                                 </div>
+
+                                <div class="flex flex-wrap gap-2 truncate mt-3">
+                                <div
+                                    v-for="fw in item.framework.slice(0, 4)"
+                                    :key="fw.id"
+                                    :class="['px-2 py-1 rounded truncate overflow-x-hidden text-xs font-bold', frameworkColors[fw]?.bg || 'bg-gray-200', frameworkColors[fw]?.text || 'text-black']"
+                                >
+                                    {{ fw }}
+                                </div>
+                                </div>
+                            </nav>
+
+                            <div class="flex justify-between mt-4">
+                                <p class="text-sm text-gray-500">
+                                {{ new Date(item.created_at).toISOString().split('T')[0] }}
+                                </p>
+                                <button
+                                type="button"
+                                @click="openCategoryInfoModal(item)"
+                                class="mr-4"
+                                v-tooltip.top="'Click To View'"
+                                >
+                                <i class="pi pi-eye" style="font-size: 1rem"></i>
+                                </button>
+                            </div>
                             </section>
                         </template>
-                    </Card>
+                        </Card>
+                    </div>
+                    </div> 
+
+
                 </section>
           
                 <section>
@@ -121,7 +149,7 @@
 
         <!-- kanan carousel in an mga skill -->
         <section class="bg-gray-200  md:pt-32 md:pb-32 pt-16 pb-4 rounded-b-lg relative ">
-           <header class=" flex justify-center items-center">
+           <header  data-aos="zoom-in-down" data-aos-delay="2000" data-aos-duration="3000" class=" flex justify-center items-center">
                 <!-- <h1 class="text-3xl font-bold font-mono"> <i class="pi pi-slack mr-2" style="font-size: 1.5rem"></i>Technology Stack</h1> -->
    <h1 class="text-3xl font-bold font-mono flex items-center cursor-pointer ">
     <i class="pi pi-slack mr-2" style="font-size: 1.5rem"></i>
@@ -135,7 +163,7 @@
   </h1>
             </header>
 
-                <div class="overflow-hidden    relative h-[150px] max-w-7xl m-auto">
+                <div data-aos="fade-left" data-aos-delay="1000" class="overflow-hidden    relative h-[150px] max-w-7xl m-auto">
 
                     <div class="absolute -left-8 top-0 h-full w-32  bg-gray-200 blur-md z-20"></div>
                         <!-- Right Blur -->
@@ -145,7 +173,7 @@
                     ref="carouselRef"
                     >
                 
-                    <div v-for="(item, index) in loopedData" :key="index" class="min-w-[200px] max-w-[200px] mx-2 h-32 mt-4   p-4">
+                    <div data-aos="fade-left" data-aos-delay="3000" data-aos-duration="3000" v-for="(item, index) in loopedData" :key="index" class="min-w-[200px] max-w-[200px] mx-2 h-32 mt-4   p-4">
                         <h3 class="font-bold text-lg text-gray-800">
                             <Image  alt="user header" loading="lazy"   imageClass=" grayscale hover:grayscale-0 transition w-20 h-20 transition transform hover:-translate-y-2"  :src="`/storage/output/${item.img}`" />
                         </h3>
@@ -156,14 +184,14 @@
 
         <section class="w-full bg-gray-200 pb-36 pt-8">
             <div class="max-w-7xl m-auto px-4  md:px-8">
-                <header class="mb-12 ">
-                    <h1 class="text-lg text-gray-800">HIGHLIGHTS</h1>
+                <header  data-aos="fade-up" data-aos-duration="3000" data-aos-delay="4000"  class="mb-12 ">
+                    <h1  class="text-lg text-gray-800">HIGHLIGHTS</h1>
                     <h1 class="text-4xl text-gray-800 font-bold">Exclusive  <Link href="/projects" class="text-black  font-extrabold">Project</Link>  </h1>
                 </header>       
                 
-                <article class="grid  lg:grid-cols-3 grid-cols-1  gap-12 px-3 md:px-0">
+                <article data-aos="zoom-out-up" data-aos-duration="5000"   data-aos-delay="2000" class="grid  lg:grid-cols-3 grid-cols-1  gap-12 px-3 md:px-0">
                    
-                    <Card style="width: 25rem; overflow: hidden" v-for="proj in  project.filter(p => p.highlight === 'Yes')" key="proj.id" class="!w-80 md:!w-full transition transform hover:-translate-y-2" >
+                    <Card  data-aos="zoom-out-up" data-aos-duration="3000"   data-aos-delay="2000" style="width: 25rem; overflow: hidden" v-for="proj in  project.filter(p => p.highlight === 'Yes')" key="proj.id" class="!w-80 md:!w-full transition transform hover:-translate-y-2" >
                         <template #header>
                             <Image image-class="h-64" alt="project Image" loading="lazy" preview :src="`/storage/output/${proj.img}`"   />
                         </template>
@@ -207,17 +235,22 @@
        
             <!-- kann timeline -->
             <section class="card max-w-7xl m-auto px-4">
-                <header class="mt-24 md:mt-32 mb-10 flex justify-center">
+                <header data-aos="fade-up"
+     data-aos-anchor-placement="center-bottom" data-aos-duration="3000" class="mt-24 md:mt-32 mb-10 flex justify-center">
                     <h1 class="text-3xl font-bold font-mono"><i class="pi pi-trophy mr-2" style="font-size: 1.5rem"></i>Achievements</h1>  
                 </header>
-                    <Timeline :value="events" :align="timelineAlign" class="customized-timeline">
+                    <Timeline  :value="events" :align="timelineAlign" class="customized-timeline">
                         <template #marker="slotProps">
-                            <span class="flex w-6 h-6 items-center justify-center text-white rounded-full z-10 shadow-sm" :style="{ backgroundColor: slotProps.item.color }">
+                            <span data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom"  data-aos-offset="500"
+     data-aos-duration="300" data-aos-delay="100"  class="flex w-6 h-6 items-center justify-center text-white rounded-full z-10 shadow-sm" :style="{ backgroundColor: slotProps.item.color }">
                                 <i :class="slotProps.item.icon"></i>
                             </span>
                         </template>
                         <template #content="slotProps">
-                            <Card class="mt-4 !bg-gray-200 !shadow-none transition transform hover:-translate-y-2">
+                            <Card data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom"  data-aos-offset="500"
+     data-aos-duration="3000" data-aos-delay="300" class="mt-4 !bg-gray-200 !shadow-none transition transform hover:-translate-y-2">
                                 <template #content>
                                 
                                     <Image v-if="slotProps.item.image" :src="`/storage/output/${slotProps.item.image}`" :alt="slotProps.item.name"  image-class="w-96 shadow-sm rounded-md " preview />

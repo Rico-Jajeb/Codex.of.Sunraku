@@ -13,7 +13,9 @@
        
         <main class="pt-24 max-w-7xl m-auto px-0 md:px-8">
             <section class="flex justify-center mt-8 md:mt-32 ">
-                <header class="text-center">
+                <header class="text-center" data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom"  data-aos-offset="500"
+     data-aos-duration="3000" data-aos-delay="300" >
                     <h1 class="text-4xl text-white font-bold">My Projects</h1>
                     <h1 class="text-lg font-bold text-gray-300">A collection of my recent work and personal projects.</h1>
                 </header>                
@@ -22,7 +24,9 @@
 
                
                 <article class="grid lg:grid-cols-2 grid-cols-1 gap-12 px-4 md:px-0 mt-14 pb-24">
-                    <div class="mb-8" v-for="proj in project" :key="proj.id">
+                    <div class="mb-8" v-for="proj in project" :key="proj.id" data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom"  data-aos-offset="500"
+     data-aos-duration="3000" data-aos-delay="300" >
                         <Galleria :value="getImages(proj)" :numVisible="5"  containerStyle="max-width: 640px" :showThumbnails="false" :showIndicators="true" :changeItemOnIndicatorHover="true" >
                             <template #item="slotProps">
                             <!-- <Image
