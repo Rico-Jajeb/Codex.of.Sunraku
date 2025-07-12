@@ -14,4 +14,12 @@ class SystemModel extends Model
         'facebook', 'linked', 'github', 'email',
     
     ];
+
+    // kanan api ini pag return han url han system tas an image
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        return url('storage/output/' . $this->system_logo);
+    }
 }
