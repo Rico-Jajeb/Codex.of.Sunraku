@@ -16,10 +16,16 @@ class SystemModel extends Model
     ];
 
     // kanan api ini pag return han url han system tas an image
-    protected $appends = ['image_url'];
+  protected $appends = ['image_url', 'image_logo'];
 
     public function getImageUrlAttribute()
     {
+        return url('storage/output/' . $this->system_favicon);
+    }
+
+    public function getImageLogoAttribute()
+    {
         return url('storage/output/' . $this->system_logo);
     }
+
 }
