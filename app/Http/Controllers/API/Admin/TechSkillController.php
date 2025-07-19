@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 
 use App\Models\TechSkillModel;
 
+use App\Http\Resources\TechSkillResource;
+
 class TechSkillController extends Controller
 {
-    //
-      public function index()
+    
+    public function index()
     {
-        return response()->json(TechSkillModel::all());
+        return TechSkillResource::collection(TechSkillModel::all());
     }
 }

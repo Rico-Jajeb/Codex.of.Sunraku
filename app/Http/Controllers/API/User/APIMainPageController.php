@@ -16,7 +16,7 @@ class APIMainPageController extends Controller
         // Get system data
         $systemData = SystemModel::find(1);
 
-        // Get codex data (example: get all codex records)
+
        $codexData = CodexModel::orderBy('created_at', 'desc')->take(4)->get();
 
 
