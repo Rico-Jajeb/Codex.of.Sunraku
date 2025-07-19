@@ -1,9 +1,12 @@
 <template>
     <AppLayout title="System Settings">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                General Settings
-            </h2>
+            <section class="flex justify-between">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    General Settings
+                </h2>  
+                <manualGoogleDrive/>                              
+            </section>
         </template>
 
 
@@ -123,7 +126,8 @@
     import SystemForm from '@/Pages/Admin/Forms/SystemForm.vue';
 import Image from 'primevue/image';
 
-
+    import manualGoogleDrive from './manualGoogleDrive.vue';
+    
     const page = usePage()
     const toast = useToast()
 

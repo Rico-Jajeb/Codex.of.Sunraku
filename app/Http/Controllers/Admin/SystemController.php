@@ -27,10 +27,15 @@ use App\Services\UpdateSettingService;
 use App\Services\Image\SettingLogoService;
 use App\Services\Image\SettingFaviconService;
 
+use App\Services\GoogleDriveService;
 
 //MODEL
 
 use App\Models\SystemModel;
+
+
+use Illuminate\Http\File;
+
 
 class SystemController extends Controller
 {
@@ -41,10 +46,11 @@ class SystemController extends Controller
     protected $UpdateSettingService;
     protected $SettingLogoService;
     protected $SettingFaviconService;
+    protected $GoogleDriveService;
 
     public function __construct( CodexImageService $CodexImageService, SystemSettingService $SystemSettingService, 
     DisplaySettingService $DisplaySettingService, UpdateSettingService $UpdateSettingService, 
-    SettingLogoService $SettingLogoService, SettingFaviconService $SettingFaviconService )
+    SettingLogoService $SettingLogoService, SettingFaviconService $SettingFaviconService, GoogleDriveService $GoogleDriveService )
     {
         $this->CodexImageService = $CodexImageService;
         $this->SystemSettingService = $SystemSettingService;
@@ -52,6 +58,7 @@ class SystemController extends Controller
         $this->UpdateSettingService = $UpdateSettingService;
         $this->SettingLogoService = $SettingLogoService;
         $this->SettingFaviconService = $SettingFaviconService;
+        $this->GoogleDriveService = $GoogleDriveService;
     }
 
 
@@ -67,7 +74,6 @@ class SystemController extends Controller
     }
 
 
-
     public function addSettings2(SystemRequest $request){
         // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
         $imageName = $this->CodexImageService->handleImageUpload($request); 
@@ -80,23 +86,6 @@ class SystemController extends Controller
         return redirect()->back()->with('success', 'Codex updated successfully.');
 
     }
-
-
-
-
-
-    // public function updateSetting(SystemRequest $request, $id){
-    //     // amo ini an knn image upload ato ha CodexImageService (bali reusable ini)
-    //     $imageName = $this->CodexImageService->handleImageUpload($request); 
-
-    //     $validated = $request->validated(); // amo liwat ini an kanna validation adto ha request
-    
-    //     $validated['img'] = $imageName;  // amo ini an code  para an unique img name an ma store ha db
-    
-    //     $this->UpdateSettingService->upSetting($id, $validated); //adi an code para han up services
-
-    //     return back();
-    // }
 
 
     public function updateSetting(SystemRequest $request, $id){
@@ -115,4 +104,26 @@ class SystemController extends Controller
         return redirect()->route('system.settings')->with('success', "Category Updated Successfully!");
 
     }
+
+
+
+
+
+public function uploadDatabaseToDrive(GoogleDriveService $driveService)
+{
+    $dbPath = database_path('database.sqlite');
+    $folderId = '1RJSKJgzuR7nQQg2s69z0fdRRgDXcF9cO';
+
+    if (!file_exists($dbPath)) {
+        return response()->json(['message' => 'Database file not found.'], 404);
+    }
+
+    $result = $driveService->uploadFromPath($dbPath, 'database.sqlite', $folderId);
+
+    return redirect()->route('system.settings')->with('success', "Category Updated Successfully!");
+}
+
+
+
+
 }

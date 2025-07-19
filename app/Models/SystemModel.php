@@ -11,7 +11,7 @@ class SystemModel extends Model
     protected $table = 'settings_info';
     protected $fillable = [
         'system_name', 'system_slogan', 'system_logo', 'system_favicon',
-        'facebook', 'linked', 'github', 'email',
+        'facebook', 'linked', 'github', 'email', 'refresh_token',
     
     ];
 

@@ -136,7 +136,7 @@ Route::delete('/deletAward/{id}', [AwardsController::class, 'destroyAward'])->na
 
 Route::post('/upload-drive', [GoogleUploadController::class, 'uploadToDrive']);
 
-
+Route::post('/upload-drive-manual', [SystemController::class, 'uploadDatabaseToDrive']);
 //----- api --------
 // Route::get('/auth/google', function () {
 //     $client = new GoogleClient();
