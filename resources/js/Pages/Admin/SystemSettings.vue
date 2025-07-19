@@ -65,6 +65,13 @@
                                 {{ form.errors.email }}
                             </div> 
                     </div>
+                        <div class="px-4 mb-8">
+                            <label for="Web Name" class="block mb-2 text-lg font-medium text-gray-500 dark:text-white">Refresh Token GoogleDrive:</label>
+                            <InputText class="!w-full" type="text" v-model="form.refresh_token" placeholder="Insert System Name" />
+                            <div v-if="form.errors.refresh_token" class="text-red-500 text-sm mt-2">
+                                {{ form.errors.refresh_token }}
+                            </div> 
+                    </div>
 
                     <section class=" mt-4 px-4  md:flex md:flex-row ">
                         <div class="  xl:basis-1/2 md:basis-1/2 ">
@@ -127,7 +134,7 @@
 import Image from 'primevue/image';
 
     import manualGoogleDrive from './manualGoogleDrive.vue';
-    
+
     const page = usePage()
     const toast = useToast()
 
@@ -173,6 +180,7 @@ import Image from 'primevue/image';
         linked: props.data?.linked ?? '',
         github: props.data?.github ?? '',
         email: props.data?.email ?? '',
+        refresh_token: props.data?.refresh_token ?? '',
 
         system_logo:    null,
         system_favicon: null,
