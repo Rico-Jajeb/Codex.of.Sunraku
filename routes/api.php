@@ -13,6 +13,9 @@ Route::get('/user', function (Request $request) {
 
 
 
-Route::get('/tech-skills', [TechSkillController::class, 'index']);
+Route::prefix('v1')->group(function () {
+    Route::get('/tech-skills', [TechSkillController::class, 'index']);
+});
+
 
 Route::get('/system-info', [APIMainPageController::class, 'index']);

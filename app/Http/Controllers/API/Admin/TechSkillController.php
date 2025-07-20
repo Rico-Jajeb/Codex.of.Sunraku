@@ -14,6 +14,6 @@ class TechSkillController extends Controller
     
     public function index()
     {
-        return TechSkillResource::collection(TechSkillModel::all());
+        return response()->json(TechSkillResource::collection(TechSkillModel::all())->resolve());
     }
 }

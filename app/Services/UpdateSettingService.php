@@ -42,6 +42,11 @@ class UpdateSettingService
             $system->email = $data['email'];
         }
 
+        if (isset($data['refresh_token'])) {
+            $system->refresh_token = $data['refresh_token'];
+        }
+
+
        
         if (!empty($data['system_logo'])) {
             // Delete the old image if it exists
@@ -64,6 +69,19 @@ class UpdateSettingService
             // Save new image filename (already uploaded by CodexImageService)
             $system->system_favicon = $data['system_favicon'];
         }
+
+
+        if (!empty($data['resume'])) {
+            // Delete the old image if it exists
+            $oldImagePath = public_path('storage/resume/' . $system->resume);
+            if ($system->resume && file_exists($oldImagePath)) {
+                unlink($oldImagePath); // Remove old image file
+            }
+
+            // Save new image filename (already uploaded by CodexImageService)
+            $system->resume = $data['resume'];
+        }
+
 
         $system->save();
 

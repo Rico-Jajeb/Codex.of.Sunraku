@@ -33,7 +33,11 @@
                                 {{ char }}
                                 </span>
                         </p>
-
+                        <div class="mt-4">   
+                            <button @click="downloadResume" class="bg-orange-600 text-white px-4 py-2 rounded mr-4 hover:bg-orange-500">
+                            <i class="pi pi-arrow-down" style="font-size: 1rem"></i> Download Resume
+                            </button>
+                        </div>
                     </header>
                   
                 </section>
@@ -325,6 +329,15 @@ import { Link } from '@inertiajs/vue3'
         phpVersion: String,
     });
  
+
+
+    const downloadResume = () => {
+    const fileUrl = '/storage/resume/Resume_Cabugatan_Rico_Jajeb.pdf'; // adapt dynamically if needed
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = 'Resume_Cabugatan_Rico_Jajeb.pdf';
+    link.click();
+    };
 
 
     // ini na code is para han button categories ha main page na ma display an codex based ha category na gin click

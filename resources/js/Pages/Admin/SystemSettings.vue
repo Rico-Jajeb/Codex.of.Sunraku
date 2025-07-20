@@ -5,7 +5,15 @@
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     General Settings
                 </h2>  
-                <manualGoogleDrive/>                              
+                <div class="">
+                    <!-- inside your template -->
+                    <button @click="downloadResume" class="bg-orange-600 text-white px-4 py-2 rounded mr-4 hover:bg-orange-500">
+                    Download CV
+                    </button>
+
+                        <manualGoogleDrive/> 
+                </div>
+                                         
             </section>
         </template>
 
@@ -97,6 +105,18 @@
                     </section>
 
     
+                    <section class="mt-8 px-4">
+                        <label for="email" class="block pl-2 mb-2 text-lg font-medium  text-gray-900 dark:text-white">Resume</label>
+                        <div class=" block sm:flex ">
+
+                            <FileUpload mode="basic" @input="form.resume = $event.target.files[0]" @select="onFileSelectpdf" customUpload auto severity="secondary" class="md:mt-0 mt-4 p-button-outlined ml-2 sm:ml-8 md:ml-2" />
+
+                            <p v-if="selectedFileName" class="text-gray-600 mt-2">
+                                Selected File: {{ selectedFileName }}
+                            </p>                            
+                        </div>
+                    </section>
+
                     <div class="px-4">
                         <button type="submit" :disabled="form.processing"  severity="secondary" label="Submit" class="text-lg font-medium text-white mt-10  bg-blue-500 rounded-md px-5 py-3"><i class="pi pi-save"></i> Save Changes</button>                    
                 
@@ -147,6 +167,7 @@ import Image from 'primevue/image';
       
     const srcLogo = ref(null);
     const src = ref(null);
+    const cv = ref(null);
 
     function onFileSelectLogo(event) {
         const file = event.files[0];
@@ -170,6 +191,31 @@ import Image from 'primevue/image';
         reader.readAsDataURL(file);
     }
 
+  const selectedFileName = ref('');
+
+    function onFileSelectpdf(event) {
+        const file = event.files[0];
+        const reader = new FileReader();
+
+        reader.onload = async (e) => {
+            cv.value = e.target.result;
+        };
+
+        if (file) {
+            selectedFileName.value = file.name;
+            form.value.resume = file;
+        }
+
+        reader.readAsDataURL(file);
+    }
+
+    const downloadResume = () => {
+    const fileUrl = '/storage/resume/Resume_Cabugatan_Rico_Jajeb.pdf'; // adapt dynamically if needed
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = 'Resume_Cabugatan_Rico_Jajeb.pdf';
+    link.click();
+    };
 
 
     const form = useForm({
@@ -184,6 +230,7 @@ import Image from 'primevue/image';
 
         system_logo:    null,
         system_favicon: null,
+        resume: null,
     })
 
 
