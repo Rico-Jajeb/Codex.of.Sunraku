@@ -15,6 +15,7 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::get('/tech-skills', [TechSkillController::class, 'index']);
+    Route::post('/tech-skills', [TechSkillController::class, 'addSkills']);
 });
 
 
