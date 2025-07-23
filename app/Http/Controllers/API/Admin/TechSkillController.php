@@ -57,7 +57,7 @@ class TechSkillController extends Controller
             'img' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $filename = $request->file('img')->store('public/storage/output');
+        $filename = $request->file('img')->store('output', 'public');
         $basename = basename($filename);
 
         $techSkill = TechSkillModel::create([

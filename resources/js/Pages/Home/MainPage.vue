@@ -154,23 +154,23 @@
         <!-- kanan carousel in an mga skill -->
         <section class="bg-gray-200  md:pt-32 md:pb-32 pt-16 pb-4 rounded-b-lg relative ">
            <header  data-aos="zoom-in-down" data-aos-delay="2000" data-aos-duration="3000" class=" flex justify-center items-center">
-                <!-- <h1 class="text-3xl font-bold font-mono"> <i class="pi pi-slack mr-2" style="font-size: 1.5rem"></i>Technology Stack</h1> -->
-   <h1 class="text-3xl font-bold font-mono flex items-center cursor-pointer ">
-    <i class="pi pi-slack mr-2" style="font-size: 1.5rem"></i>
-    <span
-      v-for="(char, index) in techText.split('')"
-      :key="index"
-      :class="['text-gray-800', charHoverClasses[index], 'transition-colors duration-300']"
-    >
-     {{ char === ' ' ? '\u00A0' : char }}
-    </span>
-  </h1>
+
+                <h1 class="text-3xl font-bold font-mono flex items-center cursor-pointer ">
+                    <i class="pi pi-slack mr-2" style="font-size: 1.5rem"></i>
+                    <span
+                    v-for="(char, index) in techText.split('')"
+                    :key="index"
+                    :class="['text-gray-800', charHoverClasses[index], 'transition-colors duration-300']"
+                    >
+                    {{ char === ' ' ? '\u00A0' : char }}
+                    </span>
+                </h1>
             </header>
 
                 <div data-aos="fade-left" data-aos-delay="1000" class="overflow-hidden    relative h-[150px] max-w-7xl m-auto">
 
                     <div class="absolute -left-8 top-0 h-full w-32  bg-gray-200 blur-md z-20"></div>
-                        <!-- Right Blur -->
+                 
                 <div class="absolute -right-8 top-0 h-full w-32 bg-gray-200 blur-md z-20"></div>
                     <div
                     class="flex w-max animate-carousel"
@@ -187,17 +187,17 @@
         </section>    
 
         <section class="w-full bg-gray-200 pb-36 pt-8">
-            <div class="max-w-7xl m-auto px-4  md:px-8">
+            <div class="max-w-7xl m-auto px-4  md:px-8 ">
                 <header  data-aos="fade-up" data-aos-duration="3000" data-aos-delay="4000"  class="mb-12 ">
                     <h1  class="text-lg text-gray-800">HIGHLIGHTS</h1>
                     <h1 class="text-4xl text-gray-800 font-bold">Exclusive  <Link href="/projects" class="text-black  font-extrabold">Project</Link>  </h1>
                 </header>       
                 
-                <article data-aos="zoom-out-up" data-aos-duration="5000"   data-aos-delay="2000" class="grid  lg:grid-cols-3 grid-cols-1  gap-12 px-3 md:px-0">
+                <article data-aos="zoom-out-up" data-aos-duration="5000"   data-aos-delay="2000" class="bg-red-200  grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1  gap-12 px-3 ">
                    
-                    <Card  data-aos="zoom-out-up" data-aos-duration="3000"   data-aos-delay="2000" style="width: 25rem; overflow: hidden" v-for="proj in  project.filter(p => p.highlight === 'Yes')" key="proj.id" class="!w-80 md:!w-full transition transform hover:-translate-y-2" >
+                    <Card  data-aos="zoom-out-up" data-aos-duration="3000"   data-aos-delay="2000" style="width: 25rem; overflow: hidden" v-for="proj in  project.filter(p => p.highlight === 'Yes')" key="proj.id" class="!w-full md:!w-full transition transform hover:-translate-y-2" >
                         <template #header>
-                            <Image image-class="h-64" alt="project Image" loading="lazy" preview :src="`/storage/output/${proj.img}`"   />
+                            <Image image-class="h-64 w-full" alt="project Image" loading="lazy" preview :src="`/storage/output/${proj.img}`"   />
                         </template>
                         <template #title>
                             <h1 class="font-bold truncate">
