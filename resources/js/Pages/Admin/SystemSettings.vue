@@ -124,6 +124,11 @@
 
                 </form>
 
+
+                <h1>Test
+                    {{ d1 }}
+                </h1>
+
             </section>
 
 
@@ -154,6 +159,7 @@
 import Image from 'primevue/image';
 
     import manualGoogleDrive from './manualGoogleDrive.vue';
+import { data } from 'autoprefixer';
 
     const page = usePage()
     const toast = useToast()
@@ -209,13 +215,17 @@ import Image from 'primevue/image';
         reader.readAsDataURL(file);
     }
 
+
+   // const d1 = data.resume; 
+   const d1 = props.data.resume;
+
     const downloadResume = () => {
-    const fileUrl = '/storage/resume/Resume_Cabugatan_Rico_Jajeb.pdf'; // adapt dynamically if needed
-    const link = document.createElement('a');
-    link.href = fileUrl;
-    link.download = 'Resume_Cabugatan_Rico_Jajeb.pdf';
-    link.click();
-    };
+        const fileUrl = '/storage/resume/' + d1; // use + to concatenate
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = d1 || 'Resume.pdf'; // fallback if d1 is empty
+        link.click();
+    }
 
 
     const form = useForm({

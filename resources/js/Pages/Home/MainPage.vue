@@ -329,15 +329,16 @@ import { Link } from '@inertiajs/vue3'
         phpVersion: String,
     });
  
-
+    const res = props.setting.resume;
 
     const downloadResume = () => {
-    const fileUrl = '/storage/resume/Resume_Cabugatan_Rico_Jajeb.pdf'; // adapt dynamically if needed
-    const link = document.createElement('a');
-    link.href = fileUrl;
-    link.download = 'Resume_Cabugatan_Rico_Jajeb.pdf';
-    link.click();
-    };
+        const fileUrl = '/storage/resume/' + res; // use + to concatenate
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = res || 'Resume.pdf'; // fallback if d1 is empty
+        link.click();
+    }
+
 
 
     // ini na code is para han button categories ha main page na ma display an codex based ha category na gin click
