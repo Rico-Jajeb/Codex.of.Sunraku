@@ -19,6 +19,7 @@ Route::middleware(['throttle:60,1'])
     ->group(function () {
         Route::get('/tech-skills', [TechSkillController::class, 'index']);
         Route::get('/projects-api', [ProjectController::class, 'index']);
+        Route::get('/screenshots-projects-api', [ProjectController::class, 'screenshot']);
         Route::post('/tech-skills', [TechSkillController::class, 'addSkills']);
 });
 
