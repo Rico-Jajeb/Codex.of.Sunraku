@@ -7,6 +7,7 @@ use App\Http\Controllers\API\Admin\TechSkillController;
 
 use App\Http\Controllers\API\User\APIMainPageController;
 use App\Http\Controllers\API\User\ProjectController;
+use App\Http\Controllers\API\User\CodexController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -20,6 +21,8 @@ Route::middleware(['throttle:60,1'])
         Route::get('/tech-skills', [TechSkillController::class, 'index']);
         Route::get('/projects-api', [ProjectController::class, 'index']);
         Route::get('/screenshots-projects-api', [ProjectController::class, 'screenshot']);
+
+        Route::get('/codex-category', [CodexController::class, 'index']);
         Route::post('/tech-skills', [TechSkillController::class, 'addSkills']);
 });
 
