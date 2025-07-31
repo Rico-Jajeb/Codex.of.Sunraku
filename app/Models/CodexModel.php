@@ -26,5 +26,12 @@ class CodexModel extends Model
         'language' => 'array',
         'framework' => 'array',
     ];
-   
+
+    // kanan api ini pag return han url han system tas an image
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        return url('storage/output/' . $this->img);
+    }
 }

@@ -23,6 +23,8 @@ Route::middleware(['throttle:60,1'])
         Route::get('/screenshots-projects-api', [ProjectController::class, 'screenshot']);
 
         Route::get('/codex-category', [CodexController::class, 'index']);
+        Route::get('/codex-api', [CodexController::class, 'Codex']);
+
         Route::post('/tech-skills', [TechSkillController::class, 'addSkills']);
 });
 
